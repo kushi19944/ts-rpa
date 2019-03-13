@@ -1,6 +1,6 @@
 {
   "name": "ts-rpa",
-  "version": "0.0.1",
+  "version": "0.0.1-rc.1",
   "description": "``` npm install npm run build npm pack npm install -g ts-rpa-0.0.1.tgz ```",
   "main": "dist/index.js",
   "files": [
