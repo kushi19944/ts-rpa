@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es6",
+        "outDir": "dist/",
+        "baseUrl": "src/",
+        "sourceMap": true,
+        "removeComments": true,
+    }
+}

@@ -1,0 +1,41 @@
+{
+  "name": "node-rpa",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/index.js",
+  "files": [
+    "dist/**/*.js"
+  ],
+  "bin": {
+    "node-rpa": "dist/bin.js"
+  },
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "bin": "ts-node src/bin.ts",
+    "build": "rimraf ./dist && require-self && tsc",
+    "postinstall": "require-self",
+    "lint": "tslint --fix 'src/**/*.ts'",
+    "tslint-check": "tslint-config-prettier-check ./tslint.json",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^11.11.1",
+    "googleapis": "^37.2.0",
+    "log4js": "^4.0.2",
+    "require-self": "^0.2.1",
+    "rimraf": "^2.6.3",
+    "selenium-webdriver": "^4.0.0-alpha.1",
+    "typescript": "^3.3.3333"
+  },
+  "devDependencies": {
+    "prettier": "1.16.4",
+    "ts-node": "^8.0.3",
+    "tslint": "^5.13.1",
+    "tslint-config-airbnb": "^5.11.1",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-plugin-prettier": "^2.0.1",
+    "tsutils": "^3.9.0"
+  }
+}

@@ -1,0 +1,16 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:recommended",
+        "tslint-config-prettier"
+    ],
+    "jsRules": {},
+    "rules": {
+        "arrow-return-shorthand": [true, "multiline"],
+        "prettier": [true, {
+            "tabWidth": 4,
+            "bracketSpacing": true
+        }]
+    },    
+    "rulesDirectory": ["tslint-plugin-prettier"]
+}
