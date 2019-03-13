@@ -1,5 +1,5 @@
 {
-  "name": "node-rpa",
+  "name": "ts-rpa",
   "version": "0.0.1",
   "description": "",
   "main": "dist/index.js",
@@ -7,7 +7,7 @@
     "dist/**/*.js"
   ],
   "bin": {
-    "node-rpa": "dist/bin.js"
+    "ts-rpa": "dist/bin.js"
   },
   "scripts": {
     "start": "ts-node src/index.ts",

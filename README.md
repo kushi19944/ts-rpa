@@ -3,17 +3,17 @@
 npm install
 npm run build
 npm pack
-npm install -g node-rpa-0.0.1.tgz
+npm install -g ts-rpa-0.0.1.tgz
 ```
 
 ## Usage
 ```
-node-rpa sample.ts
+ts-rpa sample.ts
 ```
 
 ## Sample
 ```js
-import * as RPA from "node-rpa";
+import * as RPA from "ts-rpa";
 
 (async () => {
     try {
