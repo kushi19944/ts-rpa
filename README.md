@@ -1,9 +1,6 @@
 ## Installation
 ```
-npm install
-npm run build
-npm pack
-npm install -g ts-rpa-0.0.1.tgz
+npm i -g ts-rpa
 ```
 
 ## Usage

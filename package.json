@@ -1,7 +1,7 @@
 {
   "name": "ts-rpa",
   "version": "0.0.1",
-  "description": "",
+  "description": "``` npm install npm run build npm pack npm install -g ts-rpa-0.0.1.tgz ```",
   "main": "dist/index.js",
   "files": [
     "dist/**/*",
@@ -37,5 +37,13 @@
     "tslint-config-prettier": "^1.18.0",
     "tslint-plugin-prettier": "^2.0.1",
     "tsutils": "^3.9.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ca-rpa/ts-rpa.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ca-rpa/ts-rpa/issues"
+  },
+  "homepage": "https://github.com/ca-rpa/ts-rpa#readme"
 }
