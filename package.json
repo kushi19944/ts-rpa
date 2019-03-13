@@ -4,7 +4,8 @@
   "description": "",
   "main": "dist/index.js",
   "files": [
-    "dist/**/*.js"
+    "dist/**/*",
+    "src/**/*.ts"
   ],
   "bin": {
     "ts-rpa": "dist/bin.js"
@@ -13,7 +14,7 @@
     "start": "ts-node src/index.ts",
     "bin": "ts-node src/bin.ts",
     "build": "rimraf ./dist && require-self && tsc",
-    "postinstall": "require-self",
+    "prepare": "npm run build",
     "lint": "tslint --fix 'src/**/*.ts'",
     "tslint-check": "tslint-config-prettier-check ./tslint.json",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -22,7 +23,6 @@
   "license": "ISC",
   "dependencies": {
     "@types/node": "^11.11.1",
-    "googleapis": "^37.2.0",
     "log4js": "^4.0.2",
     "require-self": "^0.2.1",
     "rimraf": "^2.6.3",
