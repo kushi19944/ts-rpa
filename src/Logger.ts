@@ -2,12 +2,12 @@ import { configure, getLogger } from "log4js";
 
 configure({
     appenders: {
-        default: { type: "file", filename: "trace.log" },
-        system: { type: "file", filename: "error.log" }
+        default: { type: "stdout" },
+        system: { type: "stderr" }
     },
     categories: {
-        default: { appenders: ["default"], level: "all" },
-        system: { appenders: ["system"], level: "error" }
+        default: { appenders: ["default", "stdout"], level: "all" },
+        system: { appenders: ["system", "stdout"], level: "error" }
     }
 });
 
