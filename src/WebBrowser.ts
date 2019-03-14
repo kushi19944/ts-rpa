@@ -77,9 +77,19 @@ export class WebBrowser {
         return this.driver.findElement(By.css(selector));
     }
 
+    public findElements(selector: string) {
+        Logger.debug(`WebBrowser.findElement(${selector})`);
+        return this.driver.findElements(By.css(selector));
+    }
+
     public findElementById(id: string) {
         Logger.debug(`WebBrowser.findElementById(${id})`);
         return this.driver.findElement(By.id(id));
+    }
+
+    public findElementsById(id: string) {
+        Logger.debug(`WebBrowser.findElementById(${id})`);
+        return this.driver.findElements(By.id(id));
     }
 
     public findElementByClassName(name: string) {
@@ -87,14 +97,29 @@ export class WebBrowser {
         return this.driver.findElement(By.className(name));
     }
 
+    public findElementsByClassName(name: string) {
+        Logger.debug(`WebBrowser.findElementByClassName(${name})`);
+        return this.driver.findElements(By.className(name));
+    }
+
     public findElementByCSSSelector(selector: string) {
         Logger.debug(`WebBrowser.findElementByCSSSelector(${selector})`);
         return this.driver.findElement(By.css(selector));
     }
 
+    public findElementsByCSSSelector(selector: string) {
+        Logger.debug(`WebBrowser.findElementByCSSSelector(${selector})`);
+        return this.driver.findElements(By.css(selector));
+    }
+
     public findElementByXPath(xpath: string) {
         Logger.debug(`WebBrowser.findElementByXPath(${xpath})`);
         return this.driver.findElement(By.xpath(xpath));
+    }
+
+    public findElementsByXPath(xpath: string) {
+        Logger.debug(`WebBrowser.findElementByXPath(${xpath})`);
+        return this.driver.findElements(By.xpath(xpath));
     }
 
     public async takeScreenshot() {
