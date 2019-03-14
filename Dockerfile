@@ -26,7 +26,6 @@ RUN rm -rf /noto
 ENV NODE_PATH /usr/lib/node_modules
 
 WORKDIR /ts-rpa
-COPY ts-rpa-0.0.1.tgz /ts-rpa
 RUN npm config set unsafe-perm true
 RUN npm install -g ts-rpa moment
 WORKDIR /

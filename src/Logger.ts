@@ -6,8 +6,8 @@ configure({
         system: { type: "stderr" }
     },
     categories: {
-        default: { appenders: ["default", "stdout"], level: "all" },
-        system: { appenders: ["system", "stdout"], level: "error" }
+        default: { appenders: ["default"], level: "all" },
+        system: { appenders: ["system"], level: "error" }
     }
 });
 
