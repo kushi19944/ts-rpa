@@ -14,8 +14,6 @@ import Logger from "./Logger";
 
 export class WebBrowser {
     public driver: ThenableWebDriver;
-
-    public block: boolean = false;
     private capabilities: Capabilities;
 
     constructor() {

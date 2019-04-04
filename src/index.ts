@@ -1,4 +1,4 @@
-import WebBrowserInst from "./WebBrowser"
+import WebBrowserInst from "./WebBrowser";
 export const WebBrowser = WebBrowserInst;
 export { Until, By, Key } from "./WebBrowser";
 

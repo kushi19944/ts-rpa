@@ -15,10 +15,15 @@
     "bin": "ts-node src/bin.ts",
     "build": "rimraf ./dist && require-self && tsc",
     "prepare": "npm run build",
-    "lint": "tslint --fix 'src/**/*.ts'",
+    "lint": "tslint 'src/**/*.ts'",
+    "fix": "tslint --fix 'src/**/*.ts'",
     "tslint-check": "tslint-config-prettier-check ./tslint.json",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\""
   },
+  "pre-commit": [
+    "lint",
+    "test"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -30,6 +35,7 @@
     "typescript": "^3.3.3333"
   },
   "devDependencies": {
+    "pre-commit": "^1.2.2",
     "prettier": "1.16.4",
     "ts-node": "^8.0.3",
     "tslint": "^5.13.1",
