@@ -1,3 +1,8 @@
+  [![NPM Version][npm-image]][npm-url]
+  [![NPM Downloads][downloads-image]][downloads-url]
+  [![Linux Build][circleci-image]][circleci-url]
+  [![Dependencies Status][dependencies-image]][dependencies-url]
+
 ## Installation
 ```
 npm i -g ts-rpa
@@ -26,3 +31,11 @@ import * as RPA from "ts-rpa";
     }
 })();
 ```
+[npm-image]: https://img.shields.io/npm/v/express.svg
+[npm-url]: https://npmjs.org/package/ts-rpa
+[downloads-image]: https://img.shields.io/npm/dm/ts-rpa.svg
+[downloads-url]: https://npmjs.org/package/ts-rpa
+[circleci-image]: https://circleci.com/gh/ca-rpa/ts-rpa.svg?style=shield
+[circleci-url]: https://circleci.com/gh/ca-rpa/ts-rpa
+[dependencies-image]: https://david-dm.org/ca-rpa/ts-rpa/status.svg
+[dependencies-url]: https://david-dm.org/ca-rpa/ts-

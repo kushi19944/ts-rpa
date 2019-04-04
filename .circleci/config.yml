@@ -15,7 +15,7 @@ jobs:
           command: npm install
       - run:
           name: Lint
-          command: npm lint
+          command: npm run lint
       - save_cache:
           key: ts-rpa-{{ .Branch }}-{{ checksum "package.json" }}
           paths:
@@ -42,7 +42,9 @@ jobs:
             - ~/workspace/node_modules
 workflows:
   version: 2
-  normal_test_workflow:
+  lint-and-test:
     jobs:
       - lint
-      - test
+      - test:
+          requires:
+            - lint
