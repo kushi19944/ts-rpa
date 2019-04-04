@@ -15,14 +15,39 @@
     "bin": "ts-node src/bin.ts",
     "build": "rimraf ./dist && require-self && tsc",
     "prepare": "npm run build",
-    "lint": "tslint 'src/**/*.ts'",
-    "fix": "tslint --fix 'src/**/*.ts'",
+    "lint": "tslint 'src/**/*.ts' 'test/**/*.ts'",
+    "fix": "tslint --fix 'src/**/*.ts' 'test/**/*.ts'",
     "tslint-check": "tslint-config-prettier-check ./tslint.json",
-    "test": "echo \"Error: no test specified\""
+    "coverage": "codecov",
+    "test": "jest"
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "./dist/",
+      "./node_modules/",
+      "./coverage/"
+    ],
+    "transform": {
+      "^.+\\.(t|j)sx?$": "ts-jest"
+    },
+    "testRegex": "/test/.*\\.test\\.(ts|js)$",
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "coverageDirectory": "./coverage/",
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/**/*.ts?(x)"
+    ],
+    "globals": {
+      "ts-jest": {
+        "tsConfig": "tsconfig.json"
+      }
+    }
   },
   "pre-commit": [
-    "lint",
-    "test"
+    "lint"
   ],
   "author": "",
   "license": "ISC",
@@ -35,8 +60,12 @@
     "typescript": "^3.3.3333"
   },
   "devDependencies": {
+    "@types/jest": "^24.0.11",
+    "codecov": "^3.3.0",
+    "jest": "^24.7.1",
     "pre-commit": "^1.2.2",
     "prettier": "1.16.4",
+    "ts-jest": "^24.0.1",
     "ts-node": "^8.0.3",
     "tslint": "^5.13.1",
     "tslint-config-airbnb": "^5.11.1",

@@ -1,4 +1,9 @@
 dist/
+coverage/
 node_modules/
 *.log
 *.tgz
+
+# OS X files
+.DS_Store
+Thumbs.db

@@ -23,7 +23,7 @@ jobs:
   test:
     working_directory: ~/workspace
     docker:
-      - image: circleci/node:10.15.3
+      - image: circleci/node:10.15.3-browsers
     environment:
       TZ: /usr/share/zoneinfo/Asia/Tokyo
     steps:
@@ -36,6 +36,9 @@ jobs:
       - run:
           name: Test
           command: npm test
+      - run:
+          name: Coverage
+          command: npm run coverage
       - save_cache:
           key: ts-rpa-{{ .Branch }}-{{ checksum "package.json" }}
           paths:

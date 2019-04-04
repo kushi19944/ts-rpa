@@ -38,4 +38,4 @@ import * as RPA from "ts-rpa";
 [circleci-image]: https://circleci.com/gh/ca-rpa/ts-rpa.svg?style=shield
 [circleci-url]: https://circleci.com/gh/ca-rpa/ts-rpa
 [dependencies-image]: https://david-dm.org/ca-rpa/ts-rpa/status.svg
-[dependencies-url]: https://david-dm.org/ca-rpa/ts-
+[dependencies-url]: https://david-dm.org/ca-rpa/ts-rpa
