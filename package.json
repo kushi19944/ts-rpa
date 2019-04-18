@@ -1,6 +1,6 @@
 {
   "name": "ts-rpa",
-  "version": "0.0.1-rc.7",
+  "version": "0.0.1-rc.8",
   "description": "npm install -g ts-node",
   "main": "dist/index.js",
   "files": [
@@ -11,12 +11,12 @@
     "ts-rpa": "dist/bin.js"
   },
   "scripts": {
-    "start": "ts-node src/index.ts",
+    "start": "ts-node src/sample.ts",
     "bin": "ts-node src/bin.ts",
     "build": "rimraf ./dist && require-self && tsc",
     "prepare": "npm run build",
-    "lint": "tslint 'src/**/*.ts' 'test/**/*.ts'",
-    "fix": "tslint --fix 'src/**/*.ts' 'test/**/*.ts'",
+    "lint": "tslint 'src/**/*.ts' 'tests/**/*.ts'",
+    "fix": "tslint --fix 'src/**/*.ts' 'tests/**/*.ts'",
     "tslint-check": "tslint-config-prettier-check ./tslint.json",
     "coverage": "codecov",
     "test": "jest"
@@ -30,7 +30,7 @@
     "transform": {
       "^.+\\.(t|j)sx?$": "ts-jest"
     },
-    "testRegex": "/test/.*\\.test\\.(ts|js)$",
+    "testRegex": "/tests/.*\\.spec\\.(ts|js)$",
     "moduleFileExtensions": [
       "ts",
       "js"
