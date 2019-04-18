@@ -11,12 +11,12 @@
     "ts-rpa": "dist/bin.js"
   },
   "scripts": {
-    "start": "ts-node src/index.ts",
+    "start": "ts-node src/sample.ts",
     "bin": "ts-node src/bin.ts",
     "build": "rimraf ./dist && require-self && tsc",
     "prepare": "npm run build",
-    "lint": "tslint 'src/**/*.ts' 'test/**/*.ts'",
-    "fix": "tslint --fix 'src/**/*.ts' 'test/**/*.ts'",
+    "lint": "tslint 'src/**/*.ts' 'tests/**/*.ts'",
+    "fix": "tslint --fix 'src/**/*.ts' 'tests/**/*.ts'",
     "tslint-check": "tslint-config-prettier-check ./tslint.json",
     "coverage": "codecov",
     "test": "jest"
@@ -30,7 +30,7 @@
     "transform": {
       "^.+\\.(t|j)sx?$": "ts-jest"
     },
-    "testRegex": "/test/.*\\.test\\.(ts|js)$",
+    "testRegex": "/tests/.*\\.spec\\.(ts|js)$",
     "moduleFileExtensions": [
       "ts",
       "js"
@@ -53,6 +53,7 @@
   "license": "ISC",
   "dependencies": {
     "@types/node": "^11.11.1",
+    "googleapis": "^39.2.0",
     "log4js": "^4.0.2",
     "require-self": "^0.2.1",
     "rimraf": "^2.6.3",
