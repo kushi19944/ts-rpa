@@ -53,6 +53,7 @@
   "license": "ISC",
   "dependencies": {
     "@types/node": "^11.11.1",
+    "googleapis": "^39.2.0",
     "log4js": "^4.0.2",
     "require-self": "^0.2.1",
     "rimraf": "^2.6.3",
