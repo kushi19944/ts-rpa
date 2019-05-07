@@ -1,6 +1,6 @@
 {
   "name": "ts-rpa",
-  "version": "0.0.1-rc.8",
+  "version": "0.0.1-rc.9",
   "description": "npm install -g ts-node",
   "main": "dist/index.js",
   "files": [
@@ -15,9 +15,8 @@
     "bin": "ts-node src/bin.ts",
     "build": "rimraf ./dist && require-self && tsc",
     "prepare": "npm run build",
-    "lint": "tslint 'src/**/*.ts' 'tests/**/*.ts'",
-    "fix": "tslint --fix 'src/**/*.ts' 'tests/**/*.ts'",
-    "tslint-check": "tslint-config-prettier-check ./tslint.json",
+    "lint": "eslint '+(src|tests)/**' --ext .ts",
+    "fix": "eslint '+(src|tests)/**' --ext .ts --fix",
     "coverage": "codecov",
     "test": "jest"
   },
@@ -61,17 +60,21 @@
   },
   "devDependencies": {
     "@types/jest": "^24.0.11",
+    "@typescript-eslint/eslint-plugin": "^1.7.0",
+    "@typescript-eslint/parser": "^1.7.0",
     "codecov": "^3.3.0",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-config-prettier": "^4.1.0",
+    "eslint-import-resolver-typescript": "^1.1.1",
+    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-jest": "^22.5.1",
+    "eslint-plugin-prettier": "^3.0.1",
     "jest": "^24.7.1",
     "pre-commit": "^1.2.2",
-    "prettier": "1.16.4",
+    "prettier": "^1.17.0",
     "ts-jest": "^24.0.1",
-    "ts-node": "^8.0.3",
-    "tslint": "^5.13.1",
-    "tslint-config-airbnb": "^5.11.1",
-    "tslint-config-prettier": "^1.18.0",
-    "tslint-plugin-prettier": "^2.0.1",
-    "tsutils": "^3.9.0"
+    "ts-node": "^8.0.3"
   },
   "repository": {
     "type": "git",
