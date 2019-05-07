@@ -2,12 +2,26 @@
 import { readFileSync } from "fs";
 import * as ts from "typescript";
 import { Script } from "vm";
+import * as program from "commander";
 
 import Module = require("module");
+require("pkginfo")(module);
+
+let filename;
+program
+  .version(module.exports.version, "-v, --version")
+  .usage("<file>")
+  .action(fileArg => {
+    filename = fileArg;
+  });
+
+program.parse(process.argv);
+
+if (typeof filename === "undefined") {
+  process.exit(0);
+}
 
 (async () => {
-  const filename = process.argv[2];
-
   const code = readFileSync(filename, "utf8");
   const options: ts.CompilerOptions = {
     module: ts.ModuleKind.CommonJS,
