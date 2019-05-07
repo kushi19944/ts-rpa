@@ -1,12 +1,20 @@
-  [![NPM Version][npm-image]][npm-url]
-  [![NPM Downloads][downloads-image]][downloads-url]
-  [![Linux Build][circleci-image]][circleci-url]
-  [![Codecov][codecov-image]][codecov-url]
-  [![Dependencies Status][dependencies-image]][dependencies-url]
+[![NPM Version][npm-image]][npm-url]
+[![NPM Downloads][downloads-image]][downloads-url]
+[![Linux Build][circleci-image]][circleci-url]
+[![Codecov][codecov-image]][codecov-url]
+[![Dependencies Status][dependencies-image]][dependencies-url]
 
 ## Installation
 ```
 npm i -g ts-rpa
+```
+
+## Requirements
+### Installation
+- chromedriver
+### Enviroment
+```
+export NODE_PATH=$(npm root -g)
 ```
 
 ## Usage
