@@ -1,98 +1,47 @@
-import * as fs from "fs";
 import { google } from "googleapis";
+import { Credentials } from "google-auth-library";
 import { OAuth2Client } from "googleapis-common";
-import * as readline from "readline";
-import Logger from "../Logger";
 
-const TOKEN_DIR = "./";
-const TOKEN_PATH = `${TOKEN_DIR}google-auth-token`;
-const SCOPES = "https://www.googleapis.com/auth/drive";
+import Spreadsheet from "./Spreadsheet";
 
-export class Auth {
-  public client: OAuth2Client;
-
-  public constructor() {
-    this.authenticate();
-  }
-
-  public async authenticate() {
-    const authorize = await this.authorize({
-      clientId: "*****",
-      clientSecret: "*****",
-      redirectUrl: "http://localhost/"
-    });
-    return authorize;
-  }
-
-  private async authorize(credentials) {
-    const token = await this.getToken(credentials);
-    return token;
-  }
-
-  private getNewToken() {
-    return new Promise((resolve, reject) => {
-      const authUrl = this.client.generateAuthUrl({
-        access_type: "offline", // eslint-disable-line @typescript-eslint/camelcase
-        scope: SCOPES
-      });
-      // console.log("Authorize this app by visiting this url: \n ", authUrl);
-      const rl = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout
-      });
-      rl.question("\n\nEnter the code from that page here: ", code => {
-        rl.close();
-        this.client.getToken(code, (err, token) => {
-          if (err) {
-            reject(err);
-          }
-          this.client.credentials = token;
-          Auth.storeToken(token);
-          resolve(this.client);
-        });
-      });
-    });
-  }
-
-  private getToken(credentials) {
-    this.client = new google.auth.OAuth2(
-      credentials.clientId,
-      credentials.clientSecret,
-      credentials.redirectUrl
-    );
-
-    return new Promise((resolve, reject) => {
-      fs.readFile(TOKEN_PATH, (err, token) => {
-        if (err) {
-          this.getNewToken().then(
-            oauth2ClientNew => {
-              resolve(oauth2ClientNew);
-            },
-            error => {
-              reject(error);
-            }
-          );
-        } else {
-          this.client.credentials = JSON.parse(token.toString());
-          resolve(this.client);
-        }
-      });
-    });
-  }
-
-  private static storeToken(token) {
-    try {
-      fs.mkdirSync(TOKEN_DIR);
-    } catch (err) {
-      if (err.code !== "EEXIST") {
-        throw err;
-      }
-    }
-    fs.writeFile(TOKEN_PATH, JSON.stringify(token), err => {
-      Logger.error(err);
-    });
-    // console.log("Token stored to " + TOKEN_PATH);
-  }
+interface ClientCredentials {
+  clientSecret: string;
+  clientId: string;
+  redirectUrl: string;
 }
 
-export default new Auth();
+export default class Auth {
+  private static auth: Auth;
+
+  public client: Promise<OAuth2Client>;
+
+  private constructor() {} // eslint-disable-line no-useless-constructor, no-empty-function
+
+  public static get instance(): Auth {
+    if (!this.auth) {
+      this.auth = new Auth();
+    }
+    return this.auth;
+  }
+
+  public async authorize(authCredentials: Credentials): Promise<void> {
+    const clientCredentials: ClientCredentials = {
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      redirectUrl: "urn:ietf:wg:oauth:2.0:oob"
+    };
+
+    this.client = new Promise(
+      (resolve): void => {
+        const client = new google.auth.OAuth2(
+          clientCredentials.clientId,
+          clientCredentials.clientSecret,
+          clientCredentials.redirectUrl
+        );
+        client.credentials = authCredentials;
+        Spreadsheet.instance.initialise(client);
+        resolve(client);
+      }
+    );
+  }
+}

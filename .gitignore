@@ -3,6 +3,8 @@ coverage/
 node_modules/
 *.log
 *.tgz
+*.key
+sample.ts
 
 # OS X files
 .DS_Store
