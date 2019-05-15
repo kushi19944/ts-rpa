@@ -1,11 +1,11 @@
-import { google, sheets_v4 as api } from "googleapis";
+import { google, sheets_v4 as sheetsApi } from "googleapis";
 import { OAuth2Client } from "googleapis-common";
 import Logger from "../Logger";
 
 export default class Spreadsheet {
   private static spreadsheet: Spreadsheet;
 
-  private sheets: api.Sheets;
+  private api: sheetsApi.Sheets;
 
   private constructor() {} // eslint-disable-line no-useless-constructor, no-empty-function
 
@@ -17,14 +17,14 @@ export default class Spreadsheet {
   }
 
   public initialise(auth: OAuth2Client): void {
-    this.sheets = google.sheets({ version: "v4", auth });
+    this.api = google.sheets({ version: "v4", auth });
   }
 
   public async getValues(params: {
     spreadsheetId: string;
     range: string;
   }): Promise<any[][]> {
-    const res = await this.sheets.spreadsheets.values.get({
+    const res = await this.api.spreadsheets.values.get({
       spreadsheetId: params.spreadsheetId,
       range: params.range
     });
@@ -37,7 +37,7 @@ export default class Spreadsheet {
     range: string;
     values: string[][];
   }): Promise<any[][]> {
-    const res = await this.sheets.spreadsheets.values.update(
+    const res = await this.api.spreadsheets.values.update(
       {
         spreadsheetId: params.spreadsheetId,
         range: params.range,
@@ -56,7 +56,7 @@ export default class Spreadsheet {
   }
 
   public async create(params: { title: string }): Promise<string> {
-    const res = await this.sheets.spreadsheets.create({
+    const res = await this.api.spreadsheets.create({
       requestBody: { properties: { title: params.title } }
     });
     Logger.debug("Google.Spreadsheet.create", params);
@@ -65,8 +65,8 @@ export default class Spreadsheet {
 
   private async get(params: {
     spreadsheetId: string;
-  }): Promise<api.Schema$Spreadsheet> {
-    const res = await this.sheets.spreadsheets.get({
+  }): Promise<sheetsApi.Schema$Spreadsheet> {
+    const res = await this.api.spreadsheets.get({
       spreadsheetId: params.spreadsheetId
     });
     Logger.debug("Google.Spreadsheet.get", params);
@@ -83,7 +83,7 @@ export default class Spreadsheet {
     spreadsheetId: string;
     title: string;
   }): Promise<string> {
-    const res = await this.sheets.spreadsheets.batchUpdate({
+    const res = await this.api.spreadsheets.batchUpdate({
       spreadsheetId: params.spreadsheetId,
       requestBody: {
         requests: [
@@ -106,7 +106,7 @@ export default class Spreadsheet {
     spreadsheetId: string;
     title: string;
   }): Promise<number> {
-    const res = await this.sheets.spreadsheets.batchUpdate({
+    const res = await this.api.spreadsheets.batchUpdate({
       spreadsheetId: params.spreadsheetId,
       requestBody: {
         requests: [
@@ -128,7 +128,7 @@ export default class Spreadsheet {
     spreadsheetId: string;
     sheetId: number;
   }): Promise<number> {
-    const res = await this.sheets.spreadsheets.batchUpdate({
+    const res = await this.api.spreadsheets.batchUpdate({
       spreadsheetId: params.spreadsheetId,
       requestBody: {
         requests: [
@@ -149,7 +149,7 @@ export default class Spreadsheet {
     sheetId: number;
     title: string;
   }): Promise<string> {
-    const res = await this.sheets.spreadsheets.batchUpdate({
+    const res = await this.api.spreadsheets.batchUpdate({
       spreadsheetId: params.spreadsheetId,
       requestBody: {
         requests: [
@@ -196,7 +196,7 @@ export default class Spreadsheet {
     sheetId: number;
     destinationSpreadsheetId: string;
   }): Promise<number> {
-    const res = await this.sheets.spreadsheets.sheets.copyTo({
+    const res = await this.api.spreadsheets.sheets.copyTo({
       spreadsheetId: params.spreadsheetId,
       sheetId: params.sheetId,
       requestBody: {

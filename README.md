@@ -15,6 +15,9 @@ npm i -g ts-rpa
 ### Enviroment
 ```
 export NODE_PATH=$(npm root -g)
+export GOOGLE_CLIENT_SECRET = ************************
+export GOOGLE_CLIENT_ID = ************-********************************.apps.googleusercontent.com
+export WORKSPACE_DIR = ./tmp/
 ```
 
 ## Usage

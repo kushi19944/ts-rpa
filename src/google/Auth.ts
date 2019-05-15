@@ -1,13 +1,21 @@
 import { google } from "googleapis";
-import { Credentials } from "google-auth-library";
 import { OAuth2Client } from "googleapis-common";
 
 import Spreadsheet from "./Spreadsheet";
+import Drive from "./Drive";
 
-interface ClientCredentials {
+export interface ClientCredentials {
   clientSecret: string;
   clientId: string;
   redirectUrl: string;
+}
+
+export interface AuthCredentials {
+  refreshToken?: string | null;
+  expiryDate?: number | null;
+  accessToken?: string | null;
+  tokenType?: string | null;
+  idToken?: string | null;
 }
 
 export default class Auth {
@@ -24,7 +32,7 @@ export default class Auth {
     return this.auth;
   }
 
-  public async authorize(authCredentials: Credentials): Promise<void> {
+  public async authorize(authCredentials: AuthCredentials): Promise<void> {
     const clientCredentials: ClientCredentials = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       clientId: process.env.GOOGLE_CLIENT_ID,
@@ -38,8 +46,17 @@ export default class Auth {
           clientCredentials.clientSecret,
           clientCredentials.redirectUrl
         );
-        client.credentials = authCredentials;
+        /* eslint-disable @typescript-eslint/camelcase */
+        client.credentials = {
+          refresh_token: authCredentials.refreshToken,
+          expiry_date: authCredentials.expiryDate,
+          access_token: authCredentials.accessToken,
+          token_type: authCredentials.tokenType,
+          id_token: authCredentials.idToken
+        };
+        /* eslint-enable @typescript-eslint/camelcase */
         Spreadsheet.instance.initialise(client);
+        Drive.instance.initialise(client);
         resolve(client);
       }
     );

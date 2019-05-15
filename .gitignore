@@ -1,3 +1,4 @@
+tmp/
 dist/
 coverage/
 node_modules/
