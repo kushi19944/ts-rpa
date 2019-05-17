@@ -1,7 +1,7 @@
 import * as path from "path";
 import * as fs from "fs";
 import * as parse from "csv-parse";
-import * as stringify from "csv-stringify";
+import * as writer from "csv-writer";
 import Logger from "./Logger";
 
 export class CSV {
@@ -17,10 +17,13 @@ export class CSV {
         const results = [];
         fs.createReadStream(filePath)
           .pipe(parse())
-          .on("data", data => results.push(data))
-          .on("end", () => {
-            resolve(results);
-          });
+          .on("data", (data): number => results.push(data))
+          .on(
+            "end",
+            (): void => {
+              resolve(results);
+            }
+          );
       }
     );
   }
@@ -28,19 +31,12 @@ export class CSV {
   public static async write(params: {
     filename: string;
     data: any[][];
-  }): Promise<any[]> {
+  }): Promise<void> {
     const filePath = path.join(this.outDir, params.filename);
     Logger.debug("CSV.write", params);
-    return new Promise(
-      (resolve): void => {
-        const writableStream = fs.createWriteStream(filePath, {
-          encoding: "utf-8"
-        });
-        const stringifier = stringify();
-        stringifier.pipe(writableStream);
-        stringifier.write(params.data);
-      }
-    );
+    const createCsvWriter = writer.createArrayCsvWriter;
+    const csvWriter = createCsvWriter({ path: filePath });
+    return csvWriter.writeRecords(params.data);
   }
 }
 
