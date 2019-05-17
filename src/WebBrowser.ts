@@ -36,8 +36,8 @@ export class WebBrowser {
     return this.driver.get(url);
   }
 
-  public wait(
-    condition: Condition<boolean> | PromiseLike<boolean>,
+  public wait<T>(
+    condition: Condition<T> | PromiseLike<T>,
     optTimeout?: number
   ) {
     Logger.debug(`WebBrowser.wait(${condition}, ${optTimeout})`);
