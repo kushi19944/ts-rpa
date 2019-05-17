@@ -36,7 +36,7 @@ export default class Spreadsheet {
     spreadsheetId: string;
     range: string;
     values: string[][];
-  }): Promise<any[][]> {
+  }): Promise<sheetsApi.Schema$UpdateValuesResponse> {
     const res = await this.api.spreadsheets.values.update(
       {
         spreadsheetId: params.spreadsheetId,
@@ -52,7 +52,7 @@ export default class Spreadsheet {
       }
     );
     Logger.debug("Google.Spreadsheet.setValues", params);
-    return res.data.updatedData.values;
+    return res.data;
   }
 
   public async create(params: { title: string }): Promise<string> {
