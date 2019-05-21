@@ -125,6 +125,11 @@ export class WebBrowser {
     return this.driver.findElements(By.xpath(xpath));
   }
 
+  public findElementByLinkText(text: string) {
+    Logger.debug(`WebBrowser.findElementByLinkText(${text})`);
+    return this.driver.findElement(By.linkText(text));
+  }
+
   public async takeScreenshot() {
     Logger.debug(`WebBrowser.takeScreenshot()`);
     const image = await this.driver.takeScreenshot();
