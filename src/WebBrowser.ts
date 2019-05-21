@@ -7,6 +7,7 @@ import {
   WebElement,
   WebElementPromise
 } from "selenium-webdriver";
+import { Command } from "selenium-webdriver/lib/command";
 
 import * as fs from "fs";
 import Logger from "./Logger";
@@ -29,6 +30,7 @@ export class WebBrowser {
       ]
     });
     this.driver = new Builder().withCapabilities(this.capabilities).build();
+    this.enableDownloadInHeadlessChrome();
   }
 
   public get(url: string) {
@@ -124,6 +126,11 @@ export class WebBrowser {
     return this.driver.findElements(By.xpath(xpath));
   }
 
+  public findElementByLinkText(text: string) {
+    Logger.debug(`WebBrowser.findElementByLinkText(${text})`);
+    return this.driver.findElement(By.linkText(text));
+  }
+
   public async takeScreenshot() {
     Logger.debug(`WebBrowser.takeScreenshot()`);
     const image = await this.driver.takeScreenshot();
@@ -137,6 +144,30 @@ export class WebBrowser {
         }
       }
     );
+  }
+
+  /**
+   * Enable file downloads in Chrome running in headless mode
+   */
+  private enableDownloadInHeadlessChrome() {
+    /* eslint-disable no-underscore-dangle */
+    const executor = (this.driver as any).getExecutor
+      ? (this.driver as any).getExecutor()
+      : (this.driver as any).executor_;
+    /* eslint-enable no-underscore-dangle */
+    executor.defineCommand(
+      "send_command",
+      "POST",
+      "/session/:sessionId/chromium/send_command"
+    );
+    const params = {
+      cmd: "Page.setDownloadBehavior",
+      params: {
+        behavior: "allow",
+        downloadPath: process.env.WORKSPACE_DIR
+      }
+    };
+    this.driver.execute(new Command("send_command").setParameters(params));
   }
 }
 
