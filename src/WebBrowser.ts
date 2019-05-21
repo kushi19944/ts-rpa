@@ -7,6 +7,7 @@ import {
   WebElement,
   WebElementPromise
 } from "selenium-webdriver";
+import { Command } from "selenium-webdriver/lib/command";
 
 import * as fs from "fs";
 import Logger from "./Logger";
@@ -137,6 +138,31 @@ export class WebBrowser {
         }
       }
     );
+  }
+
+  /**
+   * Enable file downloads in Chrome running in headless mode
+   * @param downloadDir Destination Directory
+   */
+  public enableDownloadInHeadlessChrome(downloadDir: string) {
+    /* eslint-disable no-underscore-dangle */
+    const executor = (this.driver as any).getExecutor
+      ? (this.driver as any).getExecutor()
+      : (this.driver as any).executor_;
+    /* eslint-enable no-underscore-dangle */
+    executor.defineCommand(
+      "send_command",
+      "POST",
+      "/session/:sessionId/chromium/send_command"
+    );
+    const params = {
+      cmd: "Page.setDownloadBehavior",
+      params: {
+        behavior: "allow",
+        downloadPath: downloadDir
+      }
+    };
+    this.driver.execute(new Command("send_command").setParameters(params));
   }
 }
 
