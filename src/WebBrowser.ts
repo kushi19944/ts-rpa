@@ -30,6 +30,7 @@ export class WebBrowser {
       ]
     });
     this.driver = new Builder().withCapabilities(this.capabilities).build();
+    this.enableDownloadInHeadlessChrome();
   }
 
   public get(url: string) {
@@ -147,9 +148,8 @@ export class WebBrowser {
 
   /**
    * Enable file downloads in Chrome running in headless mode
-   * @param downloadDir Destination Directory
    */
-  public enableDownloadInHeadlessChrome(downloadDir: string) {
+  private enableDownloadInHeadlessChrome() {
     /* eslint-disable no-underscore-dangle */
     const executor = (this.driver as any).getExecutor
       ? (this.driver as any).getExecutor()
@@ -164,7 +164,7 @@ export class WebBrowser {
       cmd: "Page.setDownloadBehavior",
       params: {
         behavior: "allow",
-        downloadPath: downloadDir
+        downloadPath: process.env.WORKSPACE_DIR
       }
     };
     this.driver.execute(new Command("send_command").setParameters(params));
