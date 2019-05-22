@@ -46,7 +46,7 @@ export class CSV {
     data: any[][];
   }): Promise<void> {
     const filePath = path.join(this.outDir, params.filename);
-    Logger.debug("CSV.write", params);
+    Logger.debug("CSV.write", { filename: params.filename });
     const createCsvWriter = writer.createArrayCsvWriter;
     const csvWriter = createCsvWriter({ path: filePath });
     return csvWriter.writeRecords(params.data);
