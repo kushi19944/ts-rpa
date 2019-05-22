@@ -67,7 +67,8 @@
     "require-self": "^0.2.1",
     "rimraf": "^2.6.3",
     "selenium-webdriver": "^4.0.0-alpha.1",
-    "typescript": "^3.3.3333"
+    "typescript": "^3.3.3333",
+    "unzipper": "^0.9.15"
   },
   "devDependencies": {
     "@types/jest": "^24.0.11",
