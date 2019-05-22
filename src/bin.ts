@@ -14,9 +14,11 @@ program
   .option("-g, --google-auth", "Getting Google OAuth Access Token.")
   .version(module.exports.version, "-v, --version")
   .usage("<file>")
-  .action(fileArg => {
-    filename = fileArg;
-  });
+  .action(
+    (fileArg): void => {
+      filename = fileArg;
+    }
+  );
 
 program.parse(process.argv);
 
@@ -55,7 +57,7 @@ function getGoogleApisNewToken(): void {
   );
 }
 
-(async () => {
+(async (): Promise<void> => {
   if (program.googleAuth) {
     getGoogleApisNewToken();
     return;
