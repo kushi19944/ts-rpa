@@ -9,15 +9,28 @@ export class CSV {
 
   private constructor() {} // eslint-disable-line no-useless-constructor, no-empty-function
 
-  public static async read(params: { filename: string }): Promise<any[]> {
+  public static async read(params: {
+    filename: string;
+    encoding?: string;
+    bom?: boolean;
+    delimiter?: string;
+    quote?: string & { length: 1 };
+  }): Promise<any[]> {
     const filePath = path.join(this.outDir, params.filename);
     Logger.debug("CSV.read", params);
     return new Promise(
-      (resolve): void => {
+      (resolve, reject): void => {
         const results = [];
-        fs.createReadStream(filePath)
-          .pipe(parse())
+        fs.createReadStream(filePath, { encoding: params.encoding })
+          .pipe(
+            parse({
+              bom: params.bom,
+              delimiter: params.delimiter,
+              quote: params.quote
+            })
+          )
           .on("data", (data): number => results.push(data))
+          .on("error", (error): void => reject(error))
           .on(
             "end",
             (): void => {
