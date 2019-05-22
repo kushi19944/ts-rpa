@@ -11,6 +11,8 @@ export * from "./google";
 
 export * from "./CSV";
 
+export * from "./Zip";
+
 export const sleep = (msec: number): Promise<void> =>
   new Promise(
     (resolve): void => {
