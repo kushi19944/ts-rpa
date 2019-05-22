@@ -1,6 +1,6 @@
 {
   "name": "ts-rpa",
-  "version": "0.0.3",
+  "version": "0.0.4-rc.1",
   "description": "npm install -g ts-node",
   "main": "dist/index.js",
   "files": [
@@ -11,6 +11,7 @@
     "ts-rpa": "dist/bin.js"
   },
   "scripts": {
+    "sample": "ts-node src/sample.ts",
     "bin": "ts-node src/bin.ts",
     "build": "rimraf ./dist && require-self && tsc",
     "prepare": "npm run build",
@@ -51,6 +52,7 @@
   "license": "ISC",
   "dependencies": {
     "@types/node": "^11.11.1",
+    "@types/selenium-webdriver": "^4.0.0",
     "commander": "^2.20.0",
     "csv": "^5.1.1",
     "csv-parse": "^4.4.1",

@@ -15,9 +15,10 @@ npm i -g ts-rpa
 ### Enviroment
 ```
 export NODE_PATH=$(npm root -g)
-export GOOGLE_CLIENT_SECRET = ************************
-export GOOGLE_CLIENT_ID = ************-********************************.apps.googleusercontent.com
-export WORKSPACE_DIR = ./tmp/
+export WEB_BROWSER_HEADLESS=true
+export GOOGLE_CLIENT_SECRET=************************
+export GOOGLE_CLIENT_ID=************-********************************.apps.googleusercontent.com
+export WORKSPACE_DIR=./tmp/
 ```
 
 ## Usage
@@ -30,17 +31,21 @@ ts-rpa sample.ts
 import * as RPA from "ts-rpa";
 
 (async () => {
-    try {
-        await RPA.WebBrowser.get("https://www.google.com/");
-        const input = await RPA.WebBrowser.findElement(".gLFyf");
-        await RPA.WebBrowser.sendKeys(input, ["RPA"]);
-        await RPA.WebBrowser.findElement(
-            ".FPdoLc > center:nth-child(1) > input:nth-child(2)"
-        ).click();
-        await RPA.WebBrowser.takeScreenshot();
-    } catch (error) {
-        RPA.systemLogger.error(error);
-    }
+  try {
+    await RPA.WebBrowser.get("https://www.google.com/");
+    const input = await RPA.WebBrowser.findElement(".gLFyf");
+    await RPA.WebBrowser.sendKeys(input, ["RPA"]);
+    const element = await RPA.WebBrowser.findElement(
+      ".FPdoLc > center:nth-child(1) > input:nth-child(2)"
+    );
+    await RPA.WebBrowser.mouseClick(element);
+    await RPA.sleep(3000);
+    await RPA.WebBrowser.takeScreenshot();
+  } catch (error) {
+    RPA.systemLogger.error(error);
+  } finally {
+    RPA.WebBrowser.quit();
+  }
 })();
 ```
 [npm-image]: https://img.shields.io/npm/v/express.svg

@@ -10,3 +10,12 @@ export { systemLogger } from "./Logger";
 export * from "./google";
 
 export * from "./CSV";
+
+export const sleep = (msec: number): Promise<void> =>
+  new Promise(
+    (resolve): void => {
+      setTimeout((): void => {
+        resolve();
+      }, msec);
+    }
+  );

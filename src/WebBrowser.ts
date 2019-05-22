@@ -4,8 +4,7 @@ import {
   Capabilities,
   Condition,
   ThenableWebDriver,
-  WebElement,
-  WebElementPromise
+  WebElement
 } from "selenium-webdriver";
 import { Command } from "selenium-webdriver/lib/command";
 
@@ -19,126 +18,137 @@ export class WebBrowser {
 
   private capabilities: Capabilities;
 
+  private static headless: boolean =
+    (process.env.WEB_BROWSER_HEADLESS || "true") === "true";
+
+  private static outDir: string = process.env.WORKSPACE_DIR || "./";
+
   public constructor() {
     this.capabilities = Capabilities.chrome();
-    this.capabilities.set("chromeOptions", {
-      args: [
-        "--headless",
-        "--no-sandbox",
-        "--disable-gpu",
-        "--window-size=1980,1200"
-      ]
-    });
+    const args = ["--no-sandbox", "--disable-gpu", "--window-size=1980,1200"];
+    if (WebBrowser.headless) {
+      args.push("--headless");
+    }
+    this.capabilities.set("chromeOptions", { args });
     this.driver = new Builder().withCapabilities(this.capabilities).build();
     this.enableDownloadInHeadlessChrome();
   }
 
-  public get(url: string) {
+  public get(url: string): Promise<void> {
     Logger.debug(`WebBrowser.get(${url})`);
     return this.driver.get(url);
+  }
+
+  public quit(): Promise<void> {
+    Logger.debug("WebBrowser.quit");
+    return this.driver.quit();
   }
 
   public wait<T>(
     condition: Condition<T> | PromiseLike<T>,
     optTimeout?: number
-  ) {
+  ): Promise<T> {
     Logger.debug(`WebBrowser.wait(${condition}, ${optTimeout})`);
     return this.driver.wait(condition, optTimeout);
   }
 
-  public mouseMove(element: WebElementPromise | WebElement) {
+  public async mouseMove(
+    element: Promise<WebElement> | WebElement
+  ): Promise<void> {
     Logger.debug(`WebBrowser.mouseMove(${element})`);
-    return this.driver
-      .actions()
-      .mouse()
-      .move({ origin: element })
-      .perform();
+    const actions = this.driver.actions({ bridge: true });
+    const mouse = actions.mouse();
+    actions.pause(mouse).move({ origin: await element });
+    return actions.perform();
   }
 
-  public mouseClick(element: WebElementPromise | WebElement) {
+  public async mouseClick(
+    element: Promise<WebElement> | WebElement
+  ): Promise<void> {
     Logger.debug(`WebBrowser.mouseClick(${element})`);
-    return this.driver
-      .actions()
-      .mouse()
-      .move({ origin: element })
+    const actions = this.driver.actions({ bridge: true });
+    const mouse = actions.mouse();
+    actions
+      .pause(mouse)
+      .move({ origin: await element })
       .press()
-      .release()
-      .perform();
+      .release();
+    return actions.perform();
   }
 
   /* eslint-disable class-methods-use-this */
-  public sendKeys(
-    element: WebElementPromise | WebElement,
+  public async sendKeys(
+    element: Promise<WebElement> | WebElement,
     [args]: (string | number | Promise<string | number>)[]
-  ) {
+  ): Promise<void> {
     Logger.debug(`WebBrowser.sendKeys(${element})`);
-    return element.sendKeys(args);
+    return (await element).sendKeys(args);
   }
   /* eslint-enable class-methods-use-this */
 
-  public findElement(selector: string) {
+  public findElement(selector: string): Promise<WebElement> {
     Logger.debug(`WebBrowser.findElement(${selector})`);
     return this.driver.findElement(By.css(selector));
   }
 
-  public findElements(selector: string) {
+  public findElements(selector: string): Promise<WebElement[]> {
     Logger.debug(`WebBrowser.findElement(${selector})`);
     return this.driver.findElements(By.css(selector));
   }
 
-  public findElementById(id: string) {
+  public findElementById(id: string): Promise<WebElement> {
     Logger.debug(`WebBrowser.findElementById(${id})`);
     return this.driver.findElement(By.id(id));
   }
 
-  public findElementsById(id: string) {
+  public findElementsById(id: string): Promise<WebElement[]> {
     Logger.debug(`WebBrowser.findElementById(${id})`);
     return this.driver.findElements(By.id(id));
   }
 
-  public findElementByClassName(name: string) {
+  public findElementByClassName(name: string): Promise<WebElement> {
     Logger.debug(`WebBrowser.findElementByClassName(${name})`);
     return this.driver.findElement(By.className(name));
   }
 
-  public findElementsByClassName(name: string) {
+  public findElementsByClassName(name: string): Promise<WebElement[]> {
     Logger.debug(`WebBrowser.findElementByClassName(${name})`);
     return this.driver.findElements(By.className(name));
   }
 
-  public findElementByCSSSelector(selector: string) {
+  public findElementByCSSSelector(selector: string): Promise<WebElement> {
     Logger.debug(`WebBrowser.findElementByCSSSelector(${selector})`);
     return this.driver.findElement(By.css(selector));
   }
 
-  public findElementsByCSSSelector(selector: string) {
+  public findElementsByCSSSelector(selector: string): Promise<WebElement[]> {
     Logger.debug(`WebBrowser.findElementByCSSSelector(${selector})`);
     return this.driver.findElements(By.css(selector));
   }
 
-  public findElementByXPath(xpath: string) {
+  public findElementByXPath(xpath: string): Promise<WebElement> {
     Logger.debug(`WebBrowser.findElementByXPath(${xpath})`);
     return this.driver.findElement(By.xpath(xpath));
   }
 
-  public findElementsByXPath(xpath: string) {
+  public findElementsByXPath(xpath: string): Promise<WebElement[]> {
     Logger.debug(`WebBrowser.findElementByXPath(${xpath})`);
     return this.driver.findElements(By.xpath(xpath));
   }
 
-  public findElementByLinkText(text: string) {
+  public findElementByLinkText(text: string): Promise<WebElement> {
     Logger.debug(`WebBrowser.findElementByLinkText(${text})`);
     return this.driver.findElement(By.linkText(text));
   }
 
-  public async takeScreenshot() {
+  public async takeScreenshot(): Promise<void> {
     Logger.debug(`WebBrowser.takeScreenshot()`);
     const image = await this.driver.takeScreenshot();
     return fs.writeFile(
-      `${Math.round(new Date().getTime() / 1000)}.png`,
+      `${WebBrowser.outDir}/${Math.round(new Date().getTime() / 1000)}.png`,
       image,
       "base64",
-      error => {
+      (error): void => {
         if (error != null) {
           Logger.error(error);
         }
@@ -149,7 +159,7 @@ export class WebBrowser {
   /**
    * Enable file downloads in Chrome running in headless mode
    */
-  private enableDownloadInHeadlessChrome() {
+  private enableDownloadInHeadlessChrome(): void {
     /* eslint-disable no-underscore-dangle */
     const executor = (this.driver as any).getExecutor
       ? (this.driver as any).getExecutor()
@@ -164,7 +174,7 @@ export class WebBrowser {
       cmd: "Page.setDownloadBehavior",
       params: {
         behavior: "allow",
-        downloadPath: process.env.WORKSPACE_DIR
+        downloadPath: WebBrowser.outDir
       }
     };
     this.driver.execute(new Command("send_command").setParameters(params));
