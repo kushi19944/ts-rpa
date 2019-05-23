@@ -9,7 +9,7 @@ export class Zip {
   private constructor() {} // eslint-disable-line no-useless-constructor, no-empty-function
 
   private static async writeFileSync(file): Promise<string> {
-    fs.writeFileSync(file.path, await file.buffer());
+    fs.writeFileSync(path.join(this.outDir, file.path), await file.buffer());
     return file.path;
   }
 
