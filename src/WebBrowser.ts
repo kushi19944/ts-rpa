@@ -29,7 +29,11 @@ export class WebBrowser {
     if (WebBrowser.headless) {
       args.push("--headless");
     }
-    this.capabilities.set("chromeOptions", { args });
+    const prefs = {
+      "download.default_directory": WebBrowser.outDir,
+      "download.prompt_for_download": false
+    };
+    this.capabilities.set("chromeOptions", { args, prefs });
     this.driver = new Builder().withCapabilities(this.capabilities).build();
     this.enableDownloadInHeadlessChrome();
   }
