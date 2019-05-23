@@ -33,7 +33,10 @@ export default class Drive {
     return res.data.files;
   }
 
-  public async upload(params: { filename: string }): Promise<string> {
+  public async upload(params: {
+    filename: string;
+    parents?: string[];
+  }): Promise<string> {
     const filePath = path.join(this.outDir, params.filename);
     Logger.debug("Google.Drive.upload", params, filePath);
     return new Promise(
@@ -43,6 +46,7 @@ export default class Drive {
             async (type): Promise<void> => {
               const res = await this.api.files.create({
                 requestBody: {
+                  parents: params.parents,
                   name: params.filename
                 },
                 media: {
