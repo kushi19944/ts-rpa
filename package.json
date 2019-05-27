@@ -1,6 +1,6 @@
 {
   "name": "ts-rpa",
-  "version": "0.0.4-rc.5",
+  "version": "0.0.4-rc.10",
   "description": "npm install -g ts-node",
   "main": "dist/index.js",
   "files": [
@@ -52,6 +52,7 @@
   "license": "ISC",
   "dependencies": {
     "@types/node": "^11.11.1",
+    "@types/node-forge": "^0.8.3",
     "@types/selenium-webdriver": "^4.0.0",
     "commander": "^2.20.0",
     "csv": "^5.1.1",
@@ -62,6 +63,7 @@
     "googleapis-common": "^0.7.2",
     "log4js": "^4.0.2",
     "mime-stream": "^1.0.1",
+    "node-forge": "^0.8.4",
     "pkginfo": "^0.4.1",
     "request": "^2.88.0",
     "require-self": "^0.2.1",
