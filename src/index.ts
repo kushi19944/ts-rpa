@@ -1,3 +1,4 @@
+import * as readline from "readline";
 import WebBrowserInst from "./WebBrowser";
 
 import Logger from "./Logger";
@@ -21,3 +22,18 @@ export const sleep = (msec: number): Promise<void> =>
       }, msec);
     }
   );
+
+export const prompt = (question: string): Promise<string> => {
+  const stdio = readline.createInterface(process.stdin, process.stdout);
+  return new Promise(
+    (resolve): void => {
+      stdio.question(
+        question,
+        (answer): void => {
+          stdio.close();
+          resolve(answer);
+        }
+      );
+    }
+  );
+};
