@@ -15,6 +15,8 @@ export * from "./Zip";
 
 export * from "./File";
 
+export * from "./Hash";
+
 export const sleep = (msec: number): Promise<void> =>
   new Promise(
     (resolve): void => {
