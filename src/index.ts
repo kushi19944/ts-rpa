@@ -13,6 +13,8 @@ export * from "./CSV";
 
 export * from "./Zip";
 
+export * from "./File";
+
 export const sleep = (msec: number): Promise<void> =>
   new Promise(
     (resolve): void => {
@@ -21,3 +23,26 @@ export const sleep = (msec: number): Promise<void> =>
       }, msec);
     }
   );
+
+export const retry = <T>(
+  asyncFunc: () => Promise<T>,
+  retryCount = 3
+): Promise<T> => {
+  const uniqueObj = {};
+  const nums = Array.from(Array(retryCount));
+  return nums.reduce(
+    (prm, _, i): any =>
+      prm.catch(
+        (err): Promise<T> =>
+          err !== uniqueObj
+            ? Promise.reject(err)
+            : asyncFunc().catch(
+                (): Promise<never> =>
+                  sleep(i * 1000).then(
+                    (): Promise<never> => Promise.reject(uniqueObj)
+                  )
+              )
+      ),
+    Promise.reject(uniqueObj)
+  );
+};

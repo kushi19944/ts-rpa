@@ -44,13 +44,17 @@ export default class Drive {
         const file = fs.createReadStream(filePath).pipe(
           MimeStream(
             async (type): Promise<void> => {
+              let mimeType = "text/plain";
+              if (type !== null) {
+                mimeType = type.mime;
+              }
               const res = await this.api.files.create({
                 requestBody: {
                   parents: params.parents,
                   name: params.filename
                 },
                 media: {
-                  mimeType: type.mime,
+                  mimeType,
                   body: file
                 },
                 fields: "id"
