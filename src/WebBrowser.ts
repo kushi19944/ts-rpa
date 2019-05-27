@@ -25,7 +25,12 @@ export class WebBrowser {
 
   public constructor() {
     this.capabilities = Capabilities.chrome();
-    const args = ["--no-sandbox", "--disable-gpu", "--window-size=1980,1200"];
+    const args = [
+      "--no-sandbox",
+      "--disable-gpu",
+      "--window-size=1980,1200",
+      `--user-data-dir=${WebBrowser.outDir}/user-data`
+    ];
     if (WebBrowser.headless) {
       args.push("--headless");
     }

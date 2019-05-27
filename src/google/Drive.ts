@@ -53,6 +53,7 @@ export default class Drive {
                   parents: params.parents,
                   name: params.filename
                 },
+                supportsTeamDrives: true,
                 media: {
                   mimeType,
                   body: file
