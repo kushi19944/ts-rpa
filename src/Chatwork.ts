@@ -3,8 +3,19 @@ import * as qs from "querystring";
 import Logger from "./Logger";
 
 // http://developer.chatwork.com/ja/index.html
-export default class Chatwork {
+class Chatwork {
+  private static chatwork: Chatwork;
+
   private apiToken: string;
+
+  private constructor() {} // eslint-disable-line no-useless-constructor, no-empty-function
+
+  public static get instance(): Chatwork {
+    if (!this.chatwork) {
+      this.chatwork = new Chatwork();
+    }
+    return this.chatwork;
+  }
 
   public initialise(credential: { apiToken: string }): void {
     this.apiToken = credential.apiToken;
@@ -60,3 +71,5 @@ export default class Chatwork {
     );
   }
 }
+
+export default Chatwork.instance;

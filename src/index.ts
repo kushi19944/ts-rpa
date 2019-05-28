@@ -3,16 +3,14 @@ import WebBrowserInst from "./WebBrowser";
 
 import Logger from "./Logger";
 
-import Chatwork from "./Chatwork";
-
 export const WebBrowser = WebBrowserInst;
 export { Until, By, Key } from "./WebBrowser";
 export const logger = Logger;
 export { systemLogger } from "./Logger";
 
-export const chatwork = new Chatwork();
-
 export * from "./google";
+
+export { default as Chatwork } from "./Chatwork";
 
 export * from "./CSV";
 
