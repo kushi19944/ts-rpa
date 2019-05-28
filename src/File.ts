@@ -23,6 +23,11 @@ export class File {
     Logger.debug("File.makeDir", params);
     return fs.mkdirSync(path.join(this.outDir, params.dirname));
   }
+
+  public static exists(params: { filename: string }): boolean {
+    Logger.debug("File.exists", params);
+    return fs.existsSync(path.join(this.outDir, params.filename));
+  }
 }
 
 export default File;
