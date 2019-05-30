@@ -10,6 +10,8 @@ export { systemLogger } from "./Logger";
 
 export * from "./google";
 
+export { default as Chatwork } from "./Chatwork";
+
 export * from "./CSV";
 
 export * from "./Zip";
