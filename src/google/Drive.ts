@@ -108,7 +108,7 @@ export default class Drive {
     headers: Headers,
     to: string
   ): Promise<void> {
-    const res = await request({ url, headers });
+    const res = await request({ url, headers, gzip: true });
     const out = fs.createWriteStream(to);
     return new Promise(
       (resolve, reject): void => {
