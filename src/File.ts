@@ -19,6 +19,27 @@ export class File {
     return fs.unlinkSync(path.join(this.outDir, params.filename));
   }
 
+  public static rimraf(params: { dirPath: string }): void {
+    if (fs.existsSync(params.dirPath)) {
+      fs.readdirSync(params.dirPath).forEach(
+        (entry): void => {
+          const entryPath = path.join(params.dirPath, entry);
+          if (fs.lstatSync(entryPath).isDirectory()) {
+            this.rimraf({ dirPath: entryPath });
+          } else {
+            fs.unlinkSync(entryPath);
+          }
+        }
+      );
+      fs.rmdirSync(params.dirPath);
+    }
+  }
+
+  public static write(params: { filename: string; data: any }): void {
+    Logger.debug("File.write", params.filename);
+    fs.writeFileSync(path.join(this.outDir, params.filename), params.data);
+  }
+
   public static makeDir(params: { dirname: string }): void {
     Logger.debug("File.makeDir", params);
     return fs.mkdirSync(path.join(this.outDir, params.dirname));

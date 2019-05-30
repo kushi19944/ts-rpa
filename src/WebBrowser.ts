@@ -10,10 +10,13 @@ import { Command } from "selenium-webdriver/lib/command";
 
 import * as fs from "fs";
 import Logger from "./Logger";
+import { File } from "./File";
 
 export { until as Until, By, Key } from "selenium-webdriver";
 
 export class WebBrowser {
+  private static webBrowser: WebBrowser;
+
   public driver: ThenableWebDriver;
 
   private capabilities: Capabilities;
@@ -23,13 +26,23 @@ export class WebBrowser {
 
   private static outDir: string = process.env.WORKSPACE_DIR || "./";
 
-  public constructor() {
+  private static userDataDir: string = `${WebBrowser.outDir}/user-data`;
+
+  public static get instance(): WebBrowser {
+    if (!this.webBrowser) {
+      this.webBrowser = new WebBrowser();
+    }
+    return this.webBrowser;
+  }
+
+  private constructor() {
+    File.rimraf({ dirPath: WebBrowser.userDataDir });
     this.capabilities = Capabilities.chrome();
     const args = [
       "--no-sandbox",
       "--disable-gpu",
       "--window-size=1980,1200",
-      `--user-data-dir=${WebBrowser.outDir}/user-data`
+      `--user-data-dir=${WebBrowser.userDataDir}`
     ];
     if (WebBrowser.headless) {
       args.push("--headless");
@@ -190,4 +203,4 @@ export class WebBrowser {
   }
 }
 
-export default new WebBrowser();
+export default WebBrowser.instance;
