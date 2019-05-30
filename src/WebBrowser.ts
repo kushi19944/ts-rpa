@@ -29,6 +29,7 @@ export class WebBrowser {
       "--no-sandbox",
       "--disable-gpu",
       "--window-size=1980,1200",
+      "--enable-features=NetworkService,NetworkServiceInProcess", // refs: https://bugs.chromium.org/p/chromedriver/issues/detail?id=2897
       `--user-data-dir=${WebBrowser.outDir}/user-data`
     ];
     if (WebBrowser.headless) {
