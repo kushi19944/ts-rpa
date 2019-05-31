@@ -51,6 +51,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@slack/web-api": "^5.0.1",
     "@types/node": "^11.11.1",
     "@types/node-forge": "^0.8.3",
     "@types/selenium-webdriver": "^4.0.0",

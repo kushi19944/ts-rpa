@@ -12,6 +12,8 @@ export * from "./google";
 
 export { default as Chatwork } from "./Chatwork";
 
+export { default as Slack } from "./Slack";
+
 export * from "./CSV";
 
 export * from "./Zip";
