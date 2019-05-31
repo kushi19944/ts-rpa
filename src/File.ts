@@ -1,5 +1,6 @@
 import * as path from "path";
 import * as fs from "fs";
+import * as isUtf8 from "is-utf8";
 import Logger from "./Logger";
 
 export class File {
@@ -48,6 +49,28 @@ export class File {
   public static exists(params: { filename: string }): boolean {
     Logger.debug("File.exists", params);
     return fs.existsSync(path.join(this.outDir, params.filename));
+  }
+
+  public static addBom(params: { filename: string }) {
+    return new Promise<void>((resolve, reject) => {
+      fs.readFile(
+        params.filename,
+        (readError, buf): void => {
+          if (readError) reject(readError);
+          if (!Buffer.isBuffer(buf)) reject(new Error("Got no buffer"));
+          if (!isUtf8(buf)) reject(new Error("File is not in UTF-8 encoding"));
+          if (buf[0] === 0xef && buf[1] === 0xbb && buf[2] === 0xbf) resolve();
+          fs.writeFile(
+            params.filename,
+            `\ufeff${buf}`,
+            (writeError): void => {
+              if (writeError) reject(writeError);
+              else resolve();
+            }
+          );
+        }
+      );
+    });
   }
 }
 
