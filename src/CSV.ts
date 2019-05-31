@@ -2,6 +2,7 @@ import * as path from "path";
 import * as fs from "fs";
 import * as parse from "csv-parse";
 import * as writer from "csv-writer";
+import File from "./File";
 import Logger from "./Logger";
 
 export class CSV {
@@ -49,7 +50,8 @@ export class CSV {
     Logger.debug("CSV.write", { filename: params.filename });
     const createCsvWriter = writer.createArrayCsvWriter;
     const csvWriter = createCsvWriter({ path: filePath });
-    return csvWriter.writeRecords(params.data);
+    await csvWriter.writeRecords(params.data);
+    return File.addBom({ filename: params.filename });
   }
 }
 
