@@ -51,26 +51,30 @@ export class File {
     return fs.existsSync(path.join(this.outDir, params.filename));
   }
 
-  public static addBom(params: { filename: string }) {
-    return new Promise<void>((resolve, reject) => {
-      fs.readFile(
-        params.filename,
-        (readError, buf): void => {
-          if (readError) reject(readError);
-          if (!Buffer.isBuffer(buf)) reject(new Error("Got no buffer"));
-          if (!isUtf8(buf)) reject(new Error("File is not in UTF-8 encoding"));
-          if (buf[0] === 0xef && buf[1] === 0xbb && buf[2] === 0xbf) resolve();
-          fs.writeFile(
-            params.filename,
-            `\ufeff${buf}`,
-            (writeError): void => {
-              if (writeError) reject(writeError);
-              else resolve();
-            }
-          );
-        }
-      );
-    });
+  public static addBom(params: { filename: string }): Promise<void> {
+    return new Promise<void>(
+      (resolve, reject): void => {
+        fs.readFile(
+          path.join(this.outDir, params.filename),
+          (readError, buf): void => {
+            if (readError) reject(readError);
+            if (!Buffer.isBuffer(buf)) reject(new Error("Got no buffer"));
+            if (!isUtf8(buf))
+              reject(new Error("File is not in UTF-8 encoding"));
+            if (buf[0] === 0xef && buf[1] === 0xbb && buf[2] === 0xbf)
+              resolve();
+            fs.writeFile(
+              path.join(this.outDir, params.filename),
+              `\ufeff${buf}`,
+              (writeError): void => {
+                if (writeError) reject(writeError);
+                else resolve();
+              }
+            );
+          }
+        );
+      }
+    );
   }
 }
 
