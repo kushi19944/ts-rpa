@@ -3,7 +3,7 @@ import * as qs from "querystring";
 import Logger from "./Logger";
 
 // http://developer.chatwork.com/ja/index.html
-class Chatwork {
+export class Chatwork {
   private static chatwork: Chatwork;
 
   private apiToken: string;

@@ -27,6 +27,6 @@ ENV NODE_PATH /usr/lib/node_modules
 
 WORKDIR /ts-rpa
 RUN npm config set unsafe-perm true
-RUN npm install -g ts-rpa moment
+RUN npm install -g ts-rpa moment mathjs
 WORKDIR /
 RUN rm -rf /ts-rpa
