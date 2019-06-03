@@ -3,6 +3,7 @@ import {
   By,
   Capabilities,
   Condition,
+  IWebDriverOptionsCookie,
   ThenableWebDriver,
   WebElement
 } from "selenium-webdriver";
@@ -182,6 +183,16 @@ export class WebBrowser {
   public getCurrentUrl(): Promise<string> {
     Logger.debug("WebBrowser.getCurrentUrl()");
     return this.driver.getCurrentUrl();
+  }
+
+  public getCookie(name: string): Promise<IWebDriverOptionsCookie> {
+    Logger.debug(`WebBrowser.getCookie(${name})`);
+    return this.driver.manage().getCookie(name);
+  }
+
+  public getCookies(): Promise<IWebDriverOptionsCookie[]> {
+    Logger.debug("WebBrowser.getCookies()");
+    return this.driver.manage().getCookies();
   }
 
   /**
