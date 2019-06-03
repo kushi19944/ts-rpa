@@ -179,6 +179,11 @@ export class WebBrowser {
     );
   }
 
+  public getCurrentUrl(): Promise<string> {
+    Logger.debug("WebBrowser.getCurrentUrl()");
+    return this.driver.getCurrentUrl();
+  }
+
   /**
    * Enable file downloads in Chrome running in headless mode
    */
