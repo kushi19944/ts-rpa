@@ -14,5 +14,19 @@
   "exclude": [
     "node_modules",
     "tests/**/*.spec.ts"
-  ]
+  ],
+  "typedocOptions": {
+    "mode": "file",
+    "out": "docs",
+    "theme": "default",
+    "exclude": [ "**/tests/**", "**/node_modules/**", "dist/**", "tmp/**", "**/bin.*", "**/sample.*" ],
+    "excludePrivate": false,
+    "excludeExternals": false,
+    "excludeNotExported": false,
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "hideGenerator": true,
+    "name": "ts-rpa",
+    "readme": "README.md"
+  }
 }

@@ -1,0 +1,238 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>ts-rpa</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">ts-rpa</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1> ts-rpa</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<p><a href="https://npmjs.org/package/ts-rpa"><img src="https://img.shields.io/npm/v/express.svg" alt="NPM Version"></a>
+					<a href="https://npmjs.org/package/ts-rpa"><img src="https://img.shields.io/npm/dm/ts-rpa.svg" alt="NPM Downloads"></a>
+					<a href="https://circleci.com/gh/ca-rpa/ts-rpa"><img src="https://circleci.com/gh/ca-rpa/ts-rpa.svg?style=shield" alt="Linux Build"></a>
+					<a href="https://codecov.io/gh/ca-rpa/ts-rpa"><img src="https://codecov.io/gh/ca-rpa/ts-rpa/branch/master/graph/badge.svg" alt="Codecov"></a>
+				<a href="https://david-dm.org/ca-rpa/ts-rpa"><img src="https://david-dm.org/ca-rpa/ts-rpa/status.svg" alt="Dependencies Status"></a></p>
+				<h2 id="installation">Installation</h2>
+				<pre><code>npm <span class="hljs-selector-tag">i</span> -g ts-rpa</code></pre><h2 id="requirements">Requirements</h2>
+				<h3 id="installation">Installation</h3>
+				<ul>
+					<li>chromedriver<h3 id="enviroment">Enviroment</h3>
+						<pre><code><span class="hljs-builtin-name">export</span> <span class="hljs-attribute">NODE_PATH</span>=$(npm root -g)
+<span class="hljs-builtin-name">export</span> <span class="hljs-attribute">WEB_BROWSER_HEADLESS</span>=<span class="hljs-literal">true</span>
+<span class="hljs-builtin-name">export</span> <span class="hljs-attribute">GOOGLE_CLIENT_SECRET</span>=************************
+<span class="hljs-builtin-name">export</span> <span class="hljs-attribute">GOOGLE_CLIENT_ID</span>=************-********************************.apps.googleusercontent.com
+<span class="hljs-builtin-name">export</span> <span class="hljs-attribute">WORKSPACE_DIR</span>=./tmp/</code></pre></li>
+				</ul>
+				<h2 id="usage">Usage</h2>
+				<pre><code><span class="hljs-keyword">ts</span>-rpa sample.<span class="hljs-keyword">ts</span></code></pre><h2 id="sample">Sample</h2>
+				<pre><code class="language-js"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> RPA <span class="hljs-keyword">from</span> <span class="hljs-string">"ts-rpa"</span>;
+
+<span class="hljs-function">(<span class="hljs-params"><span class="hljs-keyword">async</span> (</span>) =&gt;</span> {
+  <span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">await</span> RPA.WebBrowser.get(<span class="hljs-string">"https://www.google.com/"</span>);
+    <span class="hljs-keyword">const</span> input = <span class="hljs-keyword">await</span> RPA.WebBrowser.findElement(<span class="hljs-string">".gLFyf"</span>);
+    <span class="hljs-keyword">await</span> RPA.WebBrowser.sendKeys(input, [<span class="hljs-string">"RPA"</span>]);
+    <span class="hljs-keyword">const</span> element = <span class="hljs-keyword">await</span> RPA.WebBrowser.findElement(
+      <span class="hljs-string">".FPdoLc &gt; center:nth-child(1) &gt; input:nth-child(2)"</span>
+    );
+    <span class="hljs-keyword">await</span> RPA.WebBrowser.mouseClick(element);
+    <span class="hljs-keyword">await</span> RPA.sleep(<span class="hljs-number">3000</span>);
+    <span class="hljs-keyword">await</span> RPA.WebBrowser.takeScreenshot();
+  } <span class="hljs-keyword">catch</span> (error) {
+    RPA.systemLogger.error(error);
+  } <span class="hljs-keyword">finally</span> {
+    RPA.WebBrowser.quit();
+  }
+})();</code></pre>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-class">
+						<a href="classes/auth.html" class="tsd-kind-icon">Auth</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/csv.html" class="tsd-kind-icon">CSV</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/chatwork.html" class="tsd-kind-icon">Chatwork</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/drive.html" class="tsd-kind-icon">Drive</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/file.html" class="tsd-kind-icon">File</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/google.html" class="tsd-kind-icon">Google</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/hash.html" class="tsd-kind-icon">Hash</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/slack.html" class="tsd-kind-icon">Slack</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/spreadsheet.html" class="tsd-kind-icon">Spreadsheet</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/webbrowser.html" class="tsd-kind-icon">Web<wbr>Browser</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/zip.html" class="tsd-kind-icon">Zip</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/authcredentials.html" class="tsd-kind-icon">Auth<wbr>Credentials</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/clientcredentials.html" class="tsd-kind-icon">Client<wbr>Credentials</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#logger" class="tsd-kind-icon">logger</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#systemlogger" class="tsd-kind-icon">system<wbr>Logger</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#prompt" class="tsd-kind-icon">prompt</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="globals.html#retry" class="tsd-kind-icon">retry</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#sleep" class="tsd-kind-icon">sleep</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer>
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>

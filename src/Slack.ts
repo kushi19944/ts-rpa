@@ -1,6 +1,6 @@
 import { WebClient } from "@slack/web-api";
 
-class Slack extends WebClient {
+export class Slack extends WebClient {
   private static slack: Slack;
 
   // Override readonly field
