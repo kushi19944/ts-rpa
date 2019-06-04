@@ -92,7 +92,8 @@
     "prettier": "^1.17.0",
     "ts-jest": "^24.0.1",
     "ts-node": "^8.0.3",
-    "typedoc": "^0.14.2"
+    "typedoc": "^0.14.2",
+    "typedoc-plugin-localization": "^1.4.1"
   },
   "repository": {
     "type": "git",

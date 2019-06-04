@@ -28,7 +28,7 @@ ts-rpa sample.ts
 
 ## Sample
 ```js
-import * as RPA from "ts-rpa";
+import RPA from "ts-rpa";
 
 (async () => {
   try {
