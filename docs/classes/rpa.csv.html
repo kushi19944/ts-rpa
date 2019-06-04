@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Zip | ts-rpa</title>
+	<title>CSV | ts-rpa</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,10 +56,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="zip.html">Zip</a>
+					<a href="../modules/rpa.html">RPA</a>
+				</li>
+				<li>
+					<a href="rpa.csv.html">CSV</a>
 				</li>
 			</ul>
-			<h1>Class Zip</h1>
+			<h1>Class CSV</h1>
 		</div>
 	</div>
 </header>
@@ -70,7 +73,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">Zip</span>
+						<span class="target">CSV</span>
 					</li>
 				</ul>
 			</section>
@@ -81,20 +84,20 @@
 						<section class="tsd-index-section tsd-is-private tsd-is-private-protected">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-private"><a href="zip.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-private"><a href="rpa.csv.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section tsd-is-private tsd-is-private-protected">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-static"><a href="zip.html#outdir" class="tsd-kind-icon">out<wbr>Dir</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-static"><a href="rpa.csv.html#outdir" class="tsd-kind-icon">out<wbr>Dir</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="zip.html#decompress" class="tsd-kind-icon">decompress</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private tsd-is-static"><a href="zip.html#writefilesync" class="tsd-kind-icon">write<wbr>File<wbr>Sync</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="rpa.csv.html#read" class="tsd-kind-icon">read</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="rpa.csv.html#write" class="tsd-kind-icon">write</a></li>
 							</ul>
 						</section>
 					</div>
@@ -106,16 +109,16 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Zip<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="zip.html" class="tsd-signature-type">Zip</a></li>
+						<li class="tsd-signature tsd-kind-icon">new CSV<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="rpa.csv.html" class="tsd-signature-type">CSV</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/56d4f35/src/Zip.ts#L7">Zip.ts:7</a></li>
+									<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/e927543/src/CSV.ts#L10">CSV.ts:10</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <a href="zip.html" class="tsd-signature-type">Zip</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="rpa.csv.html" class="tsd-signature-type">CSV</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -128,7 +131,7 @@
 					<div class="tsd-signature tsd-kind-icon">out<wbr>Dir<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;process.env.WORKSPACE_DIR || &quot;./&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/56d4f35/src/Zip.ts#L7">Zip.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/e927543/src/CSV.ts#L10">CSV.ts:10</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -136,16 +139,16 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
-					<a name="decompress" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> decompress</h3>
+					<a name="read" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> read</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">decompress<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">read<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/56d4f35/src/Zip.ts#L16">Zip.ts:16</a></li>
+									<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/e927543/src/CSV.ts#L14">CSV.ts:14</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -154,35 +157,55 @@
 									<h5>params: <span class="tsd-signature-type">object</span></h5>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter">
+											<h5><span class="tsd-flag ts-flagOptional">Optional</span> bom<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span></h5>
+										</li>
+										<li class="tsd-parameter">
+											<h5><span class="tsd-flag ts-flagOptional">Optional</span> delimiter<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
+										</li>
+										<li class="tsd-parameter">
+											<h5><span class="tsd-flag ts-flagOptional">Optional</span> encoding<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
+										</li>
+										<li class="tsd-parameter">
 											<h5>filename<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+										</li>
+										<li class="tsd-parameter">
+											<h5><span class="tsd-flag ts-flagOptional">Optional</span> quote<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">object</span></h5>
 										</li>
 									</ul>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private tsd-is-static">
-					<a name="writefilesync" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> <span class="tsd-flag ts-flagPrivate">Private</span> write<wbr>File<wbr>Sync</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">write<wbr>File<wbr>Sync<span class="tsd-signature-symbol">(</span>file<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="write" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> write</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">write<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/56d4f35/src/Zip.ts#L11">Zip.ts:11</a></li>
+									<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/e927543/src/CSV.ts#L46">CSV.ts:46</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>file: <span class="tsd-signature-type">any</span></h5>
+									<h5>params: <span class="tsd-signature-type">object</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter">
+											<h5>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">[]</span></h5>
+										</li>
+										<li class="tsd-parameter">
+											<h5>filename<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+										</li>
+									</ul>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -194,81 +217,69 @@
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
+					<li class="current tsd-kind-module">
+						<a href="../modules/rpa.html">RPA</a>
+					</li>
+					<li class=" tsd-kind-module tsd-parent-kind-module">
+						<a href="../modules/rpa.google.html">RPA.<wbr>Google</a>
+					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-class">
-						<a href="auth.html" class="tsd-kind-icon">Auth</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="csv.html" class="tsd-kind-icon">CSV</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="chatwork.html" class="tsd-kind-icon">Chatwork</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="drive.html" class="tsd-kind-icon">Drive</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="file.html" class="tsd-kind-icon">File</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="google.html" class="tsd-kind-icon">Google</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="hash.html" class="tsd-kind-icon">Hash</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="slack.html" class="tsd-kind-icon">Slack</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="spreadsheet.html" class="tsd-kind-icon">Spreadsheet</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="webbrowser.html" class="tsd-kind-icon">Web<wbr>Browser</a>
-					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-class">
-						<a href="zip.html" class="tsd-kind-icon">Zip</a>
+					<li class="current tsd-kind-class tsd-parent-kind-module">
+						<a href="rpa.csv.html" class="tsd-kind-icon">CSV</a>
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-private">
-								<a href="zip.html#constructor" class="tsd-kind-icon">constructor</a>
+								<a href="rpa.csv.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-static">
-								<a href="zip.html#outdir" class="tsd-kind-icon">out<wbr>Dir</a>
+								<a href="rpa.csv.html#outdir" class="tsd-kind-icon">out<wbr>Dir</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
-								<a href="zip.html#decompress" class="tsd-kind-icon">decompress</a>
+								<a href="rpa.csv.html#read" class="tsd-kind-icon">read</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private tsd-is-static">
-								<a href="zip.html#writefilesync" class="tsd-kind-icon">write<wbr>File<wbr>Sync</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="rpa.csv.html#write" class="tsd-kind-icon">write</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/authcredentials.html" class="tsd-kind-icon">Auth<wbr>Credentials</a>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="rpa.chatwork.html" class="tsd-kind-icon">Chatwork</a>
 					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/clientcredentials.html" class="tsd-kind-icon">Client<wbr>Credentials</a>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="rpa.file.html" class="tsd-kind-icon">File</a>
 					</li>
-					<li class=" tsd-kind-variable">
-						<a href="../globals.html#logger" class="tsd-kind-icon">logger</a>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="rpa.hash.html" class="tsd-kind-icon">Hash</a>
 					</li>
-					<li class=" tsd-kind-variable">
-						<a href="../globals.html#systemlogger" class="tsd-kind-icon">system<wbr>Logger</a>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="rpa.slack.html" class="tsd-kind-icon">Slack</a>
 					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#prompt" class="tsd-kind-icon">prompt</a>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="rpa.webbrowser.html" class="tsd-kind-icon">Web<wbr>Browser</a>
 					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="../globals.html#retry" class="tsd-kind-icon">retry</a>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="rpa.zip.html" class="tsd-kind-icon">Zip</a>
 					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#sleep" class="tsd-kind-icon">sleep</a>
+					<li class=" tsd-kind-variable tsd-parent-kind-module">
+						<a href="../modules/rpa.html#logger" class="tsd-kind-icon">Logger</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-module">
+						<a href="../modules/rpa.html#systemlogger" class="tsd-kind-icon">System<wbr>Logger</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/rpa.html#prompt" class="tsd-kind-icon">prompt</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="../modules/rpa.html#retry" class="tsd-kind-icon">retry</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/rpa.html#sleep" class="tsd-kind-icon">sleep</a>
 					</li>
 				</ul>
 			</nav>

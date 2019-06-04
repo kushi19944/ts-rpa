@@ -23,7 +23,8 @@
     "prettier/@typescript-eslint"
   ],
   "rules": {
-    "prettier/prettier": "error"
+    "prettier/prettier": "error",
+    "@typescript-eslint/no-namespace": 0
   },
   "settings": {
     "import/parsers": {

@@ -1,12 +1,13 @@
-/* eslint-disable import/prefer-default-export */
-import Auth from "./Auth";
-import Spreadsheet from "./Spreadsheet";
-import Drive from "./Drive";
+import GoogleAuth from "./Auth";
+import GoogleSpreadsheet from "./Spreadsheet";
+import GoogleDrive from "./Drive";
 
-export class Google {
-  public static authorize = Auth.instance.authorize;
-
-  public static Spreadsheet = Spreadsheet.instance;
-
-  public static Drive = Drive.instance;
+export namespace RPA {
+  export namespace Google {
+    export const { authorize } = GoogleAuth.instance;
+    export const Spreadsheet = GoogleSpreadsheet.instance;
+    export const Drive = GoogleDrive.instance;
+  }
 }
+
+export default RPA.Google;

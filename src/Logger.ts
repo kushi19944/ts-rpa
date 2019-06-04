@@ -11,5 +11,13 @@ configure({
   }
 });
 
-export default getLogger("default");
-export const systemLogger = getLogger("system");
+export namespace RPA {
+  export const Logger = getLogger("default");
+  export const SystemLogger = getLogger("system");
+}
+export default RPA.Logger;
+
+/**
+ * @ignore
+ */
+export const system = RPA.SystemLogger;
