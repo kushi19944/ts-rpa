@@ -18,7 +18,7 @@ export namespace RPA {
       filename: string;
     }): Promise<string[]> {
       const filePath = path.join(this.outDir, params.filename);
-      Logger.debug("Zip.extract", params);
+      Logger.debug("Zip.decompress", params);
       const directory = await unzipper.Open.file(filePath);
       const results = [];
       for (let i = 0; i < directory.files.length; i += 1) {

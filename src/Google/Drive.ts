@@ -40,7 +40,7 @@ export namespace RPA {
         parents?: string[];
       }): Promise<string> {
         const filePath = path.join(this.outDir, params.filename);
-        Logger.debug("Google.Drive.upload", params, filePath);
+        Logger.debug("Google.Drive.upload", filePath, params.parents);
         return new Promise(
           (resolve): void => {
             const file = fs.createReadStream(filePath).pipe(
@@ -80,7 +80,12 @@ export namespace RPA {
           outFilename = params.filename;
         }
         if (params.fileId) {
-          Logger.debug("Google.Drive.download", params);
+          Logger.debug(
+            "Google.Drive.download",
+            params.fileId,
+            params.filename,
+            params.url
+          );
           const res = await this.api.files.get({
             fileId: params.fileId
           });
