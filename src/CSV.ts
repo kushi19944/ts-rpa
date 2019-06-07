@@ -17,6 +17,7 @@ export namespace RPA {
       bom?: boolean;
       delimiter?: string;
       quote?: string & { length: 1 };
+      relaxColumnCount?: boolean;
     }): Promise<any[]> {
       const filePath = path.join(this.outDir, params.filename);
       Logger.debug("CSV.read", params);
@@ -28,7 +29,8 @@ export namespace RPA {
               parse({
                 bom: params.bom,
                 delimiter: params.delimiter,
-                quote: params.quote
+                quote: params.quote,
+                relax_column_count: params.relaxColumnCount // eslint-disable-line @typescript-eslint/camelcase
               })
             )
             .on("data", (data): number => results.push(data))
