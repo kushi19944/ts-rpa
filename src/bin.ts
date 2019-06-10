@@ -9,26 +9,31 @@ import { google } from "googleapis";
 import Module = require("module");
 require("pkginfo")(module);
 
-let filename;
 program
   .option("-g, --google-auth", "Getting Google OAuth Access Token.")
-  .option("-r, --require", "Require a node module before execution.")
-  .version(module.exports.version, "-v, --version")
-  .usage("<file>")
-  .action(
-    (fileArg): void => {
-      filename = fileArg;
+  .option(
+    "-r, --require <path>",
+    "Require a node module before execution.",
+    (path, paths): void => {
+      const arr = paths || [];
+      arr.push(path);
+      return arr;
     }
-  );
+  )
+  .version(module.exports.version, "-v, --version")
+  .usage("[options] <file>")
+  .parse(process.argv);
 
-program.parse(process.argv);
+const filename = program.args[0];
 
 if (typeof filename === "undefined") {
   process.exit(0);
 }
 
 // Require specified modules before start-up.
-if (program.require) (Module as any)._preloadModules(program.require); // eslint-disable-line no-underscore-dangle
+if (program.require) {
+  (Module as any)._preloadModules(program.require); // eslint-disable-line no-underscore-dangle
+}
 
 function getGoogleApisNewToken(): void {
   const credentials = {
@@ -79,8 +84,9 @@ function getGoogleApisNewToken(): void {
 
   const module = new Module(filename);
   module.filename = filename;
-  module.paths = (Module as any)._nodeModulePaths(filename); // eslint-disable-line no-underscore-dangle
+  module.paths = (Module as any)._nodeModulePaths(process.cwd()); // eslint-disable-line no-underscore-dangle
 
+  (global as any).__dirname = process.cwd(); // eslint-disable-line no-underscore-dangle
   (global as any).exports = module.exports;
   (global as any).module = module;
   (global as any).require = module.require.bind(module);
