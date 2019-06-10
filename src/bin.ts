@@ -12,6 +12,7 @@ require("pkginfo")(module);
 let filename;
 program
   .option("-g, --google-auth", "Getting Google OAuth Access Token.")
+  .option("-r, --require", "Require a node module before execution.")
   .version(module.exports.version, "-v, --version")
   .usage("<file>")
   .action(
@@ -26,7 +27,9 @@ if (typeof filename === "undefined") {
   process.exit(0);
 }
 
-/* eslint-disable no-console */
+// Require specified modules before start-up.
+if (program.require) (Module as any)._preloadModules(program.require); // eslint-disable-line no-underscore-dangle
+
 function getGoogleApisNewToken(): void {
   const credentials = {
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
@@ -42,7 +45,7 @@ function getGoogleApisNewToken(): void {
     access_type: "offline", // eslint-disable-line @typescript-eslint/camelcase
     scope: "https://www.googleapis.com/auth/drive"
   });
-  console.log("Authorize this app by visiting this url: \n ", authUrl);
+  console.log("Authorize this app by visiting this url: \n ", authUrl); // eslint-disable-line no-console
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
@@ -52,7 +55,7 @@ function getGoogleApisNewToken(): void {
     async (code: string): Promise<void> => {
       rl.close();
       const res = await client.getToken(code);
-      console.log("\n", res.tokens);
+      console.log("\n", res.tokens); // eslint-disable-line no-console
     }
   );
 }
