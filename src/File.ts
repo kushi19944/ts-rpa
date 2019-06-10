@@ -22,6 +22,7 @@ export namespace RPA {
     }
 
     public static rimraf(params: { dirPath: string }): void {
+      Logger.debug("File.rimraf", params);
       if (fs.existsSync(params.dirPath)) {
         fs.readdirSync(params.dirPath).forEach(
           (entry): void => {
@@ -53,6 +54,7 @@ export namespace RPA {
     }
 
     public static addBom(params: { filename: string }): Promise<void> {
+      Logger.debug("File.addBom", params);
       return new Promise<void>(
         (resolve, reject): void => {
           fs.readFile(

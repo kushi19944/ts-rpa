@@ -53,7 +53,11 @@ export namespace RPA {
             })
           }
         );
-        Logger.debug("Google.Spreadsheet.setValues", params);
+        Logger.debug(
+          "Google.Spreadsheet.setValues",
+          params.spreadsheetId,
+          params.range
+        );
         return res.data;
       }
 
@@ -144,7 +148,7 @@ export namespace RPA {
             ]
           }
         });
-        Logger.debug("Google.Spreadsheet.createSheet", params);
+        Logger.debug("Google.Spreadsheet.deleteSheet", params);
         return res.data.replies[0].addSheet.properties.sheetId;
       }
 
@@ -189,7 +193,7 @@ export namespace RPA {
         sheetId: number;
       }): Promise<string> {
         const data = await this.get({ spreadsheetId: params.spreadsheetId });
-        Logger.debug("Google.Spreadsheet.getTitle", params);
+        Logger.debug("Google.Spreadsheet.getTitleFromSheetId", params);
         return data.sheets.filter(
           (v): boolean => v.properties.sheetId === params.sheetId
         )[0].properties.title;

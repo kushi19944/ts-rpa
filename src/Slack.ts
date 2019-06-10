@@ -1,4 +1,5 @@
-import { WebClient } from "@slack/web-api";
+import { WebClient, ChatPostMessageArguments } from "@slack/web-api";
+import Logger from "./Logger";
 
 export namespace RPA {
   export class Slack extends WebClient {
@@ -21,6 +22,16 @@ export namespace RPA {
 
     public initialise(credential: { apiToken: string }): void {
       this.token = credential.apiToken;
+    }
+
+    public static async postMessage(
+      params: ChatPostMessageArguments
+    ): Promise<void> {
+      Logger.debug("Slack.postMessage", params);
+      const res = await this.slack.chat.postMessage(params);
+      if (!res.ok || res.error) {
+        throw new Error("Slack.postMessage failed.");
+      }
     }
   }
 }

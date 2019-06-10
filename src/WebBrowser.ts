@@ -66,7 +66,7 @@ export namespace RPA {
     }
 
     public get(url: string): Promise<void> {
-      Logger.debug(`WebBrowser.get(${url})`);
+      Logger.debug("WebBrowser.get", { url });
       return this.driver.get(url);
     }
 
@@ -79,14 +79,14 @@ export namespace RPA {
       condition: Condition<T> | PromiseLike<T>,
       optTimeout?: number
     ): Promise<T> {
-      Logger.debug(`WebBrowser.wait(${condition}, ${optTimeout})`);
+      Logger.debug("WebBrowser.wait", { condition, optTimeout });
       return this.driver.wait(condition, optTimeout);
     }
 
     public async mouseMove(
       element: Promise<WebElement> | WebElement
     ): Promise<void> {
-      Logger.debug(`WebBrowser.mouseMove(${element})`);
+      Logger.debug("WebBrowser.mouseMove");
       const actions = this.driver.actions({ bridge: true });
       const mouse = actions.mouse();
       actions.pause(mouse).move({ origin: await element });
@@ -96,7 +96,7 @@ export namespace RPA {
     public async mouseClick(
       element: Promise<WebElement> | WebElement
     ): Promise<void> {
-      Logger.debug(`WebBrowser.mouseClick(${element})`);
+      Logger.debug("WebBrowser.mouseClick");
       const actions = this.driver.actions({ bridge: true });
       const mouse = actions.mouse();
       actions
@@ -112,68 +112,68 @@ export namespace RPA {
       element: Promise<WebElement> | WebElement,
       [args]: (string | number | Promise<string | number>)[]
     ): Promise<void> {
-      Logger.debug(`WebBrowser.sendKeys(${element})`);
+      Logger.debug("WebBrowser.sendKeys");
       return (await element).sendKeys(args);
     }
     /* eslint-enable class-methods-use-this */
 
     public findElement(selector: string): Promise<WebElement> {
-      Logger.debug(`WebBrowser.findElement(${selector})`);
+      Logger.debug("WebBrowser.findElement", { selector });
       return this.driver.findElement(By.css(selector));
     }
 
     public findElements(selector: string): Promise<WebElement[]> {
-      Logger.debug(`WebBrowser.findElement(${selector})`);
+      Logger.debug("WebBrowser.findElement", { selector });
       return this.driver.findElements(By.css(selector));
     }
 
     public findElementById(id: string): Promise<WebElement> {
-      Logger.debug(`WebBrowser.findElementById(${id})`);
+      Logger.debug("WebBrowser.findElementById", { id });
       return this.driver.findElement(By.id(id));
     }
 
     public findElementsById(id: string): Promise<WebElement[]> {
-      Logger.debug(`WebBrowser.findElementById(${id})`);
+      Logger.debug("WebBrowser.findElementById", { id });
       return this.driver.findElements(By.id(id));
     }
 
     public findElementByClassName(name: string): Promise<WebElement> {
-      Logger.debug(`WebBrowser.findElementByClassName(${name})`);
+      Logger.debug("WebBrowser.findElementByClassName", { name });
       return this.driver.findElement(By.className(name));
     }
 
     public findElementsByClassName(name: string): Promise<WebElement[]> {
-      Logger.debug(`WebBrowser.findElementByClassName(${name})`);
+      Logger.debug("WebBrowser.findElementByClassName", { name });
       return this.driver.findElements(By.className(name));
     }
 
     public findElementByCSSSelector(selector: string): Promise<WebElement> {
-      Logger.debug(`WebBrowser.findElementByCSSSelector(${selector})`);
+      Logger.debug("WebBrowser.findElementByCSSSelector", { selector });
       return this.driver.findElement(By.css(selector));
     }
 
     public findElementsByCSSSelector(selector: string): Promise<WebElement[]> {
-      Logger.debug(`WebBrowser.findElementByCSSSelector(${selector})`);
+      Logger.debug("WebBrowser.findElementByCSSSelector", { selector });
       return this.driver.findElements(By.css(selector));
     }
 
     public findElementByXPath(xpath: string): Promise<WebElement> {
-      Logger.debug(`WebBrowser.findElementByXPath(${xpath})`);
+      Logger.debug("WebBrowser.findElementByXPath", { xpath });
       return this.driver.findElement(By.xpath(xpath));
     }
 
     public findElementsByXPath(xpath: string): Promise<WebElement[]> {
-      Logger.debug(`WebBrowser.findElementByXPath(${xpath})`);
+      Logger.debug("WebBrowser.findElementByXPath", { xpath });
       return this.driver.findElements(By.xpath(xpath));
     }
 
     public findElementByLinkText(text: string): Promise<WebElement> {
-      Logger.debug(`WebBrowser.findElementByLinkText(${text})`);
+      Logger.debug("WebBrowser.findElementByLinkText", { text });
       return this.driver.findElement(By.linkText(text));
     }
 
     public async takeScreenshot(): Promise<void> {
-      Logger.debug(`WebBrowser.takeScreenshot()`);
+      Logger.debug("WebBrowser.takeScreenshot");
       const image = await this.driver.takeScreenshot();
       return fs.writeFile(
         `${WebBrowser.outDir}/${Math.round(new Date().getTime() / 1000)}.png`,
@@ -188,17 +188,17 @@ export namespace RPA {
     }
 
     public getCurrentUrl(): Promise<string> {
-      Logger.debug("WebBrowser.getCurrentUrl()");
+      Logger.debug("WebBrowser.getCurrentUrl");
       return this.driver.getCurrentUrl();
     }
 
     public getCookie(name: string): Promise<IWebDriverOptionsCookie> {
-      Logger.debug(`WebBrowser.getCookie(${name})`);
+      Logger.debug("WebBrowser.getCookie", { name });
       return this.driver.manage().getCookie(name);
     }
 
     public getCookies(): Promise<IWebDriverOptionsCookie[]> {
-      Logger.debug("WebBrowser.getCookies()");
+      Logger.debug("WebBrowser.getCookies");
       return this.driver.manage().getCookies();
     }
 
