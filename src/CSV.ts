@@ -1,5 +1,6 @@
 import * as path from "path";
 import * as fs from "fs";
+import * as iconv from "iconv-lite";
 import * as parse from "csv-parse";
 import * as writer from "csv-writer";
 import File from "./File";
@@ -24,7 +25,8 @@ export namespace RPA {
       return new Promise(
         (resolve, reject): void => {
           const results = [];
-          fs.createReadStream(filePath, { encoding: params.encoding })
+          fs.createReadStream(filePath)
+            .pipe(iconv.decodeStream(params.encoding || "utf8"))
             .pipe(
               parse({
                 bom: params.bom,
