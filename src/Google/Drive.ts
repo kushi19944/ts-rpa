@@ -35,6 +35,35 @@ export namespace RPA {
         return res.data.files;
       }
 
+      public async export(params: {
+        fileId: string;
+        mimeType: string;
+        filename: string;
+      }) {
+        const out = fs.createWriteStream(
+          path.join(this.outDir, params.filename)
+        );
+        const res: any = await this.api.files.export(
+          {
+            fileId: params.fileId,
+            mimeType: params.mimeType
+          },
+          {
+            responseType: "stream"
+          }
+        );
+        return new Promise(async (resolve, reject) => {
+          res.data
+            .on("end", () => {
+              resolve();
+            })
+            .on("error", (err: Error) => {
+              reject(err);
+            })
+            .pipe(out);
+        });
+      }
+
       public async upload(params: {
         filename: string;
         parents?: string[];
