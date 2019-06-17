@@ -9,6 +9,7 @@ import { google } from "googleapis";
 import Module = require("module");
 require("pkginfo")(module);
 
+let filename;
 program
   .option("-g, --google-auth", "Getting Google OAuth Access Token.")
   .option(
@@ -20,11 +21,14 @@ program
       return arr;
     }
   )
+  .action(
+    (fileArg): void => {
+      filename = fileArg;
+    }
+  )
   .version(module.exports.version, "-v, --version")
   .usage("[options] <file>")
   .parse(process.argv);
-
-const filename = program.args[0];
 
 if (typeof filename === "undefined") {
   process.exit(0);
