@@ -60,12 +60,25 @@ export namespace RPA {
       }
 
       private static async buildMessage(params: MailOptions): Promise<string> {
-        return new Promise((resolve, reject) => {
-          new MailComposer(params).compile().build((err, message) => {
-            if (err) reject(err);
-            else resolve(message.toString("base64"));
-          });
-        });
+        return new Promise(
+          (resolve, reject): void => {
+            new MailComposer(params).compile().build(
+              (err, message): void => {
+                if (err) {
+                  reject(err);
+                } else {
+                  resolve(
+                    // url safe Base64
+                    message
+                      .toString("base64")
+                      .replace(/\+/g, "-")
+                      .replace(/\//g, "_")
+                  );
+                }
+              }
+            );
+          }
+        );
       }
     }
   }
