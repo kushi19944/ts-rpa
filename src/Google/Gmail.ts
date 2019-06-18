@@ -1,6 +1,7 @@
 import { gmail_v1 as gmailApi, google } from "googleapis";
 import { OAuth2Client } from "googleapis-common";
 import { Options as MailOptions } from "nodemailer/lib/mailer";
+import Logger from "../Logger";
 
 import MailComposer = require("nodemailer/lib/mail-composer");
 
@@ -25,6 +26,7 @@ export namespace RPA {
       }
 
       public async send(params: MailOptions): Promise<string> {
+        Logger.debug("Gmail.send", params);
         const message = await Gmail.buildMessage(params);
         const res = await this.api.users.messages.send({
           userId: "me",
@@ -34,6 +36,7 @@ export namespace RPA {
       }
 
       public async createDraft(params: MailOptions): Promise<string> {
+        Logger.debug("Gmail.createDraft", params);
         const message = await Gmail.buildMessage(params);
         const res = await this.api.users.drafts.create({
           userId: "me",
@@ -45,6 +48,7 @@ export namespace RPA {
       }
 
       public async sendDraft(params: { id: string }): Promise<string> {
+        Logger.debug("Gmail.sendDraft", params);
         const res = await this.api.users.drafts.send({
           userId: "me",
           requestBody: { id: params.id }
@@ -53,6 +57,7 @@ export namespace RPA {
       }
 
       public async deleteDraft(params: { id: string }): Promise<void> {
+        Logger.debug("Gmail.deleteDraft", params);
         await this.api.users.drafts.send({
           userId: "me",
           requestBody: { id: params.id }
