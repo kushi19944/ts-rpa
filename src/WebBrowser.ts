@@ -51,7 +51,8 @@ export namespace RPA {
         "--disable-gpu",
         "--window-size=1980,1200",
         "--enable-features=NetworkService,NetworkServiceInProcess", // refs: https://bugs.chromium.org/p/chromedriver/issues/detail?id=2897
-        `--user-data-dir=${WebBrowser.userDataDir}`
+        `--user-data-dir=${WebBrowser.userDataDir}`,
+        "--disable-dev-shm-usage" // refs: https://stackoverflow.com/questions/50642308/webdriverexception-unknown-error-devtoolsactiveport-file-doesnt-exist-while-t
       ];
       if (WebBrowser.headless) {
         args.push("--headless");
