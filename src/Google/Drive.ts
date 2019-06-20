@@ -129,11 +129,19 @@ export namespace RPA {
           return outFilename;
         }
         if (params.url && params.filename) {
+          const queryParams = new URL(params.url).searchParams;
+          /* eslint-disable no-underscore-dangle */
           await Drive.fetch(
-            `${params.url}?alt=media`,
-            this.api.files.context._options.headers, // eslint-disable-line no-underscore-dangle
+            `${params.url}${queryParams ? "&" : "?"}alt=media`,
+            {
+              Authorization: `Bearer ${
+                (await (this.api.context._options
+                  .auth as OAuth2Client).getAccessToken()).token
+              }`
+            },
             path.join(this.outDir, outFilename)
           );
+          /* eslint-enable no-underscore-dangle */
           return outFilename;
         }
         throw Error("Invalid parameter.");
