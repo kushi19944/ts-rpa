@@ -38,12 +38,13 @@ export namespace RPA {
         spreadsheetId: string;
         range: string;
         values: string[][];
+        parseValues?: boolean;
       }): Promise<sheetsApi.Schema$UpdateValuesResponse> {
         const res = await this.api.spreadsheets.values.update(
           {
             spreadsheetId: params.spreadsheetId,
             range: params.range,
-            valueInputOption: "RAW"
+            valueInputOption: params.parseValues ? "USER_ENTERED" : "RAW"
           },
           {
             body: JSON.stringify({
