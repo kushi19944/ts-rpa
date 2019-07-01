@@ -1,5 +1,4 @@
 import * as forge from "node-forge";
-import Logger from "./Logger";
 
 export namespace RPA {
   export class Hash {
