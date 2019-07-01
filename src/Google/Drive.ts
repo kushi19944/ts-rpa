@@ -1,10 +1,9 @@
 import { google, drive_v3 as driveApi } from "googleapis";
 import { OAuth2Client } from "googleapis-common";
-import * as request from "request";
-import { Headers } from "gaxios";
 import * as path from "path";
 import * as fs from "fs";
 import * as MimeStream from "mime-stream";
+import Request from "../Request";
 import Logger from "../Logger";
 
 export namespace RPA {
@@ -121,52 +120,33 @@ export namespace RPA {
           if (!params.filename) {
             outFilename = res.data.name;
           }
-          await Drive.fetch(
+          await Request.download(
+            path.join(this.outDir, outFilename),
             `${res.config.url}?alt=media`,
-            res.config.headers,
-            path.join(this.outDir, outFilename)
+            { headers: res.config.headers, compress: true }
           );
           return outFilename;
         }
         if (params.url && params.filename) {
           const queryParams = new URL(params.url).searchParams;
           /* eslint-disable no-underscore-dangle */
-          await Drive.fetch(
+          await Request.download(
+            path.join(this.outDir, outFilename),
             `${params.url}${queryParams ? "&" : "?"}alt=media`,
             {
-              Authorization: `Bearer ${
-                (await (this.api.context._options
-                  .auth as OAuth2Client).getAccessToken()).token
-              }`
-            },
-            path.join(this.outDir, outFilename)
+              headers: {
+                Authorization: `Bearer ${
+                  (await (this.api.context._options
+                    .auth as OAuth2Client).getAccessToken()).token
+                }`
+              },
+              compress: true
+            }
           );
           /* eslint-enable no-underscore-dangle */
           return outFilename;
         }
         throw Error("Invalid parameter.");
-      }
-
-      private static async fetch(
-        url: string,
-        headers: Headers,
-        to: string
-      ): Promise<void> {
-        const res = await request({ url, headers, gzip: true });
-        const out = fs.createWriteStream(to);
-        return new Promise(
-          (resolve, reject): void => {
-            res.pipe(out);
-            res.on(
-              "end",
-              (): void => {
-                out.close();
-                resolve();
-              }
-            );
-            out.on("error", reject);
-          }
-        );
       }
     }
   }
