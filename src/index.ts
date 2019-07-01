@@ -18,6 +18,8 @@ import HashModule from "./Hash";
 
 import ZipModule from "./Zip";
 
+import RequestModule from "./Request";
+
 export namespace RPA {
   export const Google = GoogleModule;
 
@@ -32,6 +34,8 @@ export namespace RPA {
   export const Hash = HashModule;
 
   export const Zip = ZipModule;
+
+  export const Request = RequestModule;
 
   export const WebBrowser = WebBrowserModule.default;
 
