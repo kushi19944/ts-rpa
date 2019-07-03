@@ -7,7 +7,7 @@ export namespace RPA {
     export class Spreadsheet {
       private static spreadsheet: Spreadsheet;
 
-      public api: sheetsApi.Sheets;
+      private api: sheetsApi.Sheets;
 
       private constructor() {} // eslint-disable-line no-useless-constructor, no-empty-function
 
