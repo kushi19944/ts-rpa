@@ -7,7 +7,7 @@ export namespace RPA {
     export class Spreadsheet {
       private static spreadsheet: Spreadsheet;
 
-      private api: sheetsApi.Sheets;
+      public api: sheetsApi.Sheets;
 
       private constructor() {} // eslint-disable-line no-useless-constructor, no-empty-function
 
@@ -214,6 +214,29 @@ export namespace RPA {
         });
         Logger.debug("Google.Spreadsheet.copySheet", params);
         return res.data.sheetId;
+      }
+
+      public async setCellsFormat(params: {
+        spreadsheetId: string;
+        range: sheetsApi.Schema$GridRange;
+        format: sheetsApi.Schema$CellFormat;
+      }): Promise<sheetsApi.Schema$Spreadsheet> {
+        const res = await this.api.spreadsheets.batchUpdate({
+          spreadsheetId: params.spreadsheetId,
+          requestBody: {
+            requests: [
+              {
+                repeatCell: {
+                  range: params.range,
+                  cell: { userEnteredFormat: params.format },
+                  fields: "userEnteredFormat"
+                }
+              }
+            ]
+          }
+        });
+        Logger.debug("Google.Spreadsheet.setCellsFormat", params);
+        return res.data.updatedSpreadsheet;
       }
     }
   }
