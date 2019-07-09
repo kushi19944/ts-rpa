@@ -1,5 +1,6 @@
 import * as path from "path";
 import * as fs from "fs";
+import * as fileType from "file-type";
 import * as isUtf8 from "is-utf8";
 import Logger from "./Logger";
 
@@ -78,6 +79,11 @@ export namespace RPA {
           );
         }
       );
+    }
+
+    public static getMimeType(params: { filename: string }): string {
+      const file = fs.readFileSync(path.join(this.outDir, params.filename));
+      return fileType(file).mime;
     }
   }
 }
