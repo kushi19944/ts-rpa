@@ -99,6 +99,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="rpa.file.html#addbom" class="tsd-kind-icon">add<wbr>Bom</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="rpa.file.html#delete" class="tsd-kind-icon">delete</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="rpa.file.html#exists" class="tsd-kind-icon">exists</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="rpa.file.html#getmimetype" class="tsd-kind-icon">get<wbr>Mime<wbr>Type</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="rpa.file.html#makedir" class="tsd-kind-icon">make<wbr>Dir</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="rpa.file.html#rename" class="tsd-kind-icon">rename</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="rpa.file.html#rimraf" class="tsd-kind-icon">rimraf</a></li>
@@ -120,7 +121,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/3121652/src/File.ts#L7">File.ts:7</a></li>
+									<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/eac2946/src/File.ts#L8">File.ts:8</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="rpa.file.html" class="tsd-signature-type">File</a></h4>
@@ -136,7 +137,7 @@
 					<div class="tsd-signature tsd-kind-icon">out<wbr>Dir<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;process.env.WORKSPACE_DIR || &quot;./&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/3121652/src/File.ts#L10">File.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/eac2946/src/File.ts#L11">File.ts:11</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -153,7 +154,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/3121652/src/File.ts#L56">File.ts:56</a></li>
+									<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/eac2946/src/File.ts#L57">File.ts:57</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -181,7 +182,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/3121652/src/File.ts#L19">File.ts:19</a></li>
+									<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/eac2946/src/File.ts#L20">File.ts:20</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -209,7 +210,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/3121652/src/File.ts#L51">File.ts:51</a></li>
+									<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/eac2946/src/File.ts#L52">File.ts:52</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -228,6 +229,34 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="getmimetype" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> get<wbr>Mime<wbr>Type</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Mime<wbr>Type<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/eac2946/src/File.ts#L84">File.ts:84</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>params: <span class="tsd-signature-type">object</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter">
+											<h5>filename<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
 					<a name="makedir" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> make<wbr>Dir</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
@@ -237,7 +266,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/3121652/src/File.ts#L46">File.ts:46</a></li>
+									<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/eac2946/src/File.ts#L47">File.ts:47</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -265,7 +294,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/3121652/src/File.ts#L12">File.ts:12</a></li>
+									<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/eac2946/src/File.ts#L13">File.ts:13</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -296,7 +325,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/3121652/src/File.ts#L24">File.ts:24</a></li>
+									<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/eac2946/src/File.ts#L25">File.ts:25</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -324,7 +353,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/3121652/src/File.ts#L41">File.ts:41</a></li>
+									<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/eac2946/src/File.ts#L42">File.ts:42</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -388,6 +417,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="rpa.file.html#exists" class="tsd-kind-icon">exists</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="rpa.file.html#getmimetype" class="tsd-kind-icon">get<wbr>Mime<wbr>Type</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="rpa.file.html#makedir" class="tsd-kind-icon">make<wbr>Dir</a>
