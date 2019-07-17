@@ -12,11 +12,14 @@ if (process.env.KUBERNETES_SERVICE_HOST) {
       time: "%d{ISO8601_WITH_TZ_OFFSET}",
       severity: "%x{severity}",
       message: "%m",
-      reportLocation: {
-        lineNumber: "%l",
-        filePath: "%f"
+      context: {
+        reportLocation: {
+          functionName: "",
+          lineNumber: "%l",
+          filePath: "%f"
+        }
       },
-      data: "%m"
+      data: "%s"
     }),
     tokens: {
       severity: (logEvent: LoggingEvent) =>
