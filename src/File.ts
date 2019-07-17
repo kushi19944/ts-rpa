@@ -86,6 +86,11 @@ export namespace RPA {
       return fileType(file).mime;
     }
 
+    public static getStats(params: { filename: string }): fs.Stats {
+      Logger.debug("File.getStats", params);
+      return fs.statSync(path.join(this.outDir, params.filename));
+    }
+
     public static list(params?: { dirname: string }): string[] {
       const dirname = (params && params.dirname) || "./";
       Logger.debug("File.list", { dirname });
