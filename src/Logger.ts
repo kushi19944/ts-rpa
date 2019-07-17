@@ -1,34 +1,40 @@
-import { configure, getLogger, addLayout, LoggingEvent } from "log4js";
+import { configure, getLogger, LoggingEvent } from "log4js";
 
-const layout = (): ((logEvent: LoggingEvent) => string) => (
-  logEvent: LoggingEvent
-): string => {
-  return JSON.stringify({
-    time: logEvent.startTime,
-    severity:
-      logEvent.level.levelStr === "WARN" ? "WARNING" : logEvent.level.levelStr,
-    message: logEvent.data.reduce(
-      (a, c): string => `${a} ${JSON.stringify(c)}`
-    ),
-    data: logEvent.data
-  });
-};
-
-let layoutType = "coloured";
+let layout = {};
+layout = { type: "coloured" };
 if (process.env.KUBERNETES_SERVICE_HOST) {
-  addLayout("stackdriver", layout);
-  layoutType = "stackdriver";
+  layout = {
+    type: "pattern",
+    pattern: JSON.stringify({
+      serviceContext: {
+        service: "%h"
+      },
+      time: "%d{ISO8601_WITH_TZ_OFFSET}",
+      severity: "%x{severity}",
+      message: "%m",
+      reportLocation: {
+        lineNumber: "%l",
+        filePath: "%f"
+      },
+      data: "%m"
+    }),
+    tokens: {
+      severity: (logEvent: LoggingEvent) =>
+        logEvent.level.levelStr === "WARN" ? "WARNING" : logEvent.level.levelStr
+    }
+  };
 }
-configure({
+const config = {
   appenders: {
-    default: { type: "stdout", layout: { type: layoutType } },
-    system: { type: "stderr", layout: { type: layoutType } }
+    default: { type: "stdout", layout },
+    system: { type: "stderr", layout }
   },
   categories: {
-    default: { appenders: ["default"], level: "all" },
-    system: { appenders: ["system"], level: "error" }
+    default: { appenders: ["default"], level: "all", enableCallStack: true },
+    system: { appenders: ["system"], level: "error", enableCallStack: true }
   }
-});
+};
+configure(config);
 
 export namespace RPA {
   export const Logger = getLogger("default");
