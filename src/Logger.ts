@@ -18,8 +18,7 @@ if (process.env.KUBERNETES_SERVICE_HOST) {
           lineNumber: "%l",
           filePath: "%f"
         }
-      },
-      data: "%s"
+      }
     }),
     tokens: {
       severity: (logEvent: LoggingEvent) =>
