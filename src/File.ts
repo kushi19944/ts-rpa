@@ -85,6 +85,32 @@ export namespace RPA {
       const file = fs.readFileSync(path.join(this.outDir, params.filename));
       return fileType(file).mime;
     }
+
+    public static getStats(params: { filename: string }): fs.Stats {
+      Logger.debug("File.getStats", params);
+      return fs.statSync(path.join(this.outDir, params.filename));
+    }
+
+    public static list(params?: { dirname: string }): string[] {
+      const dirname = (params && params.dirname) || "./";
+      Logger.debug("File.list", { dirname });
+      return fs.readdirSync(path.join(this.outDir, dirname));
+    }
+
+    public static listFiles(params?: { dirname: string }): string[] {
+      const dirname = (params && params.dirname) || "./";
+      Logger.debug("File.listFiles", { dirname });
+      return File.list(params).filter(
+        (filename): boolean =>
+          File.isFile({ filename: path.join(dirname, filename) })
+      );
+    }
+
+    public static isFile(params: { filename: string }): boolean {
+      Logger.debug("File.isFile", params);
+      const file = path.resolve(path.join(this.outDir, params.filename));
+      return File.exists(params) && fs.lstatSync(file).isFile();
+    }
   }
 }
 
