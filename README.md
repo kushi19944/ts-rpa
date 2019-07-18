@@ -4,6 +4,8 @@
 [![Codecov][codecov-image]][codecov-url]
 [![Dependencies Status][dependencies-image]][dependencies-url]
 
+**[Documentation](https://ca-rpa.github.io/ts-rpa/)**
+
 ## Installation
 ```
 npm i -g ts-rpa

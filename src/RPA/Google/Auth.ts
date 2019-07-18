@@ -41,28 +41,26 @@ export namespace RPA.Google {
         redirectUrl: "urn:ietf:wg:oauth:2.0:oob"
       };
 
-      this.client = new Promise(
-        (resolve): void => {
-          const client = new google.auth.OAuth2(
-            clientCredentials.clientId,
-            clientCredentials.clientSecret,
-            clientCredentials.redirectUrl
-          );
-          /* eslint-disable @typescript-eslint/camelcase */
-          client.credentials = {
-            refresh_token: authCredentials.refreshToken,
-            expiry_date: authCredentials.expiryDate,
-            access_token: authCredentials.accessToken,
-            token_type: authCredentials.tokenType,
-            id_token: authCredentials.idToken
-          };
-          /* eslint-enable @typescript-eslint/camelcase */
-          Spreadsheet.instance.initialise(client);
-          Drive.instance.initialise(client);
-          Gmail.instance.initialise(client);
-          resolve(client);
-        }
-      );
+      this.client = new Promise((resolve): void => {
+        const client = new google.auth.OAuth2(
+          clientCredentials.clientId,
+          clientCredentials.clientSecret,
+          clientCredentials.redirectUrl
+        );
+        /* eslint-disable @typescript-eslint/camelcase */
+        client.credentials = {
+          refresh_token: authCredentials.refreshToken,
+          expiry_date: authCredentials.expiryDate,
+          access_token: authCredentials.accessToken,
+          token_type: authCredentials.tokenType,
+          id_token: authCredentials.idToken
+        };
+        /* eslint-enable @typescript-eslint/camelcase */
+        Spreadsheet.instance.initialise(client);
+        Drive.instance.initialise(client);
+        Gmail.instance.initialise(client);
+        resolve(client);
+      });
     }
   }
 }

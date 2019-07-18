@@ -79,33 +79,31 @@ export namespace RPA {
       }): Promise<string> {
         const filePath = path.join(this.outDir, params.filename);
         Logger.debug("Google.Drive.upload", filePath, params.parents);
-        return new Promise(
-          (resolve): void => {
-            const file = fs.createReadStream(filePath).pipe(
-              MimeStream(
-                async (type): Promise<void> => {
-                  let mimeType = "text/plain";
-                  if (type !== null) {
-                    mimeType = type.mime;
-                  }
-                  const res = await this.api.files.create({
-                    requestBody: {
-                      parents: params.parents,
-                      name: params.filename
-                    },
-                    supportsTeamDrives: true,
-                    media: {
-                      mimeType,
-                      body: file
-                    },
-                    fields: "id"
-                  });
-                  resolve(res.data.id);
+        return new Promise((resolve): void => {
+          const file = fs.createReadStream(filePath).pipe(
+            MimeStream(
+              async (type): Promise<void> => {
+                let mimeType = "text/plain";
+                if (type !== null) {
+                  mimeType = type.mime;
                 }
-              )
-            );
-          }
-        );
+                const res = await this.api.files.create({
+                  requestBody: {
+                    parents: params.parents,
+                    name: params.filename
+                  },
+                  supportsTeamDrives: true,
+                  media: {
+                    mimeType,
+                    body: file
+                  },
+                  fields: "id"
+                });
+                resolve(res.data.id);
+              }
+            )
+          );
+        });
       }
 
       public async download(params: {

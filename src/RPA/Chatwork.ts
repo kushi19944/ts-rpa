@@ -43,34 +43,29 @@ export namespace RPA {
       data: { [key: string]: string };
     }) {
       Logger.debug("Chatwork.request", params);
-      return new Promise(
-        (resolve, reject): void => {
-          const req = https.request(
-            params.url,
-            {
-              headers: {
-                "X-ChatWorkToken": this.apiToken,
-                "Content-Type": "application/x-www-form-urlencoded"
-              },
-              method: params.method
+      return new Promise((resolve, reject): void => {
+        const req = https.request(
+          params.url,
+          {
+            headers: {
+              "X-ChatWorkToken": this.apiToken,
+              "Content-Type": "application/x-www-form-urlencoded"
             },
-            (res): void => {
-              res.on(
-                "data",
-                (data): void => {
-                  if (res.statusCode === 200) {
-                    resolve(JSON.parse(data.toString()));
-                  } else {
-                    reject(JSON.parse(data.toString()));
-                  }
-                }
-              );
-            }
-          );
-          req.write(qs.stringify(params.data));
-          req.end();
-        }
-      );
+            method: params.method
+          },
+          (res): void => {
+            res.on("data", (data): void => {
+              if (res.statusCode === 200) {
+                resolve(JSON.parse(data.toString()));
+              } else {
+                reject(JSON.parse(data.toString()));
+              }
+            });
+          }
+        );
+        req.write(qs.stringify(params.data));
+        req.end();
+      });
     }
   }
 }

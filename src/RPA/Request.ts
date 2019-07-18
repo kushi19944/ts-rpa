@@ -25,23 +25,15 @@ export namespace RPA {
       Logger.debug("Request.download", url, init);
       const res = await nodeFetch(url, init);
       const fileStream = fs.createWriteStream(path.join(this.outDir, filename));
-      return new Promise(
-        (resolve, reject): void => {
-          res.body.pipe(fileStream);
-          res.body.on(
-            "error",
-            (err): void => {
-              reject(err);
-            }
-          );
-          fileStream.on(
-            "finish",
-            (): void => {
-              resolve(res);
-            }
-          );
-        }
-      );
+      return new Promise((resolve, reject): void => {
+        res.body.pipe(fileStream);
+        res.body.on("error", (err): void => {
+          reject(err);
+        });
+        fileStream.on("finish", (): void => {
+          resolve(res);
+        });
+      });
     }
   }
 }

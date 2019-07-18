@@ -44,27 +44,20 @@ export namespace RPA {
   export const SystemLogger = LoggerModule.system;
 
   export const sleep = (msec: number): Promise<void> =>
-    new Promise(
-      (resolve): void => {
-        setTimeout((): void => {
-          resolve();
-        }, msec);
-      }
-    );
+    new Promise((resolve): void => {
+      setTimeout((): void => {
+        resolve();
+      }, msec);
+    });
 
   export const prompt = (question: string): Promise<string> => {
     const stdio = readline.createInterface(process.stdin, process.stdout);
-    return new Promise(
-      (resolve): void => {
-        stdio.question(
-          question,
-          (answer): void => {
-            stdio.close();
-            resolve(answer);
-          }
-        );
-      }
-    );
+    return new Promise((resolve): void => {
+      stdio.question(question, (answer): void => {
+        stdio.close();
+        resolve(answer);
+      });
+    });
   };
 
   export const retry = <T>(
