@@ -14,7 +14,7 @@ if (process.env.KUBERNETES_SERVICE_HOST) {
       message: "%m",
       context: {
         reportLocation: {
-          functionName: "",
+          functionName: "%x{functionName}",
           lineNumber: "%l",
           filePath: "%f"
         }
@@ -22,7 +22,10 @@ if (process.env.KUBERNETES_SERVICE_HOST) {
     }),
     tokens: {
       severity: (logEvent: LoggingEvent) =>
-        logEvent.level.levelStr === "WARN" ? "WARNING" : logEvent.level.levelStr
+        logEvent.level.levelStr === "WARN"
+          ? "WARNING"
+          : logEvent.level.levelStr,
+      functionName: (logEvent: any) => logEvent.functionName || "<anonymous>"
     }
   };
 }
