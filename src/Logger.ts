@@ -11,7 +11,8 @@ if (process.env.KUBERNETES_SERVICE_HOST) {
       },
       time: "%d{ISO8601_WITH_TZ_OFFSET}",
       severity: "%x{severity}",
-      message: "%m",
+      message: "%x{message}",
+      data: "%x{data}",
       context: {
         reportLocation: {
           functionName: "%x{functionName}",
@@ -19,13 +20,20 @@ if (process.env.KUBERNETES_SERVICE_HOST) {
           filePath: "%f"
         }
       }
-    }),
+    })
+      .replace('"%l"', "%l")
+      .replace('"%x{message}"', "%x{message}")
+      .replace('"%x{data}"', "%x{data}"),
     tokens: {
-      severity: (logEvent: LoggingEvent) =>
+      severity: (logEvent: LoggingEvent): string =>
         logEvent.level.levelStr === "WARN"
           ? "WARNING"
           : logEvent.level.levelStr,
-      functionName: (logEvent: any) => logEvent.functionName || "<anonymous>"
+      functionName: (logEvent: any): string =>
+        logEvent.functionName || "<anonymous>",
+      message: (logEvent: LoggingEvent): string =>
+        JSON.stringify(logEvent.data[0]),
+      data: (logEvent: LoggingEvent): string => JSON.stringify(logEvent.data)
     }
   };
 }
