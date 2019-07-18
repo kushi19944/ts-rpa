@@ -1,24 +1,24 @@
 import * as readline from "readline";
 
-import * as WebBrowserModule from "./WebBrowser";
+import * as WebBrowserModule from "./RPA/WebBrowser";
 
-import * as LoggerModule from "./Logger";
+import * as LoggerModule from "./RPA/Logger";
 
-import GoogleModule from "./Google";
+import GoogleModule from "./RPA/Google";
 
-import SlackModule from "./Slack";
+import SlackModule from "./RPA/Slack";
 
-import ChatworkModule from "./Chatwork";
+import ChatworkModule from "./RPA/Chatwork";
 
-import FileModule from "./File";
+import FileModule from "./RPA/File";
 
-import CSVModule from "./CSV";
+import CSVModule from "./RPA/CSV";
 
-import HashModule from "./Hash";
+import HashModule from "./RPA/Hash";
 
-import ZipModule from "./Zip";
+import ZipModule from "./RPA/Zip";
 
-import RequestModule from "./Request";
+import RequestModule from "./RPA/Request";
 
 export namespace RPA {
   export const Google = GoogleModule;

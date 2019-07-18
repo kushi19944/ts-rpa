@@ -1,4 +1,4 @@
-import WebBrowserInstance from "../src/WebBrowser";
+import WebBrowserInstance from "../src/RPA/WebBrowser";
 
 describe("WebBrowserInstance", () => {
   describe("driver", () => {
