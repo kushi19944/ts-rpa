@@ -25,16 +25,14 @@ export namespace RPA {
     public static rimraf(params: { dirPath: string }): void {
       Logger.debug("File.rimraf", params);
       if (fs.existsSync(params.dirPath)) {
-        fs.readdirSync(params.dirPath).forEach(
-          (entry): void => {
-            const entryPath = path.join(params.dirPath, entry);
-            if (fs.lstatSync(entryPath).isDirectory()) {
-              this.rimraf({ dirPath: entryPath });
-            } else {
-              fs.unlinkSync(entryPath);
-            }
+        fs.readdirSync(params.dirPath).forEach((entry): void => {
+          const entryPath = path.join(params.dirPath, entry);
+          if (fs.lstatSync(entryPath).isDirectory()) {
+            this.rimraf({ dirPath: entryPath });
+          } else {
+            fs.unlinkSync(entryPath);
           }
-        );
+        });
         fs.rmdirSync(params.dirPath);
       }
     }
@@ -56,29 +54,27 @@ export namespace RPA {
 
     public static addBom(params: { filename: string }): Promise<void> {
       Logger.debug("File.addBom", params);
-      return new Promise<void>(
-        (resolve, reject): void => {
-          fs.readFile(
-            path.join(this.outDir, params.filename),
-            (readError, buf): void => {
-              if (readError) reject(readError);
-              if (!Buffer.isBuffer(buf)) reject(new Error("Got no buffer"));
-              if (!isUtf8(buf))
-                reject(new Error("File is not in UTF-8 encoding"));
-              if (buf[0] === 0xef && buf[1] === 0xbb && buf[2] === 0xbf)
-                resolve();
-              fs.writeFile(
-                path.join(this.outDir, params.filename),
-                `\ufeff${buf}`,
-                (writeError): void => {
-                  if (writeError) reject(writeError);
-                  else resolve();
-                }
-              );
-            }
-          );
-        }
-      );
+      return new Promise<void>((resolve, reject): void => {
+        fs.readFile(
+          path.join(this.outDir, params.filename),
+          (readError, buf): void => {
+            if (readError) reject(readError);
+            if (!Buffer.isBuffer(buf)) reject(new Error("Got no buffer"));
+            if (!isUtf8(buf))
+              reject(new Error("File is not in UTF-8 encoding"));
+            if (buf[0] === 0xef && buf[1] === 0xbb && buf[2] === 0xbf)
+              resolve();
+            fs.writeFile(
+              path.join(this.outDir, params.filename),
+              `\ufeff${buf}`,
+              (writeError): void => {
+                if (writeError) reject(writeError);
+                else resolve();
+              }
+            );
+          }
+        );
+      });
     }
 
     public static getMimeType(params: { filename: string }): string {
@@ -100,9 +96,8 @@ export namespace RPA {
     public static listFiles(params?: { dirname: string }): string[] {
       const dirname = (params && params.dirname) || "./";
       Logger.debug("File.listFiles", { dirname });
-      return File.list(params).filter(
-        (filename): boolean =>
-          File.isFile({ filename: path.join(dirname, filename) })
+      return File.list(params).filter((filename): boolean =>
+        File.isFile({ filename: path.join(dirname, filename) })
       );
     }
 

@@ -21,11 +21,9 @@ program
       return arr;
     }
   )
-  .action(
-    (fileArg): void => {
-      filename = fileArg;
-    }
-  )
+  .action((fileArg): void => {
+    filename = fileArg;
+  })
   .version(module.exports.version, "-v, --version")
   .usage("[options] <file>")
   .parse(process.argv);

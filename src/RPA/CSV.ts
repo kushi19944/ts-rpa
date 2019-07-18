@@ -22,29 +22,24 @@ export namespace RPA {
     }): Promise<any[]> {
       const filePath = path.join(this.outDir, params.filename);
       Logger.debug("CSV.read", params);
-      return new Promise(
-        (resolve, reject): void => {
-          const results = [];
-          fs.createReadStream(filePath)
-            .pipe(iconv.decodeStream(params.encoding || "utf8"))
-            .pipe(
-              parse({
-                bom: params.bom,
-                delimiter: params.delimiter,
-                quote: params.quote,
-                relax_column_count: params.relaxColumnCount // eslint-disable-line @typescript-eslint/camelcase
-              })
-            )
-            .on("data", (data): number => results.push(data))
-            .on("error", (error): void => reject(error))
-            .on(
-              "end",
-              (): void => {
-                resolve(results);
-              }
-            );
-        }
-      );
+      return new Promise((resolve, reject): void => {
+        const results = [];
+        fs.createReadStream(filePath)
+          .pipe(iconv.decodeStream(params.encoding || "utf8"))
+          .pipe(
+            parse({
+              bom: params.bom,
+              delimiter: params.delimiter,
+              quote: params.quote,
+              relax_column_count: params.relaxColumnCount // eslint-disable-line @typescript-eslint/camelcase
+            })
+          )
+          .on("data", (data): number => results.push(data))
+          .on("error", (error): void => reject(error))
+          .on("end", (): void => {
+            resolve(results);
+          });
+      });
     }
 
     public static async write(params: {
