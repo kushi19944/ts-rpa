@@ -238,6 +238,50 @@ export namespace RPA {
         Logger.debug("Google.Spreadsheet.setCellsFormat", params);
         return res.data.updatedSpreadsheet;
       }
+
+      public async addProtectedRange(params: {
+        spreadsheetId: string;
+        range: sheetsApi.Schema$GridRange;
+        description: string;
+      }): Promise<sheetsApi.Schema$ProtectedRange> {
+        const res = await this.api.spreadsheets.batchUpdate({
+          spreadsheetId: params.spreadsheetId,
+          requestBody: {
+            requests: [
+              {
+                addProtectedRange: {
+                  protectedRange: {
+                    range: params.range,
+                    description: params.description,
+                    warningOnly: true
+                  }
+                }
+              }
+            ]
+          }
+        });
+        Logger.debug("Google.Spreadsheet.addProtectedRange", params);
+        return res.data.replies[0].addProtectedRange.protectedRange;
+      }
+
+      public async deleteProtectedRange(params: {
+        spreadsheetId: string;
+        protectedRangeId: number;
+      }): Promise<void> {
+        const res = await this.api.spreadsheets.batchUpdate({
+          spreadsheetId: params.spreadsheetId,
+          requestBody: {
+            requests: [
+              {
+                deleteProtectedRange: {
+                  protectedRangeId: params.protectedRangeId
+                }
+              }
+            ]
+          }
+        });
+        Logger.debug("Google.Spreadsheet.deleteProtectedRange", params);
+      }
     }
   }
 }
