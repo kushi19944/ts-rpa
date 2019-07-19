@@ -128,11 +128,10 @@ export namespace RPA {
           if (!params.filename) {
             outFilename = res.data.name;
           }
-          await Request.download(
-            path.join(this.outDir, outFilename),
-            `${res.config.url}?alt=media`,
-            { headers: res.config.headers, compress: true }
-          );
+          await Request.download(outFilename, `${res.config.url}?alt=media`, {
+            headers: res.config.headers,
+            compress: true
+          });
           return outFilename;
         }
         if (params.url && params.filename) {
