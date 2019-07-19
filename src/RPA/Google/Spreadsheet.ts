@@ -238,6 +238,27 @@ export namespace RPA {
         Logger.debug("Google.Spreadsheet.setCellsFormat", params);
         return res.data.updatedSpreadsheet;
       }
+
+      public async updateSheetProperties(params: {
+        spreadsheetId: string;
+        properties: sheetsApi.Schema$SheetProperties;
+        fields: string;
+      }): Promise<void> {
+        const res = await this.api.spreadsheets.batchUpdate({
+          spreadsheetId: params.spreadsheetId,
+          requestBody: {
+            requests: [
+              {
+                updateSheetProperties: {
+                  properties: params.properties,
+                  fields: params.fields
+                }
+              }
+            ]
+          }
+        });
+        Logger.debug("Google.Spreadsheet.updateSheetProperties", params);
+      }
     }
   }
 }
