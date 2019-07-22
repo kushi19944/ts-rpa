@@ -262,8 +262,7 @@ export namespace RPA {
 
       public async addProtectedRange(params: {
         spreadsheetId: string;
-        range: sheetsApi.Schema$GridRange;
-        description: string;
+        protectedRange: sheetsApi.Schema$ProtectedRange;
       }): Promise<sheetsApi.Schema$ProtectedRange> {
         const res = await this.api.spreadsheets.batchUpdate({
           spreadsheetId: params.spreadsheetId,
@@ -271,11 +270,7 @@ export namespace RPA {
             requests: [
               {
                 addProtectedRange: {
-                  protectedRange: {
-                    range: params.range,
-                    description: params.description,
-                    warningOnly: true
-                  }
+                  protectedRange: params.protectedRange
                 }
               }
             ]
