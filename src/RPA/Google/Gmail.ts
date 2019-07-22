@@ -25,6 +25,14 @@ export namespace RPA {
         this.api = google.gmail({ version: "v1", auth });
       }
 
+      public async getProfile(
+        params: gmailApi.Params$Resource$Users$Getprofile
+      ): Promise<gmailApi.Schema$Profile> {
+        const profile = await this.api.users.getProfile(params);
+        Logger.debug("Gmail.getProfile");
+        return profile.data;
+      }
+
       public async send(params: MailOptions): Promise<string> {
         Logger.debug("Gmail.send", params);
         const message = await Gmail.buildMessage(params);
