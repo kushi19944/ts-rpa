@@ -32,6 +32,8 @@ export namespace RPA {
     private static headless: boolean =
       (process.env.WEB_BROWSER_HEADLESS || "true") === "true";
 
+    private static mobile: boolean = process.env.WEB_BROWSER_MOBILE === "true";
+
     private static outDir: string = process.env.WORKSPACE_DIR || "./";
 
     private static userDataDir: string = `${WebBrowser.outDir}/user-data`;
@@ -61,7 +63,15 @@ export namespace RPA {
         "download.default_directory": WebBrowser.outDir,
         "download.prompt_for_download": false
       };
-      this.capabilities.set("chromeOptions", { args, prefs });
+      let mobileEmulation = {};
+      if (WebBrowser.mobile) {
+        mobileEmulation = {
+          deviceMetrics: { width: 360, height: 640, pixelRatio: 3.0 },
+          userAgent:
+            "Mozilla/5.0 (Linux; Android 4.2.1; en-us; Nexus 5 Build/JOP40D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19"
+        };
+      }
+      this.capabilities.set("chromeOptions", { args, prefs, mobileEmulation });
       this.driver = new Builder().withCapabilities(this.capabilities).build();
       this.enableDownloadInHeadlessChrome();
     }
