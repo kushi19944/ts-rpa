@@ -21,6 +21,10 @@ export WEB_BROWSER_HEADLESS=true
 export GOOGLE_CLIENT_SECRET=************************
 export GOOGLE_CLIENT_ID=************-********************************.apps.googleusercontent.com
 export WORKSPACE_DIR=./tmp/
+
+# If you plan to use `RPA.GCP` module, you need to set a service account key file.
+# https://cloud.google.com/docs/authentication/getting-started
+export GOOGLE_APPLICATION_CREDENTIALS=************-************.json
 ```
 
 ## Usage
@@ -44,9 +48,9 @@ import RPA from "ts-rpa";
     await RPA.sleep(3000);
     await RPA.WebBrowser.takeScreenshot();
   } catch (error) {
-    RPA.systemLogger.error(error);
+    RPA.SystemLogger.error(error);
   } finally {
-    RPA.WebBrowser.quit();
+    await RPA.WebBrowser.quit();
   }
 })();
 ```

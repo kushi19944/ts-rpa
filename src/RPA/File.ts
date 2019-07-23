@@ -8,7 +8,7 @@ export namespace RPA {
   export class File {
     private constructor() {} // eslint-disable-line no-useless-constructor, no-empty-function
 
-    private static outDir: string = process.env.WORKSPACE_DIR || "./";
+    public static readonly outDir: string = process.env.WORKSPACE_DIR || "./";
 
     public static rename(params: { old: string; new: string }): void {
       Logger.debug("File.rename", params);

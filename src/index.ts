@@ -6,6 +6,8 @@ import * as LoggerModule from "./RPA/Logger";
 
 import GoogleModule from "./RPA/Google";
 
+import GCPModule from "./RPA/GCP";
+
 import SlackModule from "./RPA/Slack";
 
 import ChatworkModule from "./RPA/Chatwork";
@@ -22,6 +24,8 @@ import RequestModule from "./RPA/Request";
 
 export namespace RPA {
   export const Google = GoogleModule;
+
+  export const GCP = GCPModule;
 
   export const Slack = SlackModule;
 
