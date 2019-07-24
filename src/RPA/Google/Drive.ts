@@ -28,19 +28,26 @@ export namespace RPA {
         this.api = google.drive({ version: "v3", auth });
       }
 
-      public async listFiles(params: {
+      public async listFiles(params?: {
         parents?: string[];
+        includesTrash?: boolean;
       }): Promise<driveApi.Schema$File[]> {
         Logger.debug("Google.Drive.listFiles", params);
+        const { parents = [], includesTrash = false } = params || {};
         // Build `q` parameter
         // https://developers.google.com/drive/api/v3/search-files
-        let query = "";
-        if (params.parents) {
-          query += `(${params.parents
-            .map((parent): string => `"${parent}" in parents`)
-            .join(" or ")})`;
+        const queries = [];
+        if (parents) {
+          queries.push(
+            `(${parents
+              .map((parent): string => `"${parent}" in parents`)
+              .join(" or ")})`
+          );
         }
-        const res = await this.api.files.list({ q: query });
+        if (!includesTrash) {
+          queries.push("(trashed = false)");
+        }
+        const res = await this.api.files.list({ q: queries.join("and") });
         return res.data.files;
       }
 
