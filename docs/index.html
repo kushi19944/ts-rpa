@@ -75,15 +75,22 @@
 				<h3 id="installation">Installation</h3>
 				<ul>
 					<li>chromedriver<h3 id="enviroment">Enviroment</h3>
-						<pre><code><span class="hljs-builtin-name">export</span> <span class="hljs-attribute">NODE_PATH</span>=$(npm root -g)
-<span class="hljs-builtin-name">export</span> <span class="hljs-attribute">WEB_BROWSER_HEADLESS</span>=<span class="hljs-literal">true</span>
-<span class="hljs-builtin-name">export</span> <span class="hljs-attribute">GOOGLE_CLIENT_SECRET</span>=************************
-<span class="hljs-builtin-name">export</span> <span class="hljs-attribute">GOOGLE_CLIENT_ID</span>=************-********************************.apps.googleusercontent.com
-<span class="hljs-builtin-name">export</span> <span class="hljs-attribute">WORKSPACE_DIR</span>=./tmp/</code></pre></li>
+						<code>`</code>
+						export NODE_PATH=$(npm root -g)
+						export WEB_BROWSER_HEADLESS=true
+						export GOOGLE_CLIENT_SECRET=<strong><strong><strong><strong><strong>****</strong></strong></strong></strong></strong>
+						export GOOGLE_CLIENT_ID=<strong><strong>****</strong></strong>-<strong><strong><strong><strong><strong><strong><strong>****</strong></strong></strong></strong></strong></strong></strong>.apps.googleusercontent.com
+					export WORKSPACE_DIR=./tmp/</li>
 				</ul>
-				<h2 id="usage">Usage</h2>
-				<pre><code><span class="hljs-keyword">ts</span>-rpa sample.<span class="hljs-keyword">ts</span></code></pre><h2 id="sample">Sample</h2>
-				<pre><code class="language-js"><span class="hljs-keyword">import</span> RPA <span class="hljs-keyword">from</span> <span class="hljs-string">"ts-rpa"</span>;
+				<h1 id="if-you-plan-to-use-rpa-gcp-module-you-need-to-set-a-service-account-key-file-">If you plan to use <code>RPA.GCP</code> module, you need to set a service account key file.</h1>
+				<h1 id="https-cloud-google-com-docs-authentication-getting-started"><a href="https://cloud.google.com/docs/authentication/getting-started">https://cloud.google.com/docs/authentication/getting-started</a></h1>
+				<p>export GOOGLE_APPLICATION_CREDENTIALS=<strong><strong>****</strong></strong>-<strong><strong>****</strong></strong>.json</p>
+				<pre><code>
+## Usage</code></pre><p>ts-rpa sample.ts</p>
+				<pre><code>
+<span class="hljs-comment">## Sample</span>
+```<span class="javascript">js
+<span class="hljs-keyword">import</span> RPA <span class="hljs-keyword">from</span> <span class="hljs-string">"ts-rpa"</span>;
 
 <span class="hljs-function">(<span class="hljs-params"><span class="hljs-keyword">async</span> (</span>) =&gt;</span> {
   <span class="hljs-keyword">try</span> {
@@ -97,11 +104,11 @@
     <span class="hljs-keyword">await</span> RPA.sleep(<span class="hljs-number">3000</span>);
     <span class="hljs-keyword">await</span> RPA.WebBrowser.takeScreenshot();
   } <span class="hljs-keyword">catch</span> (error) {
-    RPA.systemLogger.error(error);
+    RPA.SystemLogger.error(error);
   } <span class="hljs-keyword">finally</span> {
-    RPA.WebBrowser.quit();
+    <span class="hljs-keyword">await</span> RPA.WebBrowser.quit();
   }
-})();</code></pre>
+})();</span></code></pre>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -112,6 +119,9 @@
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="modules/rpa.html">RPA</a>
+					</li>
+					<li class=" tsd-kind-module tsd-parent-kind-module">
+						<a href="modules/rpa.gcp.html">RPA.GCP</a>
 					</li>
 					<li class=" tsd-kind-module tsd-parent-kind-module">
 						<a href="modules/rpa.google.html">RPA.<wbr>Google</a>
