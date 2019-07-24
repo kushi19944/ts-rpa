@@ -77,7 +77,7 @@ export namespace RPA {
     }
 
     public wait<T>(
-      condition: Condition<T> | PromiseLike<T>,
+      condition: Condition<T> | PromiseLike<T> | Function,
       optTimeout?: number
     ): Promise<T> {
       Logger.debug("WebBrowser.wait", { condition, optTimeout });
