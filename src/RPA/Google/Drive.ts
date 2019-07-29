@@ -161,6 +161,11 @@ export namespace RPA {
         }
         throw Error("Invalid parameter.");
       }
+
+      public async delete(params: { fileId: string }): Promise<void> {
+        Logger.debug("Google.Drive.delete", params.fileId);
+        await this.api.files.delete({ fileId: params.fileId });
+      }
     }
   }
 }
