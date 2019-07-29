@@ -89,29 +89,35 @@ export namespace RPA {
       }): Promise<string> {
         const filePath = path.join(this.outDir, params.filename);
         Logger.debug("Google.Drive.upload", filePath, params.parents);
-        return new Promise((resolve): void => {
-          const file = fs.createReadStream(filePath).pipe(
-            MimeStream(
-              async (type): Promise<void> => {
-                const srcMimeType =
-                  params.mimeType || (type && type.mime) || "text/plain";
-                const res = await this.api.files.create({
-                  requestBody: {
-                    parents: params.parents,
-                    mimeType: params.destMimeType,
-                    name: params.destFilename || params.filename
-                  },
-                  supportsTeamDrives: true,
-                  media: {
-                    mimeType: srcMimeType,
-                    body: file
-                  },
-                  fields: "id"
-                });
-                resolve(res.data.id);
-              }
-            )
-          );
+        return new Promise((resolve, reject): void => {
+          let file: MimeStream;
+          const onDetectedType = async (type): Promise<void> => {
+            const srcMimeType =
+              params.mimeType || (type && type.mime) || "text/plain";
+            try {
+              const res = await this.api.files.create({
+                requestBody: {
+                  parents: params.parents,
+                  mimeType: params.destMimeType,
+                  name: params.destFilename || params.filename
+                },
+                supportsTeamDrives: true,
+                media: {
+                  mimeType: srcMimeType,
+                  body: file
+                },
+                fields: "id"
+              });
+              resolve(res.data.id);
+            } catch (e) {
+              reject(e);
+            }
+          };
+          file = fs
+            .createReadStream(filePath)
+            .on("error", reject)
+            .pipe(MimeStream(onDetectedType))
+            .on("error", reject);
         });
       }
 
