@@ -1,4 +1,4 @@
-import * as https from "https";
+import nodeFetch, { Response } from "node-fetch";
 import * as qs from "querystring";
 import Logger from "./Logger";
 
@@ -41,30 +41,15 @@ export namespace RPA {
       url: string;
       method: string;
       data: { [key: string]: string };
-    }) {
+    }): Promise<Response> {
       Logger.debug("Chatwork.request", params);
-      return new Promise((resolve, reject): void => {
-        const req = https.request(
-          params.url,
-          {
-            headers: {
-              "X-ChatWorkToken": this.apiToken,
-              "Content-Type": "application/x-www-form-urlencoded"
-            },
-            method: params.method
-          },
-          (res): void => {
-            res.on("data", (data): void => {
-              if (res.statusCode === 200) {
-                resolve(JSON.parse(data.toString()));
-              } else {
-                reject(JSON.parse(data.toString()));
-              }
-            });
-          }
-        );
-        req.write(qs.stringify(params.data));
-        req.end();
+      return nodeFetch(params.url, {
+        method: params.method,
+        headers: {
+          "X-ChatWorkToken": this.apiToken,
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: qs.stringify(params.data)
       });
     }
   }
