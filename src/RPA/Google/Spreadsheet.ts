@@ -298,6 +298,27 @@ export namespace RPA {
         });
         Logger.debug("Google.Spreadsheet.deleteProtectedRange", params);
       }
+
+      /**
+       * Lists the protected ranges of a spreadsheet.
+       */
+      public async listProtectedRanges(params: {
+        spreadsheetId: string;
+        sheetId?: number;
+      }): Promise<sheetsApi.Schema$ProtectedRange[]> {
+        Logger.debug("Google.Spreadsheet.listProtectedRanges", params);
+        const data = await this.get({ spreadsheetId: params.spreadsheetId });
+        const sheets = data.sheets.filter(
+          (v): boolean =>
+            params.sheetId == null || v.properties.sheetId === params.sheetId
+        );
+        return (
+          sheets
+            .map(sheet => sheet.protectedRanges || [])
+            // flatten
+            .reduce((ret, ranges) => ret.concat(ranges), [])
+        );
+      }
     }
   }
 }
