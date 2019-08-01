@@ -144,7 +144,7 @@ export namespace RPA {
           const queryParams = new URL(params.url).searchParams;
           /* eslint-disable no-underscore-dangle */
           await Request.download(
-            path.join(this.outDir, outFilename),
+            outFilename,
             `${params.url}${queryParams ? "&" : "?"}alt=media`,
             {
               headers: {
