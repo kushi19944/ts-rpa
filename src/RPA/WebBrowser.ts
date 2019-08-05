@@ -251,6 +251,46 @@ export namespace RPA {
     }
 
     /**
+     * Retrieve the current window handle.
+     */
+    public async getWindowHandle(): Promise<string> {
+      Logger.debug("WebBrowser.getWindowHandle");
+      return this.driver.getWindowHandle();
+    }
+
+    /**
+     * Retrieve the current list of available window handles.
+     */
+    public async getAllWindowHandles(): Promise<string[]> {
+      Logger.debug("WebBrowser.getAllWindowHandles");
+      return this.driver.getAllWindowHandles();
+    }
+
+    /**
+     * Switch the focus of all future commands to another window.
+     */
+    public async switchToWindow(windowHandle: string): Promise<void> {
+      Logger.debug("WebBrowser.switchToWindow", windowHandle);
+      await this.driver.switchTo().window(windowHandle);
+    }
+
+    /**
+     * Close a window.
+     * If no window is specified, close the current window.
+     */
+    public async closeWindow(windowHandle?: string): Promise<void> {
+      Logger.debug("WebBrowser.closeWindow", windowHandle);
+      const currentWindow = await this.driver.getWindowHandle();
+      if (windowHandle != null && windowHandle !== currentWindow) {
+        await this.driver.switchTo().window(windowHandle);
+        await this.driver.close();
+        await this.driver.switchTo().window(currentWindow);
+      } else {
+        await this.driver.close();
+      }
+    }
+
+    /**
      * Enable file downloads in Chrome running in headless mode
      */
     private enableDownloadInHeadlessChrome(): void {
