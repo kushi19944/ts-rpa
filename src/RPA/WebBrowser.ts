@@ -7,7 +7,8 @@ import {
   ThenableWebDriver,
   WebElement,
   until,
-  Key
+  Key,
+  Alert
 } from "selenium-webdriver";
 import { Command } from "selenium-webdriver/lib/command";
 
@@ -288,6 +289,14 @@ export namespace RPA {
       } else {
         await this.driver.close();
       }
+    }
+
+    /**
+     * Change focus to the active modal dialog,
+     * such as those opened by `window.alert()`, `window.confirm()`, and `window.prompt()`.
+     */
+    public async focusToAlert(): Promise<Alert> {
+      return this.driver.switchTo().alert();
     }
 
     /**
