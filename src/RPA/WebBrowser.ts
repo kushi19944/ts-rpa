@@ -126,6 +126,7 @@ export namespace RPA {
       Logger.debug("WebBrowser.sendKeys");
       return (await element).sendKeys(args);
     }
+
     /* eslint-enable class-methods-use-this */
 
     public findElement(selector: string): Promise<WebElement> {
@@ -211,6 +212,42 @@ export namespace RPA {
     public getCookies(): Promise<IWebDriverOptionsCookie[]> {
       Logger.debug("WebBrowser.getCookies");
       return this.driver.manage().getCookies();
+    }
+
+    /**
+     * Scroll to the element
+     */
+    public async scrollTo(
+      params: { selector?: string } | { xpath?: string }
+    ): Promise<void> {
+      Logger.debug("WebBrowser.scrollTo", params);
+      const escape = (s: string): string =>
+        s
+          .split("")
+          .map((c): string => `\\u{${c.codePointAt(0).toString(16)}}`)
+          .join("");
+
+      let js: string;
+      if ("selector" in params) {
+        js = `{
+          const target = document.querySelector(\`${escape(params.selector)}\`);
+          const x = target.getBoundingClientRect().left + window.pageXOffset - window.innerWidth / 2;
+          const y = target.getBoundingClientRect().top + window.pageYOffset - window.innerHeight / 2;
+          window.scrollTo(x, y);
+        }`;
+      }
+      if ("xpath" in params) {
+        js = `{
+          const result = document.evaluate(\`${escape(
+            params.xpath
+          )}\`, document, null, XPathResult.ANY_TYPE, null);
+          const target = result.iterateNext();
+          const x = target.getBoundingClientRect().left + window.pageXOffset - window.innerWidth / 2;
+          const y = target.getBoundingClientRect().top + window.pageYOffset - window.innerHeight / 2;
+          window.scrollTo(x, y);
+        }`;
+      }
+      return this.driver.executeScript(js);
     }
 
     /**
