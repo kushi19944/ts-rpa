@@ -319,6 +319,129 @@ export namespace RPA {
             .reduce((ret, ranges) => ret.concat(ranges), [])
         );
       }
+
+      /**
+       * Deletes specified dimension
+       */
+      public async deleteDimension(params: {
+        spreadsheetId: string;
+        range: sheetsApi.Schema$GridRange;
+      }): Promise<void> {
+        Logger.debug("Google.Spreadsheet.deleteDimension", params);
+
+        // converts Schema$GridRange to Schema$DimensionRange
+        const dimensionRanges: sheetsApi.Schema$DimensionRange[] = [];
+        if (
+          params.range.startColumnIndex != null ||
+          params.range.endColumnIndex != null
+        ) {
+          dimensionRanges.push({
+            startIndex: params.range.startColumnIndex,
+            endIndex: params.range.endColumnIndex,
+            sheetId: params.range.sheetId,
+            dimension: "COLUMNS"
+          });
+        }
+        if (
+          params.range.startRowIndex != null ||
+          params.range.endRowIndex != null
+        ) {
+          dimensionRanges.push({
+            startIndex: params.range.startRowIndex,
+            endIndex: params.range.endRowIndex,
+            sheetId: params.range.sheetId,
+            dimension: "ROWS"
+          });
+        }
+
+        await Promise.all(
+          dimensionRanges.map(
+            async (range): Promise<void> => {
+              await this.api.spreadsheets.batchUpdate({
+                spreadsheetId: params.spreadsheetId,
+                requestBody: {
+                  requests: [{ deleteDimension: { range } }]
+                }
+              });
+            }
+          )
+        );
+      }
+
+      /**
+       * Sorts the specified range using the column of `keyColumnIndex`.
+       * The default order is ascending.
+       */
+      public async sortRange(params: {
+        spreadsheetId: string;
+        range: sheetsApi.Schema$GridRange;
+        keyColumnIndex: number;
+        desc?: boolean;
+      }): Promise<void> {
+        Logger.debug("Google.Spreadsheet.sortRange", params);
+        const order = params.desc ? "DESCENDING" : "ASCENDING";
+        await this.api.spreadsheets.batchUpdate({
+          spreadsheetId: params.spreadsheetId,
+          requestBody: {
+            requests: [
+              {
+                sortRange: {
+                  range: params.range,
+                  sortSpecs: [
+                    {
+                      dimensionIndex: params.keyColumnIndex,
+                      sortOrder: order
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        });
+      }
+
+      /**
+       * Finds and replaces data in cells over a range or all sheets.
+       * You must specify either `range` or `allSheets`.
+       */
+      public async findReplace(params: {
+        spreadsheetId: string;
+        range?: sheetsApi.Schema$GridRange;
+        allSheets?: boolean;
+        /** The value to search. */
+        find: string;
+        /** The value to use as the replacement. */
+        replacement: string;
+        /** Set true if the search is case sensitive. */
+        matchCase?: boolean;
+        /** Set true if the find value should match the entire cell. */
+        matchEntireCell?: boolean;
+        /** Set true if the find value is a regex. */
+        searchByRegex?: boolean;
+        /** Set true if the search should include cells with formulas. Set false to skip cells with formulas. */
+        includeFormulas?: boolean;
+      }): Promise<void> {
+        Logger.debug("Google.Spreadsheet.findReplace", params);
+        await this.api.spreadsheets.batchUpdate({
+          spreadsheetId: params.spreadsheetId,
+          requestBody: {
+            requests: [
+              {
+                findReplace: {
+                  range: params.range,
+                  allSheets: params.allSheets,
+                  find: params.find,
+                  replacement: params.replacement,
+                  matchCase: params.matchCase,
+                  matchEntireCell: params.matchEntireCell,
+                  searchByRegex: params.searchByRegex,
+                  includeFormulas: params.includeFormulas
+                }
+              }
+            ]
+          }
+        });
+      }
     }
   }
 }
