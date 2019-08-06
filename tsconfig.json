@@ -6,7 +6,7 @@
     "baseUrl": "src/",
     "sourceMap": true,
     "declaration": true,
-    "removeComments": true,
+    "removeComments": false
   },
   "include": [
       "src/**/*"
