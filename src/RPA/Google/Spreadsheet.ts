@@ -367,6 +367,38 @@ export namespace RPA {
           )
         );
       }
+
+      /**
+       * Sorts the specified range using the column of `keyColumnIndex`.
+       * The default order is ascending.
+       */
+      public async sortRange(params: {
+        spreadsheetId: string;
+        range: sheetsApi.Schema$GridRange;
+        keyColumnIndex: number;
+        desc?: boolean;
+      }): Promise<void> {
+        Logger.debug("Google.Spreadsheet.sortRange", params);
+        const order = params.desc ? "DESCENDING" : "ASCENDING";
+        await this.api.spreadsheets.batchUpdate({
+          spreadsheetId: params.spreadsheetId,
+          requestBody: {
+            requests: [
+              {
+                sortRange: {
+                  range: params.range,
+                  sortSpecs: [
+                    {
+                      dimensionIndex: params.keyColumnIndex,
+                      sortOrder: order
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        });
+      }
     }
   }
 }
