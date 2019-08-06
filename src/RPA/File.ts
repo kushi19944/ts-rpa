@@ -110,9 +110,10 @@ export namespace RPA {
       orderBy?: OrderBy;
     }) {
       const dirname = (params && params.dirname) || "./";
-      Logger.debug("File.list", { params });
+      Logger.debug("File.list", { dirname });
       const fileList = fs.readdirSync(path.join(this.outDir, dirname));
       if (params.sortType) {
+        Logger.debug("File.list->sort", { params });
         if (params.sortType === SortType.Name) {
           fileList.sort(
             new Intl.Collator(undefined, { numeric: true, sensitivity: "base" })
@@ -125,8 +126,10 @@ export namespace RPA {
           return fs
             .readdirSync(path.join(this.outDir, dirname))
             .map(filename => {
-              const sortValue = this.getStats({ filename })[params.sortType];
-              return { filename, value: sortValue };
+              return {
+                filename,
+                value: this.getStats({ filename })[params.sortType]
+              };
             })
             .sort((a, b) =>
               params.orderBy === OrderBy.DESC
