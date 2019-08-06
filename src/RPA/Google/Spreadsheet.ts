@@ -399,6 +399,49 @@ export namespace RPA {
           }
         });
       }
+
+      /**
+       * Finds and replaces data in cells over a range or all sheets.
+       * You must specify either `range` or `allSheets`.
+       */
+      public async findReplace(params: {
+        spreadsheetId: string;
+        range?: sheetsApi.Schema$GridRange;
+        allSheets?: boolean;
+        /** The value to search. */
+        find: string;
+        /** The value to use as the replacement. */
+        replacement: string;
+        /** Set true if the search is case sensitive. */
+        matchCase?: boolean;
+        /** Set true if the find value should match the entire cell. */
+        matchEntireCell?: boolean;
+        /** Set true if the find value is a regex. */
+        searchByRegex?: boolean;
+        /** Set true if the search should include cells with formulas. Set false to skip cells with formulas. */
+        includeFormulas?: boolean;
+      }): Promise<void> {
+        Logger.debug("Google.Spreadsheet.findReplace", params);
+        await this.api.spreadsheets.batchUpdate({
+          spreadsheetId: params.spreadsheetId,
+          requestBody: {
+            requests: [
+              {
+                findReplace: {
+                  range: params.range,
+                  allSheets: params.allSheets,
+                  find: params.find,
+                  replacement: params.replacement,
+                  matchCase: params.matchCase,
+                  matchEntireCell: params.matchEntireCell,
+                  searchByRegex: params.searchByRegex,
+                  includeFormulas: params.includeFormulas
+                }
+              }
+            ]
+          }
+        });
+      }
     }
   }
 }
