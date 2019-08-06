@@ -4,8 +4,25 @@ import * as fileType from "file-type";
 import * as isUtf8 from "is-utf8";
 import Logger from "./Logger";
 
+enum SortType {
+  Name = "name",
+  Birthtime = "birthtime",
+  Ctime = "ctime",
+  Mtime = "mtime",
+  Size = "size"
+}
+
+enum OrderBy {
+  ASC,
+  DESC
+}
+
 export namespace RPA {
   export class File {
+    public static readonly SortType = SortType;
+
+    public static readonly OrderBy = OrderBy;
+
     private constructor() {} // eslint-disable-line no-useless-constructor, no-empty-function
 
     public static readonly outDir: string = process.env.WORKSPACE_DIR || "./";
@@ -87,13 +104,46 @@ export namespace RPA {
       return fs.statSync(path.join(this.outDir, params.filename));
     }
 
-    public static list(params?: { dirname: string }): string[] {
+    public static list(params?: {
+      dirname: string;
+      sortType?: SortType;
+      orderBy?: OrderBy;
+    }) {
       const dirname = (params && params.dirname) || "./";
-      Logger.debug("File.list", { dirname });
-      return fs.readdirSync(path.join(this.outDir, dirname));
+      Logger.debug("File.list", { params });
+      const fileList = fs.readdirSync(path.join(this.outDir, dirname));
+      if (params.sortType) {
+        if (params.sortType === SortType.Name) {
+          fileList.sort(
+            new Intl.Collator(undefined, { numeric: true, sensitivity: "base" })
+              .compare
+          );
+          if (params.orderBy === OrderBy.DESC) {
+            fileList.reverse();
+          }
+        } else {
+          return fs
+            .readdirSync(path.join(this.outDir, dirname))
+            .map(filename => {
+              const sortValue = this.getStats({ filename })[params.sortType];
+              return { filename, value: sortValue };
+            })
+            .sort((a, b) =>
+              params.orderBy === OrderBy.DESC
+                ? b.value - a.value
+                : a.value - b.value
+            )
+            .map(v => v.filename);
+        }
+      }
+      return fileList;
     }
 
-    public static listFiles(params?: { dirname: string }): string[] {
+    public static listFiles(params?: {
+      dirname: string;
+      sortType?: SortType;
+      orderBy?: OrderBy;
+    }): string[] {
       const dirname = (params && params.dirname) || "./";
       Logger.debug("File.listFiles", { dirname });
       return File.list(params).filter((filename): boolean =>
