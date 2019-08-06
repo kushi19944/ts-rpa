@@ -21,6 +21,7 @@ import HashModule from "./RPA/Hash";
 import ZipModule from "./RPA/Zip";
 
 import RequestModule from "./RPA/Request";
+import StringModule from "./RPA/String";
 
 export namespace RPA {
   export const Google = GoogleModule;
@@ -40,6 +41,8 @@ export namespace RPA {
   export const Zip = ZipModule;
 
   export const Request = RequestModule;
+
+  export const String = StringModule;
 
   export const WebBrowser = WebBrowserModule.default;
 
