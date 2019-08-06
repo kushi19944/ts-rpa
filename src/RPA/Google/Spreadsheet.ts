@@ -319,6 +319,54 @@ export namespace RPA {
             .reduce((ret, ranges) => ret.concat(ranges), [])
         );
       }
+
+      /**
+       * Deletes specified dimension
+       */
+      public async deleteDimension(params: {
+        spreadsheetId: string;
+        range: sheetsApi.Schema$GridRange;
+      }): Promise<void> {
+        Logger.debug("Google.Spreadsheet.deleteDimension", params);
+
+        // converts Schema$GridRange to Schema$DimensionRange
+        const dimensionRanges: sheetsApi.Schema$DimensionRange[] = [];
+        if (
+          params.range.startColumnIndex != null ||
+          params.range.endColumnIndex != null
+        ) {
+          dimensionRanges.push({
+            startIndex: params.range.startColumnIndex,
+            endIndex: params.range.endColumnIndex,
+            sheetId: params.range.sheetId,
+            dimension: "COLUMNS"
+          });
+        }
+        if (
+          params.range.startRowIndex != null ||
+          params.range.endRowIndex != null
+        ) {
+          dimensionRanges.push({
+            startIndex: params.range.startRowIndex,
+            endIndex: params.range.endRowIndex,
+            sheetId: params.range.sheetId,
+            dimension: "ROWS"
+          });
+        }
+
+        await Promise.all(
+          dimensionRanges.map(
+            async (range): Promise<void> => {
+              await this.api.spreadsheets.batchUpdate({
+                spreadsheetId: params.spreadsheetId,
+                requestBody: {
+                  requests: [{ deleteDimension: { range } }]
+                }
+              });
+            }
+          )
+        );
+      }
     }
   }
 }
