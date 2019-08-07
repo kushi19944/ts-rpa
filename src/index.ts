@@ -67,27 +67,17 @@ export namespace RPA {
     });
   };
 
+  /**
+   * Executes up to `retryCount` times until `asyncFunc` resolves
+   */
   export const retry = <T>(
     asyncFunc: () => Promise<T>,
     retryCount = 3
   ): Promise<T> => {
-    const uniqueObj = {};
     const nums = Array.from(Array(retryCount));
-    return nums.reduce(
-      (prm, _, i): any =>
-        prm.catch(
-          (err): Promise<T> =>
-            err !== uniqueObj
-              ? Promise.reject(err)
-              : asyncFunc().catch(
-                  (): Promise<never> =>
-                    sleep(i * 1000).then(
-                      (): Promise<never> => Promise.reject(uniqueObj)
-                    )
-                )
-        ),
-      Promise.reject(uniqueObj)
-    );
+    return nums.reduce((prm, _, i): Promise<T> => {
+      return prm.catch((): Promise<T> => sleep(i * 1000).then(asyncFunc));
+    }, Promise.reject());
   };
 }
 
