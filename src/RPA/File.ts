@@ -123,8 +123,7 @@ export namespace RPA {
             fileList.reverse();
           }
         } else {
-          return fs
-            .readdirSync(path.join(this.outDir, dirname))
+          return fileList
             .map(filename => {
               return {
                 filename,
