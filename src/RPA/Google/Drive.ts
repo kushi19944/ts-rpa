@@ -175,6 +175,31 @@ export namespace RPA {
         Logger.debug("Google.Drive.delete", params.fileId);
         await this.api.files.delete({ fileId: params.fileId });
       }
+
+      /**
+       * Creates a copy of a file and applies any requested updates.
+       */
+      public async copy(params: {
+        /** The ID of the file to copy. */
+        fileId: string;
+        /** If specified, copies as this file name. */
+        filename?: string;
+        /** If specified, copies as this MIME type. */
+        mimeType?: string;
+        /** The array of parent folders to copy to. */
+        parents?: string[];
+      }): Promise<driveApi.Schema$File> {
+        Logger.debug("Google.Drive.copy", params);
+        const res = await this.api.files.copy({
+          fileId: params.fileId,
+          requestBody: {
+            mimeType: params.mimeType,
+            name: params.filename,
+            parents: params.parents
+          }
+        });
+        return res.data;
+      }
     }
   }
 }
