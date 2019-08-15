@@ -1,6 +1,6 @@
 {
   "name": "ts-rpa",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "npm install -g ts-node",
   "main": "dist/index.js",
   "files": [
@@ -99,7 +99,7 @@
     "prettier": "^1.18.2",
     "ts-jest": "^24.0.2",
     "ts-node": "^8.3.0",
-    "typedoc": "^0.14.2",
+    "typedoc": "^0.15.0",
     "typedoc-plugin-localization": "^1.4.1"
   },
   "repository": {

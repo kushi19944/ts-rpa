@@ -1,0 +1,9 @@
+tmp/
+tests/
+coverage/
+node_modules/
+*.log
+*.tgz
+*.key
+.env
+sample.ts
