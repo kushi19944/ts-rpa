@@ -91,6 +91,7 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="rpa.chatwork.html#apitoken" class="tsd-kind-icon">api<wbr>Token</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="rpa.chatwork.html#outdir" class="tsd-kind-icon">out<wbr>Dir</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-static"><a href="rpa.chatwork.html#chatwork" class="tsd-kind-icon">chatwork</a></li>
 							</ul>
 						</section>
@@ -104,6 +105,7 @@
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="rpa.chatwork.html#initialise" class="tsd-kind-icon">initialise</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="rpa.chatwork.html#postfile" class="tsd-kind-icon">post<wbr>File</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="rpa.chatwork.html#postmessage" class="tsd-kind-icon">post<wbr>Message</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="rpa.chatwork.html#request" class="tsd-kind-icon">request</a></li>
 							</ul>
@@ -123,7 +125,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/5126275/src/RPA/Chatwork.ts#L11">RPA/Chatwork.ts:11</a></li>
+									<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/d7d154f/src/RPA/Chatwork.ts#L17">RPA/Chatwork.ts:17</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="rpa.chatwork.html" class="tsd-signature-type">Chatwork</a></h4>
@@ -139,7 +141,17 @@
 					<div class="tsd-signature tsd-kind-icon">api<wbr>Token<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/5126275/src/RPA/Chatwork.ts#L11">RPA/Chatwork.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/d7d154f/src/RPA/Chatwork.ts#L17">RPA/Chatwork.ts:17</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="outdir" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> out<wbr>Dir</h3>
+					<div class="tsd-signature tsd-kind-icon">out<wbr>Dir<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;process.env.WORKSPACE_DIR || &quot;./&quot;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/d7d154f/src/RPA/Chatwork.ts#L15">RPA/Chatwork.ts:15</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -149,7 +161,7 @@
 					<div class="tsd-signature tsd-kind-icon">chatwork<span class="tsd-signature-symbol">:</span> <a href="rpa.chatwork.html" class="tsd-signature-type">Chatwork</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/5126275/src/RPA/Chatwork.ts#L9">RPA/Chatwork.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/d7d154f/src/RPA/Chatwork.ts#L13">RPA/Chatwork.ts:13</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -166,7 +178,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/5126275/src/RPA/Chatwork.ts#L15">RPA/Chatwork.ts:15</a></li>
+									<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/d7d154f/src/RPA/Chatwork.ts#L21">RPA/Chatwork.ts:21</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="rpa.chatwork.html" class="tsd-signature-type">Chatwork</a></h4>
@@ -186,7 +198,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/5126275/src/RPA/Chatwork.ts#L22">RPA/Chatwork.ts:22</a></li>
+									<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/d7d154f/src/RPA/Chatwork.ts#L28">RPA/Chatwork.ts:28</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -205,6 +217,46 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="postfile" class="tsd-anchor"></a>
+					<h3>post<wbr>File</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">post<wbr>File<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/d7d154f/src/RPA/Chatwork.ts#L53">RPA/Chatwork.ts:53</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Post a file to the chat.
+									Note that the maximum file size is 5MB.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>params: <span class="tsd-signature-type">object</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter">
+											<h5>filename<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+										</li>
+										<li class="tsd-parameter">
+											<h5><span class="tsd-flag ts-flagOptional">Optional</span> message<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
+										</li>
+										<li class="tsd-parameter">
+											<h5>room<wbr>Id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="postmessage" class="tsd-anchor"></a>
 					<h3>post<wbr>Message</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -214,9 +266,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/5126275/src/RPA/Chatwork.ts#L26">RPA/Chatwork.ts:26</a></li>
+									<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/d7d154f/src/RPA/Chatwork.ts#L35">RPA/Chatwork.ts:35</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Post a message to the chat.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -245,7 +302,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/5126275/src/RPA/Chatwork.ts#L40">RPA/Chatwork.ts:40</a></li>
+									<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/d7d154f/src/RPA/Chatwork.ts#L83">RPA/Chatwork.ts:83</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -254,12 +311,7 @@
 									<h5>params: <span class="tsd-signature-type">object</span></h5>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter">
-											<h5>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></h5>
-											<ul class="tsd-parameters">
-												<li class="tsd-parameter-index-signature">
-													<h5><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">string</span></h5>
-												</li>
-											</ul>
+											<h5>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">FormData</span></h5>
 										</li>
 										<li class="tsd-parameter">
 											<h5>method<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
@@ -309,6 +361,9 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="rpa.chatwork.html#apitoken" class="tsd-kind-icon">api<wbr>Token</a>
 							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="rpa.chatwork.html#outdir" class="tsd-kind-icon">out<wbr>Dir</a>
+							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-static">
 								<a href="rpa.chatwork.html#chatwork" class="tsd-kind-icon">chatwork</a>
 							</li>
@@ -317,6 +372,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="rpa.chatwork.html#initialise" class="tsd-kind-icon">initialise</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="rpa.chatwork.html#postfile" class="tsd-kind-icon">post<wbr>File</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="rpa.chatwork.html#postmessage" class="tsd-kind-icon">post<wbr>Message</a>
