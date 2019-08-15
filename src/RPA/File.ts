@@ -112,7 +112,7 @@ export namespace RPA {
       const dirname = (params && params.dirname) || "./";
       Logger.debug("File.list", { dirname });
       const fileList = fs.readdirSync(path.join(this.outDir, dirname));
-      if (params.sortType) {
+      if (params && params.sortType) {
         Logger.debug("File.list->sort", { params });
         if (params.sortType === SortType.Name) {
           fileList.sort(
