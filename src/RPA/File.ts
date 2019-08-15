@@ -105,7 +105,7 @@ export namespace RPA {
     }
 
     public static list(params?: {
-      dirname: string;
+      dirname?: string;
       sortType?: SortType;
       orderBy?: OrderBy;
     }) {
@@ -142,7 +142,7 @@ export namespace RPA {
     }
 
     public static listFiles(params?: {
-      dirname: string;
+      dirname?: string;
       sortType?: SortType;
       orderBy?: OrderBy;
     }): string[] {
