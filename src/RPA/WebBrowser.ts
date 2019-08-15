@@ -13,6 +13,7 @@ import {
 import { Command } from "selenium-webdriver/lib/command";
 
 import * as fs from "fs";
+import util from "../util";
 import Logger from "./Logger";
 import File from "./File";
 
@@ -325,6 +326,55 @@ export namespace RPA {
         }
       };
       this.driver.execute(new Command("send_command").setParameters(params));
+    }
+
+    /**
+     * Wait for the download to complete.
+     * @returns The name of the downloaded file.
+     */
+    // eslint-disable-next-line class-methods-use-this
+    public async waitForDownload(params: {
+      /** Function to start the download. */
+      downloader: () => Promise<void>;
+      /** Extension name of the file to download. */
+      extname?: string;
+      /** How long to wait, in milliseconds, for the download to complete. */
+      timeout?: number;
+    }): Promise<string> {
+      const timeout = params.timeout || 30000;
+      let extname = params.extname || "";
+      if (extname && !extname.startsWith(".")) {
+        extname = `.${extname}`;
+      }
+      Logger.debug("WebBrowser.download", { timeout, extname });
+
+      const startedAt = Date.now();
+      await params.downloader();
+
+      // Omit the debug logs temporarily
+      const logLevel = Logger.level;
+      Logger.level = Logger.isInfoEnabled() ? "INFO" : Logger.level;
+      try {
+        while (Date.now() < startedAt + timeout) {
+          const files = File.listFiles({
+            sortType: File.SortType.Mtime,
+            orderBy: File.OrderBy.DESC
+          })
+            .filter((filename): boolean => !filename.endsWith(".crdownload"))
+            .filter((filename): boolean => filename.endsWith(extname));
+
+          if (files.length > 0) {
+            const latestFile = files[0];
+            if (File.getStats({ filename: latestFile }).mtimeMs > startedAt) {
+              return latestFile;
+            }
+          }
+          await util.sleep(100); // eslint-disable-line no-await-in-loop
+        }
+      } finally {
+        Logger.level = logLevel;
+      }
+      throw new Error("Download timed out");
     }
   }
 }

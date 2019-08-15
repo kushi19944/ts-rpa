@@ -1,5 +1,3 @@
-import * as readline from "readline";
-
 import * as WebBrowserModule from "./RPA/WebBrowser";
 
 import * as LoggerModule from "./RPA/Logger";
@@ -21,7 +19,10 @@ import HashModule from "./RPA/Hash";
 import ZipModule from "./RPA/Zip";
 
 import RequestModule from "./RPA/Request";
+
 import StringModule from "./RPA/String";
+
+import UtilModule from "./util";
 
 export namespace RPA {
   export const Google = GoogleModule;
@@ -50,35 +51,7 @@ export namespace RPA {
 
   export const SystemLogger = LoggerModule.system;
 
-  export const sleep = (msec: number): Promise<void> =>
-    new Promise((resolve): void => {
-      setTimeout((): void => {
-        resolve();
-      }, msec);
-    });
-
-  export const prompt = (question: string): Promise<string> => {
-    const stdio = readline.createInterface(process.stdin, process.stdout);
-    return new Promise((resolve): void => {
-      stdio.question(question, (answer): void => {
-        stdio.close();
-        resolve(answer);
-      });
-    });
-  };
-
-  /**
-   * Executes up to `retryCount` times until `asyncFunc` resolves
-   */
-  export const retry = <T>(
-    asyncFunc: () => Promise<T>,
-    retryCount = 3
-  ): Promise<T> => {
-    const nums = Array.from(Array(retryCount));
-    return nums.reduce((prm, _, i): Promise<T> => {
-      return prm.catch((): Promise<T> => sleep(i * 1000).then(asyncFunc));
-    }, Promise.reject());
-  };
+  export const { sleep, prompt, retry } = UtilModule;
 }
 
 export default RPA;
