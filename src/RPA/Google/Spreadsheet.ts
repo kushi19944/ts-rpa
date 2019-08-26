@@ -239,6 +239,23 @@ export namespace RPA {
         return res.data.updatedSpreadsheet;
       }
 
+      /**
+       * Lists sheet properties in a spreadsheet.
+       */
+      public async listSheetProperties(params: {
+        spreadsheetId: string;
+        sheetId?: number;
+      }): Promise<sheetsApi.Schema$SheetProperties[]> {
+        Logger.debug("Google.Spreadsheet.listSheetProperties", params);
+        const data = await this.get({ spreadsheetId: params.spreadsheetId });
+        return data.sheets
+          .map((sheet): sheetsApi.Schema$SheetProperties => sheet.properties)
+          .filter(
+            (property): boolean =>
+              params.sheetId == null || property.sheetId === params.sheetId
+          );
+      }
+
       public async updateSheetProperties(params: {
         spreadsheetId: string;
         properties: sheetsApi.Schema$SheetProperties;
