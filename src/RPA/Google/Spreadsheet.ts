@@ -459,6 +459,29 @@ export namespace RPA {
           }
         });
       }
+
+      /**
+       * Converts a column name to a number (0-indexed).
+       * A -> 0
+       * Z -> 25
+       * AA -> 26
+       * AZ -> 51
+       * BA -> 52
+       */
+      // eslint-disable-next-line class-methods-use-this
+      public ctoi(column: string): number {
+        if (!column.match(/^[A-Za-z]+$/g)) {
+          throw new Error("Invalid column name");
+        }
+        return column
+          .toUpperCase()
+          .split("")
+          .reduce(
+            (ret, c): number =>
+              (ret + 1) * 26 + c.codePointAt(0) - "A".codePointAt(0),
+            -1
+          );
+      }
     }
   }
 }
