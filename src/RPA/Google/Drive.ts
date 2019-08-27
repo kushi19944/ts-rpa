@@ -31,9 +31,11 @@ export namespace RPA {
       public async listFiles(params?: {
         parents?: string[];
         includesTrash?: boolean;
+        pageSize?: number;
       }): Promise<driveApi.Schema$File[]> {
         Logger.debug("Google.Drive.listFiles", params);
-        const { parents = [], includesTrash = false } = params || {};
+        const { parents = [], includesTrash = false, pageSize = 100 } =
+          params || {};
         // Build `q` parameter
         // https://developers.google.com/drive/api/v3/search-files
         const queries = [];
@@ -47,7 +49,10 @@ export namespace RPA {
         if (!includesTrash) {
           queries.push("(trashed = false)");
         }
-        const res = await this.api.files.list({ q: queries.join("and") });
+        const res = await this.api.files.list({
+          q: queries.join("and"),
+          pageSize
+        });
         return res.data.files;
       }
 
