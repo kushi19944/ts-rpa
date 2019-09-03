@@ -6,6 +6,8 @@ import GoogleModule from "./RPA/Google";
 
 import GCPModule from "./RPA/GCP";
 
+import OfficeModule from "./RPA/Office";
+
 import SlackModule from "./RPA/Slack";
 
 import ChatworkModule from "./RPA/Chatwork";
@@ -28,6 +30,8 @@ export namespace RPA {
   export const Google = GoogleModule;
 
   export const GCP = GCPModule;
+
+  export const Office = OfficeModule;
 
   export const Slack = SlackModule;
 
