@@ -223,37 +223,81 @@ export namespace RPA {
     /**
      * Scroll to the element
      */
-    public async scrollTo(
-      params: { selector?: string } | { xpath?: string }
-    ): Promise<void> {
+    public async scrollTo(params: {
+      selector?: string;
+      xpath?: string;
+      /** The selector of an element that is set CSS `overflow` property */
+      containerSelector?: string;
+      /** The XPath of an element that is set CSS `overflow` property */
+      containerXpath?: string;
+    }): Promise<void> {
       Logger.debug("WebBrowser.scrollTo", params);
-      const escape = (s: string): string =>
-        s
-          .split("")
-          .map((c): string => `\\u{${c.codePointAt(0).toString(16)}}`)
-          .join("");
 
-      let js: string;
-      if ("selector" in params) {
-        js = `{
-          const target = document.querySelector(\`${escape(params.selector)}\`);
-          const x = target.getBoundingClientRect().left + window.pageXOffset - window.innerWidth / 2;
-          const y = target.getBoundingClientRect().top + window.pageYOffset - window.innerHeight / 2;
-          window.scrollTo(x, y);
-        }`;
+      if (params.containerSelector || params.containerXpath) {
+        await this.driver.executeScript(
+          (
+            selector: string,
+            xpath: string,
+            containerSelector: string,
+            containerXpath: string
+          ): void => {
+            /* eslint-disable no-undef */
+            const target = selector
+              ? document.querySelector(selector)
+              : (document
+                  .evaluate(xpath, document, null, XPathResult.ANY_TYPE, null)
+                  .iterateNext() as Element);
+            const container = containerSelector
+              ? document.querySelector(containerSelector)
+              : (document
+                  .evaluate(
+                    containerXpath,
+                    document,
+                    null,
+                    XPathResult.ANY_TYPE,
+                    null
+                  )
+                  .iterateNext() as Element);
+            const x =
+              target.getBoundingClientRect().left -
+              container.getBoundingClientRect().left -
+              container.clientWidth / 2;
+            const y =
+              target.getBoundingClientRect().top -
+              container.getBoundingClientRect().top -
+              container.clientHeight / 2;
+            container.scrollTo(x, y);
+            /* eslint-enable no-undef */
+          },
+          params.selector,
+          params.xpath,
+          params.containerSelector,
+          params.containerXpath
+        );
       }
-      if ("xpath" in params) {
-        js = `{
-          const result = document.evaluate(\`${escape(
-            params.xpath
-          )}\`, document, null, XPathResult.ANY_TYPE, null);
-          const target = result.iterateNext();
-          const x = target.getBoundingClientRect().left + window.pageXOffset - window.innerWidth / 2;
-          const y = target.getBoundingClientRect().top + window.pageYOffset - window.innerHeight / 2;
+
+      await this.driver.executeScript(
+        (selector: string, xpath: string): void => {
+          /* eslint-disable no-undef */
+          const target = selector
+            ? document.querySelector(selector)
+            : (document
+                .evaluate(xpath, document, null, XPathResult.ANY_TYPE, null)
+                .iterateNext() as Element);
+          const x =
+            target.getBoundingClientRect().left +
+            window.pageXOffset -
+            window.innerWidth / 2;
+          const y =
+            target.getBoundingClientRect().top +
+            window.pageYOffset -
+            window.innerHeight / 2;
           window.scrollTo(x, y);
-        }`;
-      }
-      return this.driver.executeScript(js);
+          /* eslint-enable no-undef */
+        },
+        params.selector,
+        params.xpath
+      );
     }
 
     /**
