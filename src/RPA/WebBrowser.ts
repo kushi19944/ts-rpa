@@ -281,6 +281,14 @@ export namespace RPA {
     }
 
     /**
+     * Switch the focus of all future commands to another frame.
+     */
+    public async switchToFrame(frameHandle: WebElement): Promise<void> {
+      Logger.debug("WebBrowser.switchToFrame", frameHandle);
+      await this.driver.switchTo().frame(frameHandle);
+    }
+
+    /**
      * Close a window.
      * If no window is specified, close the current window.
      */
