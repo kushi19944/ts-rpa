@@ -56,6 +56,31 @@ export namespace RPA {
         return res.data.files;
       }
 
+      /**
+       * Creates a new file.
+       */
+      public async create(params: {
+        /**
+         * The IDs of the parent folders which contain the file.
+         * If not specified, the file will be placed directly in the user's My Drive folder.
+         */
+        parents?: string[];
+        /** The name of the file. */
+        filename?: string;
+        /** The MIME type of the file. */
+        mimeType?: string;
+      }): Promise<driveApi.Schema$File> {
+        Logger.debug("Google.Drive.create", params);
+        const res = await this.api.files.create({
+          requestBody: {
+            parents: params.parents,
+            mimeType: params.mimeType,
+            name: params.filename
+          }
+        });
+        return res.data;
+      }
+
       public async export(params: {
         fileId: string;
         mimeType: string;
