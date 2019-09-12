@@ -281,6 +281,19 @@ export namespace RPA {
     }
 
     /**
+     * Switch the focus of all future commands to another frame.
+     * @param {Promise<WebElement>|WebElement|null} frame
+     *    A WebElement reference, which correspond to a `frame` or `iframe` DOM element.
+     *    If not specified, selects the topmost frame on the page.
+     */
+    public async switchToFrame(
+      frame?: Promise<WebElement> | WebElement
+    ): Promise<void> {
+      Logger.debug("WebBrowser.switchToFrame");
+      await this.driver.switchTo().frame(frame ? await frame : null);
+    }
+
+    /**
      * Close a window.
      * If no window is specified, close the current window.
      */
