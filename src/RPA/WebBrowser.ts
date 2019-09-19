@@ -25,10 +25,21 @@ export namespace RPA {
 
     private capabilities: Capabilities;
 
+    /**
+     * Creates a condition that will wait.
+     */
     public Until = until;
 
+    /**
+     * Representations of pressable keys that aren't text.  These are stored in
+     * the Unicode PUA (Private Use Area) code points, 0xE000-0xF8FF.  Refer to
+     * http://www.google.com.au/search?&q=unicode+pua&btnG=Search
+     */
     public Key = Key;
 
+    /**
+     * Describes a mechanism for locating an element on the page.
+     */
     public By = By;
 
     private static headless: boolean =
@@ -82,16 +93,31 @@ export namespace RPA {
       this.enableDownloadInHeadlessChrome();
     }
 
+    /**
+     * Navigate to the given URL.
+     * @param url
+     */
     public get(url: string): Promise<void> {
       Logger.debug("WebBrowser.get", { url });
       return this.driver.get(url);
     }
 
+    /**
+     * Quit the current session.
+     * After calling quit, this instance will be invalidated and
+     * may no longer be used to issue commands against the browser.
+     */
     public quit(): Promise<void> {
       Logger.debug("WebBrowser.quit");
       return this.driver.quit();
     }
 
+    /**
+     * Wait for a condition to hold.
+     * @param condition The condition to wait on, defined as a promise,
+     *     condition object, or  a function to evaluate as a condition.
+     * @param optTimeout How long to wait, in milliseconds, for the condition to be true.
+     */
     public wait<T>(
       condition: Condition<T> | PromiseLike<T> | Function,
       optTimeout?: number
@@ -100,6 +126,10 @@ export namespace RPA {
       return this.driver.wait(condition, optTimeout);
     }
 
+    /**
+     * Move the mouse to the center of the specified element.
+     * @param element
+     */
     public async mouseMove(
       element: Promise<WebElement> | WebElement
     ): Promise<void> {
@@ -110,6 +140,10 @@ export namespace RPA {
       return actions.perform();
     }
 
+    /**
+     * Click on the specified element.
+     * @param element
+     */
     public async mouseClick(
       element: Promise<WebElement> | WebElement
     ): Promise<void> {
@@ -124,6 +158,11 @@ export namespace RPA {
       return actions.perform();
     }
 
+    /**
+     * Type a sequence on the specified element.
+     * @param element
+     * @param args The sequence of keys to type.
+     */
     /* eslint-disable class-methods-use-this */
     public async sendKeys(
       element: Promise<WebElement> | WebElement,
@@ -132,64 +171,110 @@ export namespace RPA {
       Logger.debug("WebBrowser.sendKeys");
       return (await element).sendKeys(args);
     }
-
     /* eslint-enable class-methods-use-this */
 
+    /**
+     * Find an element on the page by a CSS selector.
+     * @param selector
+     */
     public findElement(selector: string): Promise<WebElement> {
       Logger.debug("WebBrowser.findElement", { selector });
       return this.driver.findElement(By.css(selector));
     }
 
+    /**
+     * Search for multiple elements on the page by a CSS selector.
+     * @param selector
+     */
     public findElements(selector: string): Promise<WebElement[]> {
       Logger.debug("WebBrowser.findElement", { selector });
       return this.driver.findElements(By.css(selector));
     }
 
+    /**
+     * Find an element on the page by the ID attribute.
+     * @param id
+     */
     public findElementById(id: string): Promise<WebElement> {
       Logger.debug("WebBrowser.findElementById", { id });
       return this.driver.findElement(By.id(id));
     }
 
+    /**
+     * Search for multiple elements on the page by the ID attribute.
+     * @param id
+     */
     public findElementsById(id: string): Promise<WebElement[]> {
       Logger.debug("WebBrowser.findElementById", { id });
       return this.driver.findElements(By.id(id));
     }
 
+    /**
+     * Find an element on the page that has a specific class name.
+     * @param name
+     */
     public findElementByClassName(name: string): Promise<WebElement> {
       Logger.debug("WebBrowser.findElementByClassName", { name });
       return this.driver.findElement(By.className(name));
     }
 
+    /**
+     * Search for multiple elements on the page that have a specific class name.
+     * @param name
+     */
     public findElementsByClassName(name: string): Promise<WebElement[]> {
       Logger.debug("WebBrowser.findElementByClassName", { name });
       return this.driver.findElements(By.className(name));
     }
 
+    /**
+     * Find an element on the page by a CSS selector.
+     * @param selector
+     */
     public findElementByCSSSelector(selector: string): Promise<WebElement> {
       Logger.debug("WebBrowser.findElementByCSSSelector", { selector });
       return this.driver.findElement(By.css(selector));
     }
 
+    /**
+     * Search for multiple elements on the page by a CSS selector.
+     * @param selector
+     */
     public findElementsByCSSSelector(selector: string): Promise<WebElement[]> {
       Logger.debug("WebBrowser.findElementByCSSSelector", { selector });
       return this.driver.findElements(By.css(selector));
     }
 
+    /**
+     * Find an element on the page by a XPath.
+     * @param xpath
+     */
     public findElementByXPath(xpath: string): Promise<WebElement> {
       Logger.debug("WebBrowser.findElementByXPath", { xpath });
       return this.driver.findElement(By.xpath(xpath));
     }
 
+    /**
+     * Search for multiple elements on the page by a XPath.
+     * @param xpath
+     */
     public findElementsByXPath(xpath: string): Promise<WebElement[]> {
       Logger.debug("WebBrowser.findElementByXPath", { xpath });
       return this.driver.findElements(By.xpath(xpath));
     }
 
+    /**
+     * Find a link element whose text matches the given string.
+     * @param text
+     */
     public findElementByLinkText(text: string): Promise<WebElement> {
       Logger.debug("WebBrowser.findElementByLinkText", { text });
       return this.driver.findElement(By.linkText(text));
     }
 
+    /**
+     * Take a screenshot.
+     */
     public async takeScreenshot(): Promise<void> {
       Logger.debug("WebBrowser.takeScreenshot");
       const image = await this.driver.takeScreenshot();
@@ -205,16 +290,29 @@ export namespace RPA {
       );
     }
 
+    /**
+     * Retrieve the URL of the current page.
+     */
     public getCurrentUrl(): Promise<string> {
       Logger.debug("WebBrowser.getCurrentUrl");
       return this.driver.getCurrentUrl();
     }
 
+    /**
+     * Retrieve the cookie with the given name.
+     * Returns null if there is no such cookie.
+     * The cookie will be returned as a JSON object as described by the WebDriver wire protocol.
+     * @param name
+     */
     public getCookie(name: string): Promise<IWebDriverOptionsCookie> {
       Logger.debug("WebBrowser.getCookie", { name });
       return this.driver.manage().getCookie(name);
     }
 
+    /**
+     * Retrieve all cookies visible to the current page.
+     * Each cookie will be returned as a JSON object as described by the WebDriver wire protocol.
+     */
     public getCookies(): Promise<IWebDriverOptionsCookie[]> {
       Logger.debug("WebBrowser.getCookies");
       return this.driver.manage().getCookies();
