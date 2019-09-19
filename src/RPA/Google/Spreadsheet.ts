@@ -22,8 +22,13 @@ export namespace RPA {
         this.api = google.sheets({ version: "v4", auth });
       }
 
+      /**
+       * Returns values in a range of a spreadsheet.
+       * @param params
+       */
       public async getValues(params: {
         spreadsheetId: string;
+        /** The A1 notation of the values to retrieve. */
         range: string;
       }): Promise<any[][]> {
         const res = await this.api.spreadsheets.values.get({
@@ -34,10 +39,20 @@ export namespace RPA {
         return res.data.values;
       }
 
+      /**
+       * Sets values in a range of a spreadsheet.
+       * @param params
+       */
       public async setValues(params: {
         spreadsheetId: string;
+        /** The A1 notation of the values to retrieve. */
         range: string;
         values: string[][];
+        /**
+         * If specified true, the values will be parsed as if the user typed them into the UI.
+         * Numbers will stay as numbers, but strings may be converted to numbers, dates, etc. following the
+         * same rules that are applied when entering text into a cell via the Google Sheets UI.
+         */
         parseValues?: boolean;
       }): Promise<sheetsApi.Schema$UpdateValuesResponse> {
         const res = await this.api.spreadsheets.values.update(
@@ -62,6 +77,10 @@ export namespace RPA {
         return res.data;
       }
 
+      /**
+       * Creates a spreadsheet, returning the newly created spreadsheet ID.
+       * @param params
+       */
       public async create(params: { title: string }): Promise<string> {
         const res = await this.api.spreadsheets.create({
           requestBody: { properties: { title: params.title } }
@@ -80,6 +99,10 @@ export namespace RPA {
         return res.data;
       }
 
+      /**
+       * Returns title of a spreadsheet.
+       * @param params
+       */
       public async getTitle(params: {
         spreadsheetId: string;
       }): Promise<string> {
@@ -88,6 +111,10 @@ export namespace RPA {
         return data.properties.title;
       }
 
+      /**
+       * Updates title of a spreadsheet.
+       * @param params
+       */
       public async updateTitle(params: {
         spreadsheetId: string;
         title: string;
@@ -111,6 +138,10 @@ export namespace RPA {
         return res.data.updatedSpreadsheet.properties.title;
       }
 
+      /**
+       * Creates a sheet with the specified title in a spreadsheet.
+       * @param params
+       */
       public async createSheet(params: {
         spreadsheetId: string;
         title: string;
@@ -133,6 +164,10 @@ export namespace RPA {
         return res.data.replies[0].addSheet.properties.sheetId;
       }
 
+      /**
+       * Deletes a sheet from a spreadsheet.
+       * @param params
+       */
       public async deleteSheet(params: {
         spreadsheetId: string;
         sheetId: number;
@@ -153,6 +188,10 @@ export namespace RPA {
         return res.data.replies[0].addSheet.properties.sheetId;
       }
 
+      /**
+       * Updates title of a sheet.
+       * @param params
+       */
       public async updateSheetTitle(params: {
         spreadsheetId: string;
         sheetId: number;
@@ -178,6 +217,10 @@ export namespace RPA {
         return res.data.updatedSpreadsheet.properties.title;
       }
 
+      /**
+       * Returns the id of the sheet that has a specified title.
+       * @param params
+       */
       public async getSheetIdFromTitle(params: {
         spreadsheetId: string;
         title: string;
@@ -189,6 +232,10 @@ export namespace RPA {
         )[0].properties.sheetId;
       }
 
+      /**
+       * Returns the title of a sheet.
+       * @param params
+       */
       public async getTitleFromSheetId(params: {
         spreadsheetId: string;
         sheetId: number;
@@ -200,6 +247,10 @@ export namespace RPA {
         )[0].properties.title;
       }
 
+      /**
+       * Copies a sheet.
+       * @param params
+       */
       public async copySheet(params: {
         spreadsheetId: string;
         sheetId: number;
@@ -216,6 +267,10 @@ export namespace RPA {
         return res.data.sheetId;
       }
 
+      /**
+       * Set the cells format
+       * @param params
+       */
       public async setCellsFormat(params: {
         spreadsheetId: string;
         range: sheetsApi.Schema$GridRange;
@@ -256,6 +311,10 @@ export namespace RPA {
           );
       }
 
+      /**
+       * Updates properties of a spreadsheet.
+       * @param params
+       */
       public async updateSheetProperties(params: {
         spreadsheetId: string;
         properties: sheetsApi.Schema$SheetProperties;
@@ -277,6 +336,10 @@ export namespace RPA {
         Logger.debug("Google.Spreadsheet.updateSheetProperties", params);
       }
 
+      /**
+       * Adds protected range to a spreadsheet.
+       * @param params
+       */
       public async addProtectedRange(params: {
         spreadsheetId: string;
         protectedRange: sheetsApi.Schema$ProtectedRange;
@@ -297,6 +360,10 @@ export namespace RPA {
         return res.data.replies[0].addProtectedRange.protectedRange;
       }
 
+      /**
+       * Deletes a protected range from a spreadsheet.
+       * @param params
+       */
       public async deleteProtectedRange(params: {
         spreadsheetId: string;
         protectedRangeId: number;
