@@ -12,12 +12,22 @@ export namespace RPA {
 
     private constructor() {} // eslint-disable-line no-useless-constructor, no-empty-function
 
+    /**
+     * Reads a CSV file as string[][].
+     * @param params
+     */
     public static async read(params: {
+      /** The name of the file to read. */
       filename: string;
+      /** The encoding of the file */
       encoding?: string;
+      /** If true, detects and excludes the byte order mark (BOM) from the CSV input if present. */
       bom?: boolean;
+      /** The field delimiter. One or multiple character. Defaults to "," (comma). */
       delimiter?: string;
+      /** Optional character surrounding a field; one character only; disabled if null, false or empty; defaults to double quote. */
       quote?: string & { length: 1 };
+      /** Discards inconsistent columns count; disabled if null, false or empty; default to false. */
       relaxColumnCount?: boolean;
     }): Promise<any[]> {
       const filePath = path.join(this.outDir, params.filename);
@@ -42,6 +52,10 @@ export namespace RPA {
       });
     }
 
+    /**
+     * Writes data to a CSV file.
+     * @param params
+     */
     public static async write(params: {
       filename: string;
       data: any[][];
