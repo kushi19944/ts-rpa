@@ -28,9 +28,22 @@ export namespace RPA {
         this.api = google.drive({ version: "v3", auth });
       }
 
+      /**
+       * Lists the files.
+       * @param params
+       */
       public async listFiles(params?: {
+        /**
+         * The IDs of the parent folders which contain the files.
+         * If not specified, lists files owned by the user in all locations.
+         */
         parents?: string[];
+        /** Whether to include files in trash */
         includesTrash?: boolean;
+        /**
+         * The maximum number of files to return per page.
+         * Acceptable values are 1 to 1000, inclusive. (Default: 100)
+         */
         pageSize?: number;
       }): Promise<driveApi.Schema$File[]> {
         Logger.debug("Google.Drive.listFiles", params);
@@ -81,6 +94,11 @@ export namespace RPA {
         return res.data;
       }
 
+      /**
+       * Exports a Google Doc to the requested MIME type and saves the exported content as the specified filename.
+       * Please note that the exported content is limited to 10MB.
+       * @param params
+       */
       public async export(params: {
         fileId: string;
         mimeType: string;
@@ -110,11 +128,20 @@ export namespace RPA {
         });
       }
 
+      /**
+       * Uploads a file.
+       * @param params
+       */
       public async upload(params: {
+        /** The name of the file to upload. */
         filename: string;
+        /** The array of parent folders to upload to. */
         parents?: string[];
+        /** If specified, reads the file as this MIME type. */
         mimeType?: string;
+        /** If specified, uploads as this file name. */
         destFilename?: string;
+        /** If specified, uploads as this MIME type. */
         destMimeType?: string;
       }): Promise<string> {
         const filePath = path.join(this.outDir, params.filename);
@@ -151,9 +178,22 @@ export namespace RPA {
         });
       }
 
+      /**
+       * Downloads a file.
+       * @param params
+       */
       public async download(params: {
+        /** The ID of the file to download. */
         fileId?: string;
+        /**
+         * If specified, downloads file as this name.
+         * If specified the `url`, you must specify it
+         */
         filename?: string;
+        /**
+         * The URL of the file to download.
+         * If you specify this parameter, you must also specify the `filename`.
+         */
         url?: string;
       }): Promise<string> {
         let outFilename: string;
@@ -201,6 +241,10 @@ export namespace RPA {
         throw Error("Invalid parameter.");
       }
 
+      /**
+       * Deletes a file.
+       * @param params
+       */
       public async delete(params: { fileId: string }): Promise<void> {
         Logger.debug("Google.Drive.delete", params.fileId);
         await this.api.files.delete({ fileId: params.fileId });
