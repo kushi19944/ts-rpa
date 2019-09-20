@@ -34,6 +34,10 @@ export namespace RPA.Google {
       return this.auth;
     }
 
+    /**
+     * Authorizes to use features in RPA.Google namespace.
+     * @param authCredentials
+     */
     public async authorize(authCredentials: AuthCredentials): Promise<void> {
       const clientCredentials: ClientCredentials = {
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
