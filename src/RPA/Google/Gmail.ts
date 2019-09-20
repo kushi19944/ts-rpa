@@ -92,10 +92,9 @@ export namespace RPA {
         id: string;
       }): Promise<void> {
         Logger.debug("Gmail.deleteDraft", params);
-        // FIXME: Use api.users.drafts.delete
-        await this.api.users.drafts.send({
+        await this.api.users.drafts.delete({
           userId: "me",
-          requestBody: { id: params.id }
+          id: params.id
         });
       }
 
