@@ -25,6 +25,10 @@ export namespace RPA {
         this.api = google.gmail({ version: "v1", auth });
       }
 
+      /**
+       * Gets the current user's Gmail profile.
+       * @param params
+       */
       public async getProfile(
         params: gmailApi.Params$Resource$Users$Getprofile
       ): Promise<gmailApi.Schema$Profile> {
@@ -33,6 +37,10 @@ export namespace RPA {
         return profile.data;
       }
 
+      /**
+       * Sends the specified message from current user.
+       * @param params
+       */
       public async send(params: MailOptions): Promise<string> {
         Logger.debug("Gmail.send", params);
         const message = await Gmail.buildMessage(params);
@@ -43,6 +51,10 @@ export namespace RPA {
         return res.data.id;
       }
 
+      /**
+       * Creates a new draft.
+       * @param params
+       */
       public async createDraft(params: MailOptions): Promise<string> {
         Logger.debug("Gmail.createDraft", params);
         const message = await Gmail.buildMessage(params);
@@ -55,7 +67,14 @@ export namespace RPA {
         return res.data.id;
       }
 
-      public async sendDraft(params: { id: string }): Promise<string> {
+      /**
+       * Sends the specified, existing draft.
+       * @param params
+       */
+      public async sendDraft(params: {
+        /** The ID of the draft to send. */
+        id: string;
+      }): Promise<string> {
         Logger.debug("Gmail.sendDraft", params);
         const res = await this.api.users.drafts.send({
           userId: "me",
@@ -64,11 +83,18 @@ export namespace RPA {
         return res.data.id;
       }
 
-      public async deleteDraft(params: { id: string }): Promise<void> {
+      /**
+       * Immediately and permanently deletes the specified draft. Does not simply trash it.
+       * @param params
+       */
+      public async deleteDraft(params: {
+        /** The ID of the draft to delete. */
+        id: string;
+      }): Promise<void> {
         Logger.debug("Gmail.deleteDraft", params);
-        await this.api.users.drafts.send({
+        await this.api.users.drafts.delete({
           userId: "me",
-          requestBody: { id: params.id }
+          id: params.id
         });
       }
 
