@@ -31,19 +31,25 @@ export namespace RPA {
 
     /**
      * Post a message to the chat.
+     * @returns A message id
      */
     public async postMessage(params: {
       roomId: string;
       message: string;
-    }): Promise<void> {
+    }): Promise<string> {
       Logger.debug("Chatwork.postMessage", params);
-      await this.request({
+      const res = await this.request({
         url: `https://api.chatwork.com/v2/rooms/${params.roomId}/messages`,
         method: "POST",
         data: {
           body: params.message
         }
       });
+      const data = await res.json();
+      if (res.ok && "message_id" in data) {
+        return data.message_id;
+      }
+      throw new Error(JSON.stringify(data));
     }
 
     /**
