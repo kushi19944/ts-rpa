@@ -14,6 +14,9 @@ export namespace RPA {
       return file.path;
     }
 
+    /**
+     * Decompresses the specified zip file.
+     */
     public static async decompress(params: {
       filename: string;
     }): Promise<string[]> {
