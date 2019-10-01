@@ -20,10 +20,17 @@ export namespace RPA {
       return this.slack;
     }
 
+    /**
+     * Initializes the instance by setting the API token.
+     * @param credential
+     */
     public initialise(credential: { apiToken: string }): void {
       this.token = credential.apiToken;
     }
 
+    /**
+     * Post a message to a channel.
+     */
     public static async postMessage(
       params: ChatPostMessageArguments
     ): Promise<void> {

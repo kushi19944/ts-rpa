@@ -24,6 +24,22 @@ export namespace RPA {
         return this.bigQuery;
       }
 
+      /**
+       * Executes a query to BigQuery.
+       * Example:
+       * ```ts
+       * const sql = `
+       *   SELECT * FROM \`bigquery-public-data.ml_datasets.iris\`
+       *   WHERE petal_width > @petal_width
+       *   LIMIT 10`;
+       * const res = await RPA.GCP.BigQuery.query({
+       *   query: sql,
+       *   params: { petal_width: 1.0 }
+       * });
+       * ```
+       * @param query
+       * @param options
+       */
       public async query(
         query: Query,
         options?: QueryOptions

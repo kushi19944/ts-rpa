@@ -4,6 +4,10 @@ export namespace RPA {
   export class StringClass {
     private constructor() {} // eslint-disable-line no-useless-constructor, no-empty-function
 
+    /**
+     * Converts full-width ASCII characters to half-width.
+     * @param str
+     */
     public static halveZenkakuAscii(str: string): string {
       Logger.debug("String.halveZenkakuAscii", str);
       return (

@@ -12,11 +12,17 @@ export namespace RPA {
 
     public static FormData = FormData;
 
+    /**
+     * Fetches a resource from a given url. Stays consistent with `window.fetch` API.
+     */
     public static fetch(url: string, init?: RequestInit): Promise<Response> {
       Logger.debug("Request.fetch", url, init);
       return nodeFetch(url, init);
     }
 
+    /**
+     * Fetches a resource from a given url then saves as given filename to `WORKSPACE_DIR`.
+     */
     public static async download(
       filename: string,
       url: string,

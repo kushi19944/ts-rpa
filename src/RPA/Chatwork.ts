@@ -25,6 +25,10 @@ export namespace RPA {
       return this.chatwork;
     }
 
+    /**
+     * Initializes the instance by setting the API token.
+     * @param credential
+     */
     public initialise(credential: { apiToken: string }): void {
       this.apiToken = credential.apiToken;
     }
@@ -86,6 +90,11 @@ export namespace RPA {
       throw new Error(res.toString());
     }
 
+    /**
+     * Calls Chatwork API.
+     * refs: http://developer.chatwork.com/ja/index.html
+     * @param params
+     */
     private async request(params: {
       url: string;
       method: string;
