@@ -171,8 +171,8 @@ export namespace RPA {
       public async deleteSheet(params: {
         spreadsheetId: string;
         sheetId: number;
-      }): Promise<number> {
-        const res = await this.api.spreadsheets.batchUpdate({
+      }): Promise<void> {
+        await this.api.spreadsheets.batchUpdate({
           spreadsheetId: params.spreadsheetId,
           requestBody: {
             requests: [
@@ -185,7 +185,6 @@ export namespace RPA {
           }
         });
         Logger.debug("Google.Spreadsheet.deleteSheet", params);
-        return res.data.replies[0].addSheet.properties.sheetId;
       }
 
       /**
