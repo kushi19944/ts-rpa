@@ -1,4 +1,5 @@
 import * as GCPBigQuery from "./BigQuery";
+import * as GCPFirestore from "./Firestore";
 
 import File from "../File";
 import Hash from "../Hash";
@@ -17,6 +18,7 @@ if (process.env.GOOGLE_APPLICATION_CREDENTIALS_CONTENT) {
 export namespace RPA {
   export namespace GCP {
     export const BigQuery = GCPBigQuery.default.instance;
+    export const Firestore = GCPFirestore.default.instance;
   }
 }
 
