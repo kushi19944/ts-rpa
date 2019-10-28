@@ -1,4 +1,7 @@
-import { Firestore as Client } from "@google-cloud/firestore";
+import {
+  Firestore as Client,
+  CollectionReference
+} from "@google-cloud/firestore";
 import Logger from "../Logger";
 
 export namespace RPA {
@@ -17,6 +20,18 @@ export namespace RPA {
           this.firestore = new Firestore();
         }
         return this.firestore;
+      }
+
+      /**
+       * Gets a `CollectionReference` instance that refers to the collection at
+       * the specified path.
+       *
+       * @param collectionPath A slash-separated path to a collection.
+       * @return The `CollectionReference` instance.
+       */
+      public collection(collectionPath: string): CollectionReference {
+        Logger.debug("Firestore.collection", collectionPath);
+        return this.db.collection(collectionPath);
       }
     }
   }
