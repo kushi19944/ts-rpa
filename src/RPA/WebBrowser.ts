@@ -8,7 +8,8 @@ import {
   WebElement,
   until,
   Key,
-  Alert
+  Alert,
+  Locator
 } from "selenium-webdriver";
 import { Command } from "selenium-webdriver/lib/command";
 
@@ -270,6 +271,16 @@ export namespace RPA {
     public findElementByLinkText(text: string): Promise<WebElement> {
       Logger.debug("WebBrowser.findElementByLinkText", { text });
       return this.driver.findElement(By.linkText(text));
+    }
+
+    /**
+     * Test whether an element is found with the given locator.
+     * @param locator
+     */
+    public async elementLocated(locator: Locator): Promise<boolean> {
+      Logger.debug("WebBrowser.elementLocated", { locator });
+      const elements = await this.driver.findElements(locator);
+      return elements.length > 0;
     }
 
     /**
