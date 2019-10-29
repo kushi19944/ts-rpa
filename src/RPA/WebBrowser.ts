@@ -531,6 +531,13 @@ export namespace RPA {
       }
       throw new Error("Download timed out");
     }
+
+    /**
+     * Refresh the current page.
+     */
+    public async refresh(): Promise<void> {
+      await this.driver.navigate().refresh();
+    }
   }
 }
 
