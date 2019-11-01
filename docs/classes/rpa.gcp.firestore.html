@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>StringClass | ts-rpa</title>
+	<title>Firestore | ts-rpa</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -59,10 +59,13 @@
 					<a href="../modules/rpa.html">RPA</a>
 				</li>
 				<li>
-					<a href="rpa.stringclass.html">StringClass</a>
+					<a href="../modules/rpa.gcp.html">GCP</a>
+				</li>
+				<li>
+					<a href="rpa.gcp.firestore.html">Firestore</a>
 				</li>
 			</ul>
-			<h1>Class StringClass</h1>
+			<h1>Class Firestore</h1>
 		</div>
 	</div>
 </header>
@@ -73,7 +76,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">StringClass</span>
+						<span class="target">Firestore</span>
 					</li>
 				</ul>
 			</section>
@@ -84,13 +87,26 @@
 						<section class="tsd-index-section tsd-is-private tsd-is-private-protected">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-private"><a href="rpa.stringclass.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-private"><a href="rpa.gcp.firestore.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Properties</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="rpa.gcp.firestore.html#db" class="tsd-kind-icon">db</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-static"><a href="rpa.gcp.firestore.html#firestore" class="tsd-kind-icon">firestore</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Accessors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-static"><a href="rpa.gcp.firestore.html#instance" class="tsd-kind-icon">instance</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="rpa.stringclass.html#halvezenkakuascii" class="tsd-kind-icon">halve<wbr>Zenkaku<wbr>Ascii</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="rpa.gcp.firestore.html#collection" class="tsd-kind-icon">collection</a></li>
 							</ul>
 						</section>
 					</div>
@@ -102,49 +118,95 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>String<wbr>Class<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="rpa.stringclass.html" class="tsd-signature-type">StringClass</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Firestore<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="rpa.gcp.firestore.html" class="tsd-signature-type">Firestore</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/ef22e9a/src/RPA/String.ts#L4">RPA/String.ts:4</a></li>
+									<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/ef22e9a/src/RPA/GCP/Firestore.ts#L12">RPA/GCP/Firestore.ts:12</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <a href="rpa.stringclass.html" class="tsd-signature-type">StringClass</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="rpa.gcp.firestore.html" class="tsd-signature-type">Firestore</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="db" class="tsd-anchor"></a>
+					<h3>db</h3>
+					<div class="tsd-signature tsd-kind-icon">db<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Client</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/ef22e9a/src/RPA/GCP/Firestore.ts#L12">RPA/GCP/Firestore.ts:12</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-static">
+					<a name="firestore" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> <span class="tsd-flag ts-flagPrivate">Private</span> firestore</h3>
+					<div class="tsd-signature tsd-kind-icon">firestore<span class="tsd-signature-symbol">:</span> <a href="rpa.gcp.firestore.html" class="tsd-signature-type">Firestore</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/ef22e9a/src/RPA/GCP/Firestore.ts#L10">RPA/GCP/Firestore.ts:10</a></li>
+						</ul>
+					</aside>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Accessors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-static">
+					<a name="instance" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> instance</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> instance<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="rpa.gcp.firestore.html" class="tsd-signature-type">Firestore</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/ef22e9a/src/RPA/GCP/Firestore.ts#L18">RPA/GCP/Firestore.ts:18</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="rpa.gcp.firestore.html" class="tsd-signature-type">Firestore</a></h4>
 						</li>
 					</ul>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
-					<a name="halvezenkakuascii" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> halve<wbr>Zenkaku<wbr>Ascii</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">halve<wbr>Zenkaku<wbr>Ascii<span class="tsd-signature-symbol">(</span>str<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="collection" class="tsd-anchor"></a>
+					<h3>collection</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">collection<span class="tsd-signature-symbol">(</span>collectionPath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CollectionReference</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/ef22e9a/src/RPA/String.ts#L11">RPA/String.ts:11</a></li>
+									<li>Defined in <a href="https://github.com/ca-rpa/ts-rpa/blob/ef22e9a/src/RPA/GCP/Firestore.ts#L32">RPA/GCP/Firestore.ts:32</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Converts full-width ASCII characters to half-width.</p>
+									<p>Gets a <code>CollectionReference</code> instance that refers to the collection at
+									the specified path.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>str: <span class="tsd-signature-type">string</span></h5>
+									<h5>collectionPath: <span class="tsd-signature-type">string</span></h5>
 									<div class="tsd-comment tsd-typography">
+										<p>A slash-separated path to a collection.</p>
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">CollectionReference</span></h4>
+							<p>The <code>CollectionReference</code> instance.</p>
 						</li>
 					</ul>
 				</section>
@@ -156,10 +218,10 @@
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
-					<li class="current tsd-kind-module">
+					<li class=" tsd-kind-module">
 						<a href="../modules/rpa.html">RPA</a>
 					</li>
-					<li class=" tsd-kind-module tsd-parent-kind-module">
+					<li class="current tsd-kind-module tsd-parent-kind-module">
 						<a href="../modules/rpa.gcp.html">RPA.GCP</a>
 					</li>
 					<li class=" tsd-kind-module tsd-parent-kind-module">
@@ -173,62 +235,32 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-class tsd-parent-kind-module">
-						<a href="rpa.csv.html" class="tsd-kind-icon">CSV</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-module">
-						<a href="rpa.chatwork.html" class="tsd-kind-icon">Chatwork</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-module">
-						<a href="rpa.file.html" class="tsd-kind-icon">File</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-module">
-						<a href="rpa.hash.html" class="tsd-kind-icon">Hash</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-module">
-						<a href="rpa.request.html" class="tsd-kind-icon">Request</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-module">
-						<a href="rpa.slack.html" class="tsd-kind-icon">Slack</a>
+						<a href="rpa.gcp.bigquery.html" class="tsd-kind-icon">Big<wbr>Query</a>
 					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class tsd-parent-kind-module">
-						<a href="rpa.stringclass.html" class="tsd-kind-icon">String<wbr>Class</a>
+						<a href="rpa.gcp.firestore.html" class="tsd-kind-icon">Firestore</a>
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-private">
-								<a href="rpa.stringclass.html#constructor" class="tsd-kind-icon">constructor</a>
+								<a href="rpa.gcp.firestore.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
-								<a href="rpa.stringclass.html#halvezenkakuascii" class="tsd-kind-icon">halve<wbr>Zenkaku<wbr>Ascii</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="rpa.gcp.firestore.html#db" class="tsd-kind-icon">db</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-static">
+								<a href="rpa.gcp.firestore.html#firestore" class="tsd-kind-icon">firestore</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-static">
+								<a href="rpa.gcp.firestore.html#instance" class="tsd-kind-icon">instance</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="rpa.gcp.firestore.html#collection" class="tsd-kind-icon">collection</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-class tsd-parent-kind-module">
-						<a href="rpa.webbrowser.html" class="tsd-kind-icon">Web<wbr>Browser</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-module">
-						<a href="rpa.zip.html" class="tsd-kind-icon">Zip</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-module">
-						<a href="../modules/rpa.html#logger" class="tsd-kind-icon">Logger</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-module">
-						<a href="../modules/rpa.html#string" class="tsd-kind-icon">String</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-module">
-						<a href="../modules/rpa.html#systemlogger" class="tsd-kind-icon">System<wbr>Logger</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/rpa.html#prompt" class="tsd-kind-icon">prompt</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
-						<a href="../modules/rpa.html#retry" class="tsd-kind-icon">retry</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/rpa.html#sleep" class="tsd-kind-icon">sleep</a>
-					</li>
 				</ul>
 			</nav>
 		</div>
