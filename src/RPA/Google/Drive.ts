@@ -41,14 +41,29 @@ export namespace RPA {
         /** Whether to include files in trash */
         includesTrash?: boolean;
         /**
+         * A comma-separated list of sort keys.
+         * Valid keys are "createdTime", "folder", "modifiedByMeTime", "modifiedTime", "name", "name_natural",
+         * "quotaBytesUsed", "recency", "sharedWithMeTime", "starred", and "viewedByMeTime".
+         * Each key sorts ascending by default, but may be reversed with the "desc" modifier.
+         * Example: "folder,modifiedTime desc,name"
+         */
+        orderBy: string;
+        /**
          * The maximum number of files to return per page.
          * Acceptable values are 1 to 1000, inclusive. (Default: 100)
          */
         pageSize?: number;
       }): Promise<driveApi.Schema$File[]> {
         Logger.debug("Google.Drive.listFiles", params);
-        const { parents = [], includesTrash = false, pageSize = 100 } =
-          params || {};
+        const {
+          parents = [],
+          includesTrash = false,
+          orderBy = "",
+          pageSize = 100
+        } = params || {};
+        if (!orderBy.match(/^[A-Za-z, ]*$/g)) {
+          throw new Error(`Invalid orderBy parameter: ${orderBy}`);
+        }
         // Build `q` parameter
         // https://developers.google.com/drive/api/v3/search-files
         const queries = [];
@@ -64,6 +79,7 @@ export namespace RPA {
         }
         const res = await this.api.files.list({
           q: queries.join("and"),
+          orderBy,
           pageSize
         });
         return res.data.files;
