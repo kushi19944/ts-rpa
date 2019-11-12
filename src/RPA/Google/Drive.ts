@@ -274,6 +274,30 @@ export namespace RPA {
         });
         return res.data;
       }
+
+      /**
+       * Moves a file between folders.
+       */
+      public async move(params: {
+        /** The ID of the file to move. */
+        fileId: string;
+        /** The ID of the parent folder to move to. */
+        parent: string;
+      }): Promise<driveApi.Schema$File> {
+        Logger.debug("Google.Drive.move", params);
+        const file = await this.api.files.get({
+          fileId: params.fileId,
+          fields: "parents"
+        });
+        const previousParents = file.data.parents.join(",");
+        const res = await this.api.files.update({
+          fileId: params.fileId,
+          addParents: params.parent,
+          removeParents: previousParents,
+          fields: "id, parents"
+        });
+        return res.data;
+      }
     }
   }
 }
