@@ -47,7 +47,7 @@ export namespace RPA {
          * Each key sorts ascending by default, but may be reversed with the "desc" modifier.
          * Example: "folder,modifiedTime desc,name"
          */
-        orderBy: string;
+        orderBy?: string;
         /**
          * The maximum number of files to return per page.
          * Acceptable values are 1 to 1000, inclusive. (Default: 100)
