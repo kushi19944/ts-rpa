@@ -319,7 +319,7 @@ export namespace RPA {
         properties: sheetsApi.Schema$SheetProperties;
         fields: string;
       }): Promise<void> {
-        const res = await this.api.spreadsheets.batchUpdate({
+        await this.api.spreadsheets.batchUpdate({
           spreadsheetId: params.spreadsheetId,
           requestBody: {
             requests: [
