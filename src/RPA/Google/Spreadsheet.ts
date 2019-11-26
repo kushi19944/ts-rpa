@@ -452,6 +452,35 @@ export namespace RPA {
       }
 
       /**
+       * Updates the count of row or column of the specified sheet.
+       */
+      public async updateSheetSize(params: {
+        spreadsheetId: string;
+        sheetId: number;
+        rowCount?: number;
+        columnCount?: number;
+      }): Promise<void> {
+        Logger.debug("updateSheetSize", params);
+        const { spreadsheetId, sheetId, rowCount, columnCount } = params;
+        if (!rowCount && !columnCount) {
+          throw new Error(
+            "Specify at least one of `rowCount` or `columnCount`"
+          );
+        }
+        const updateFields: string[] = [];
+        if (rowCount) updateFields.push("gridProperties.rowCount");
+        if (columnCount) updateFields.push("gridProperties.columnCount");
+        await this.updateSheetProperties({
+          spreadsheetId,
+          properties: {
+            sheetId,
+            gridProperties: { rowCount, columnCount }
+          },
+          fields: updateFields.join(",")
+        });
+      }
+
+      /**
        * Sorts the specified range using the column of `keyColumnIndex`.
        * The default order is ascending.
        */
