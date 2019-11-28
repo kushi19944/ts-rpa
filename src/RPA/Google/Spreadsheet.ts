@@ -119,7 +119,7 @@ export namespace RPA {
         spreadsheetId: string;
         title: string;
       }): Promise<string> {
-        const res = await this.api.spreadsheets.batchUpdate({
+        await this.api.spreadsheets.batchUpdate({
           spreadsheetId: params.spreadsheetId,
           requestBody: {
             requests: [
@@ -135,7 +135,7 @@ export namespace RPA {
           }
         });
         Logger.debug("Google.Spreadsheet.updateTitle", params);
-        return res.data.updatedSpreadsheet.properties.title;
+        return params.title;
       }
 
       /**
