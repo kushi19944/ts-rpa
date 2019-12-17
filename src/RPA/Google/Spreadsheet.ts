@@ -577,6 +577,46 @@ export namespace RPA {
             -1
           );
       }
+
+      /**
+       * Update Cells of a spreadsheet.
+       */
+      public async updateCells(params: {
+        spreadsheetId: string;
+        /**
+         * The data to write.
+         */
+        rows?: sheetsApi.Schema$RowData[];
+        /**
+         * The coordinate to start writing data at. Any number of rows and columns (including a different number of columns per row) may be written.
+         */
+        start?: sheetsApi.Schema$GridCoordinate;
+        /**
+         * The range to write data to.  If the data in rows does not cover the entire requested range, the fields matching those set in fields will be cleared.
+         */
+        range?: sheetsApi.Schema$GridRange;
+        /**
+         * The fields of CellData that should be updated. At least one field must be specified. The root is the CellData; &#39;row.values.&#39; should not be specified. A single `&quot;*&quot;` can be used as short-hand for listing every field.
+         */
+        fields?: string;
+      }): Promise<void> {
+        await this.api.spreadsheets.batchUpdate({
+          spreadsheetId: params.spreadsheetId,
+          requestBody: {
+            requests: [
+              {
+                updateCells: {
+                  rows: params.rows,
+                  start: params.start,
+                  range: params.range,
+                  fields: params.fields
+                }
+              }
+            ]
+          }
+        });
+        Logger.debug("Google.Spreadsheet.updateCells", params);
+      }
     }
   }
 }
