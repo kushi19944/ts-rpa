@@ -9,7 +9,10 @@ RUN apk add --no-cache \
             gfortran \
             gcc \
             g++ \
-            nodejs-npm
+            nodejs-npm \
+            jq \
+            python3
+RUN pip3 install awscli
 
 RUN mkdir /noto
 ADD https://noto-website.storage.googleapis.com/pkgs/NotoSansCJKjp-hinted.zip /noto
