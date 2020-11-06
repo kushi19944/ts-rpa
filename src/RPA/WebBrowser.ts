@@ -63,6 +63,7 @@ export namespace RPA {
       File.rimraf({ dirPath: WebBrowser.userDataDir });
       this.capabilities = Capabilities.chrome();
       const args = [
+        "--lang=ja-JP",
         "--no-sandbox",
         "--disable-gpu",
         "--window-size=1980,1200",
